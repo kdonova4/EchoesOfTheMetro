@@ -1,0 +1,1 @@
+An immersive journal platform where users write and read entries tied to Metro stations, featuring an interactive map, audio effects, and optional gamified mini-events. All set within the Metro universe. 
