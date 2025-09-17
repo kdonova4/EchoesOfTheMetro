@@ -33,6 +33,14 @@ public class Event {
     @Column(name = "mgr_collected")
     private int mgrCollected;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id", nullable = true)
+    private Location location;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "badge_id", nullable = true)
+    private Badge badge;
+
     @Column(name = "sound_path", length = 200)
     private String soundPath;
 

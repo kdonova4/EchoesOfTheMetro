@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Table(
-        name = "echoes",
+        name = "echo",
         uniqueConstraints = @UniqueConstraint(columnNames = {"journal_id, app_user_id"})
 )
-public class Echoes {
+public class Echo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

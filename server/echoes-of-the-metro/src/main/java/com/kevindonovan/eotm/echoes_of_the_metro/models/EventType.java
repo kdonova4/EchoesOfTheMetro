@@ -5,6 +5,6 @@ public enum EventType {
     ENCOUNTER,
     ARTIFACT,
     ANOMALY,
-    RESOURCE,
-    STANDARD
+    STANDARD,
+    LOCATION
 }
