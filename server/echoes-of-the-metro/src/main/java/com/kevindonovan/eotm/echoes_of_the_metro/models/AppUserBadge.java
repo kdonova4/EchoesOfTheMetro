@@ -21,7 +21,7 @@ public class AppUserBadge {
     @ManyToOne
     @MapsId("appUserId")
     @JoinColumn(name = "app_user_id")
-    private AppUser user;
+    private AppUser appUser;
 
     @ManyToOne
     @MapsId("badgeId")

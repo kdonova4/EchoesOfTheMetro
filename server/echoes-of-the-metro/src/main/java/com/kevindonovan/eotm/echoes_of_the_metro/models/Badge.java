@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "badge")
+@Table(name = "badges")
 public class Badge {
 
     @Id
@@ -20,6 +20,6 @@ public class Badge {
     @Column(name = "badge_name", nullable = false, length = 50)
     private String badgeName;
 
-    @Column(name = "badge_image_url", nullable = false, length = 200)
-    private String badgeImageUrl;
+    @Column(name = "badge_image_path", nullable = false, length = 200)
+    private String badgeImagePath;
 }
