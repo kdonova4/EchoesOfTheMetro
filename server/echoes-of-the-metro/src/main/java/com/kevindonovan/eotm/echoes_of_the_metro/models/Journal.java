@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -29,15 +31,15 @@ public class Journal {
     private String text;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "storyline_id", nullable = false)
+    @JoinColumn(name = "storyline_id")
     private Storyline storyline;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "app_user_id")
+    @JoinColumn(name = "app_user_id", nullable = false)
     private AppUser appUser;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "location_id")
+    @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
     @Column(name = "whispers", nullable = false)
@@ -48,8 +50,9 @@ public class Journal {
     private Timestamp createdAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "created_status", length = 50)
+    @Column(name = "created_status", length = 50 , nullable = false)
     private CreatedStatus createdStatus;
 
-
+    @OneToMany(mappedBy = "journal", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Echo> echoes = new ArrayList<>();
 }

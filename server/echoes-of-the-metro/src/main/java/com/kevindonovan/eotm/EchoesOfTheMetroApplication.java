@@ -1,4 +1,4 @@
-package com.kevindonovan.eotm.echoes_of_the_metro;
+package com.kevindonovan.eotm;
 
 import com.kevindonovan.eotm.echoes_of_the_metro.data.BadgeRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.StorylineRepository;
@@ -25,7 +25,6 @@ public class EchoesOfTheMetroApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		badgeRepository.save(new Badge(0, "test", "test_image"));
-		storylineRepository.save(new Storyline(0, "Test Title"));
+
 	}
 }

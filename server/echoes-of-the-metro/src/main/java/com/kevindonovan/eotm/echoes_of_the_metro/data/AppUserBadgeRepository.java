@@ -13,8 +13,8 @@ import java.util.Optional;
 @Repository
 public interface AppUserBadgeRepository extends JpaRepository<AppUserBadge, AppUserBadgeKey> {
 
-    Optional<AppUserBadgeRepository> findByAppUserAndBadge(AppUser appUser, Badge badge);
+    Optional<AppUserBadge> findByAppUserAndBadge(AppUser appUser, Badge badge);
 
-    List<AppUserBadgeRepository> findByAppUser(AppUser appUser);
+    List<AppUserBadge> findByAppUser(AppUser appUser);
 
 }

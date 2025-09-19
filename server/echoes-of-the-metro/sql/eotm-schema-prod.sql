@@ -51,6 +51,8 @@ create table events (
 create table storylines (
 	storyline_id serial primary key,
 	storyline_title varchar(50) not null unique
+	app_user_id int not null,
+	foreign key (app_user_id) references app_user(app_user_id) on delete cascade
 );
 
 create table journal (
@@ -88,3 +90,4 @@ create table app_user_badge (
 
 
 select * from storylines;
+select * from badges;

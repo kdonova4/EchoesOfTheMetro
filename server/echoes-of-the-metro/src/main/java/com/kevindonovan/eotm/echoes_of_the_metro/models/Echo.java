@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 @Data
 @Table(
         name = "echoes",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"journal_id, app_user_id"})
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"journal_id", "app_user_id"})
+        }
 )
 public class Echo {
 
