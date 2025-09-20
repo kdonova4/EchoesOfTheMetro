@@ -89,6 +89,8 @@ create table app_user_badge (
 );
 
 
+
+
 create or replace procedure set_known_good_state()
 language plpgsql
 as 
