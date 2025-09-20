@@ -45,8 +45,7 @@ public class StorylineServiceTest {
     void setup() {
         appRole = new AppRole(1, "STALKER");
         appUser = new AppUser(1, "kevin123", "kevin123@gmail.com", "85c*98Kd", 0, 0, 0, appRole, false, Collections.emptyList());
-        storyline = new Storyline("Returning to Exhibition", appUser);
-    }
+        storyline = new Storyline(1, "Returning to Exhibition", appUser, Collections.emptyList());    }
 
     @Test
     void shouldFindByStorylineTitle() {
@@ -71,8 +70,8 @@ public class StorylineServiceTest {
 
     @Test
     void shouldCreateValid() {
-        Storyline mockOut = storyline;
-        mockOut.setStorylineId(1);
+        Storyline mockOut = new Storyline(1, "Returning to Exhibition", appUser, Collections.emptyList());
+
         storyline.setStorylineId(0);
 
         when(appUserRepository.findById(appUser.getAppUserId())).thenReturn(Optional.of(appUser));

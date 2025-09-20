@@ -30,8 +30,47 @@ public class StorylineService {
     }
 
     public Result<Storyline> create(Storyline storyline) {
+        Result<Storyline> result = validate(storyline);
 
-        return null;
+        if(!result.isSuccess()) {
+            return result;
+        }
+
+        if(storyline.getStorylineId() != 0) {
+            result.addMessages("STORYLINE ID CANNOT BE SET FOR `ADD` OPERATION", ResultType.INVALID);
+            return result;
+        }
+
+        storyline = repository.save(storyline);
+        result.setPayload(storyline);
+        return result;
+    }
+
+    private Result<Storyline> validate(Storyline storyline) {
+        Result<Storyline> result = new Result<>();
+
+        if(storyline == null) {
+            result.addMessages("STORYLINE CANNOT BE NULL", ResultType.INVALID);
+            return result;
+        }
+
+        if(storyline.getAppUser() == null || storyline.getAppUser().getAppUserId() <= 0) {
+            result.addMessages("APPUSER NEEDS TO EXIST", ResultType.INVALID);
+            return result;
+        }
+
+        Optional<AppUser> appUser = appUserRepository.findById(storyline.getAppUser().getAppUserId());
+
+        if(appUser.isEmpty()) {
+            result.addMessages("APPUSER DOES NOT EXIST", ResultType.INVALID);
+            return result;
+        }
+
+        if(storyline.getStorylineTitle() == "" || storyline.getStorylineTitle().isBlank()) {
+            result.addMessages("STORYLINE TITLE CANNOT BE BLANK OR NULL", ResultType.INVALID);
+        }
+
+        return result;
     }
 
     public boolean deleteById(int id) {

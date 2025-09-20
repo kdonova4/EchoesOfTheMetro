@@ -48,7 +48,7 @@ public class StorylineRepositoryTest {
 
     @Test
     void shouldCreate() {
-        Storyline storyline = new Storyline("Test", user);
+        Storyline storyline = new Storyline(0, "Test", user, Collections.emptyList());
 
         repository.save(storyline);
 

@@ -32,8 +32,54 @@ public class EchoService {
     }
 
     public Result<Echo> create(Echo echo) {
+        Result<Echo> result = validate(echo);
 
-        return null;
+        if(!result.isSuccess()) {
+            return result;
+        }
+
+        if(echo.getEchoId() != 0) {
+            result.addMessages("ECHO ID CANNOT BE SET FOR `ADD` OPERATION", ResultType.INVALID);
+            return result;
+        }
+
+        echo = repository.save(echo);
+        result.setPayload(echo);
+        return result;
+    }
+
+    public Result<Echo> validate(Echo echo) {
+        Result<Echo> result = new Result<>();
+
+        if(echo == null) {
+            result.addMessages("ECHO CANNOT BE NULL", ResultType.INVALID);
+            return result;
+        }
+
+        if(echo.getAppUser() == null || echo.getAppUser().getAppUserId() <= 0) {
+            result.addMessages("APPUSER NEEDS TO EXIST", ResultType.INVALID);
+            return result;
+        }
+
+        if(echo.getJournal() == null || echo.getJournal().getJournalId() <= 0) {
+            result.addMessages("JOURNAL NEEDS TO EXIST", ResultType.INVALID);
+            return result;
+        }
+
+        Optional<Journal> journal = journalRepository.findById(echo.getJournal().getJournalId());
+        Optional<AppUser> appUser = appUserRepository.findById(echo.getAppUser().getAppUserId());
+
+        if(appUser.isEmpty()) {
+            result.addMessages("APPUSER DOES NOT EXIST", ResultType.INVALID);
+            return result;
+        }
+
+        if(journal.isEmpty()) {
+            result.addMessages("JOURNAL DOES NOT EXIST", ResultType.INVALID);
+            return result;
+        }
+
+        return result;
     }
 
     public boolean deleteById(int id) {

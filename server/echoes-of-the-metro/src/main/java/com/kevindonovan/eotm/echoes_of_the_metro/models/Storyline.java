@@ -10,7 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@RequiredArgsConstructor
 @Table(name = "storylines")
 public class Storyline {
 
@@ -20,11 +19,11 @@ public class Storyline {
     @Column(name = "storyline_id")
     private int storylineId;
 
-    @NonNull
+
     @Column(name = "storyline_title", nullable = false, length = 50, unique = true)
     private String storylineTitle;
 
-    @NonNull
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "app_user_id")
     private AppUser appUser;

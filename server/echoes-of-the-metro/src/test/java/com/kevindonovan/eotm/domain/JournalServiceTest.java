@@ -54,7 +54,7 @@ public class JournalServiceTest {
     void setup() {
         appRole = new AppRole(1, "STALKER");
         appUser = new AppUser(1, "kevin123", "kevin123@gmail.com", "85c*98Kd", 0, 0, 0, appRole, false, Collections.emptyList());
-        storyline = new Storyline("Returning to Exhibition", appUser);
+        storyline = new Storyline(1, "Returning to Exhibition", appUser, Collections.emptyList());
         location = new Location(1, "Exhibition Station", "Artyom's home station", LocationType.STATION);
         journal = new Journal(1, "Found something", "You find something", storyline, appUser, location, 0, null, CreatedStatus.FRESH, Collections.emptyList());
     }
@@ -109,8 +109,8 @@ public class JournalServiceTest {
 
     @Test
     void shouldCreateValid() {
-        Journal mockOut = journal;
-        mockOut.setJournalId(1);
+        Journal mockOut = new Journal(1, "Found something", "You find something", storyline, appUser, location, 0, null, CreatedStatus.FRESH, Collections.emptyList());
+
         mockOut.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
         journal.setJournalId(0);
 
@@ -126,39 +126,39 @@ public class JournalServiceTest {
     }
 
     @Test
-    void shouldCreateInvalid() {
+    void shouldNotCreateInvalid() {
         Result<Journal> actual = service.create(journal);
-        assertEquals(ResultType.SUCCESS, actual.getType());
+        assertEquals(ResultType.INVALID, actual.getType());
 
         journal.setJournalId(0);
         journal.setTitle("");
         actual = service.create(journal);
-        assertEquals(ResultType.SUCCESS, actual.getType());
+        assertEquals(ResultType.INVALID, actual.getType());
 
         journal.setTitle("Test");
         journal.setText("");
         actual = service.create(journal);
-        assertEquals(ResultType.SUCCESS, actual.getType());
+        assertEquals(ResultType.INVALID, actual.getType());
 
         journal.setText("Test Text");
         journal.setCreatedStatus(null);
         actual = service.create(journal);
-        assertEquals(ResultType.SUCCESS, actual.getType());
+        assertEquals(ResultType.INVALID, actual.getType());
 
         journal.setCreatedStatus(CreatedStatus.FRESH);
         journal.setLocation(null);
         actual = service.create(journal);
-        assertEquals(ResultType.SUCCESS, actual.getType());
+        assertEquals(ResultType.INVALID, actual.getType());
 
         journal.setLocation(location);
         journal.setAppUser(null);
         actual = service.create(journal);
-        assertEquals(ResultType.SUCCESS, actual.getType());
+        assertEquals(ResultType.INVALID, actual.getType());
 
         journal.setAppUser(appUser);
         storyline = null;
         actual = service.create(journal);
-        assertEquals(ResultType.SUCCESS, actual.getType());
+        assertEquals(ResultType.INVALID, actual.getType());
     }
 
     @Test

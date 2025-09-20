@@ -6,6 +6,7 @@ import com.kevindonovan.eotm.echoes_of_the_metro.data.BadgeRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.AppUser;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.AppUserBadge;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Badge;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.Journal;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +34,53 @@ public class AppUserBadgeService {
     }
 
     public Result<AppUserBadge> create(AppUserBadge appUserBadge) {
-        return null;
+        Result<AppUserBadge> result = validate(appUserBadge);
+
+        if(!result.isSuccess()) {
+            return result;
+        }
+
+        if(appUserBadge.getId() != null) {
+            result.addMessages("APP_USER_BADGE ID KEY CANNOT BE SET FOR `ADD` OPERATION", ResultType.INVALID);
+            return result;
+        }
+
+        appUserBadge = repository.save(appUserBadge);
+        result.setPayload(appUserBadge);
+        return result;
+    }
+
+    public Result<AppUserBadge> validate(AppUserBadge appUserBadge) {
+        Result<AppUserBadge> result = new Result<>();
+
+        if(appUserBadge == null) {
+            result.addMessages("APP_USER_BADGE CANNOT BE NULL", ResultType.INVALID);
+            return result;
+        }
+
+        if(appUserBadge.getAppUser() == null || appUserBadge.getAppUser().getAppUserId() <= 0) {
+            result.addMessages("APPUSER NEEDS TO EXIST", ResultType.INVALID);
+            return result;
+        }
+
+        if(appUserBadge.getBadge() == null || appUserBadge.getBadge().getBadgeId() <= 0) {
+            result.addMessages("BADGE NEEDS TO EXIST", ResultType.INVALID);
+            return result;
+        }
+
+        Optional<Badge> badge = badgeRepository.findById(appUserBadge.getBadge().getBadgeId());
+        Optional<AppUser> appUser = appUserRepository.findById(appUserBadge.getAppUser().getAppUserId());
+
+        if(appUser.isEmpty()) {
+            result.addMessages("APPUSER DOES NOT EXIST", ResultType.INVALID);
+            return result;
+        }
+
+        if(badge.isEmpty()) {
+            result.addMessages("BADGE DOES NOT EXIST", ResultType.INVALID);
+            return result;
+        }
+
+        return result;
     }
 }

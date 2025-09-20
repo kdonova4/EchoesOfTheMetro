@@ -73,7 +73,8 @@ public class EchoServiceTest {
 
     @Test
     void shouldCreateValid() {
-        Echo mockOut = echo;
+        Echo mockOut = new Echo(1, journal, appUser);
+
         echo.setEchoId(0);
 
         when(appUserRepository.findById(echo.getAppUser().getAppUserId())).thenReturn(Optional.of(appUser));
@@ -88,17 +89,17 @@ public class EchoServiceTest {
     @Test
     void shouldNotCreateInvalid() {
         Result<Echo> actual = service.create(echo);
-        assertEquals(ResultType.SUCCESS, actual.getType());
+        assertEquals(ResultType.INVALID, actual.getType());
 
         echo.setEchoId(0);
         echo.setAppUser(null);
         actual = service.create(echo);
-        assertEquals(ResultType.SUCCESS, actual.getType());
+        assertEquals(ResultType.INVALID, actual.getType());
 
         echo.setAppUser(appUser);
         echo.setJournal(null);
         actual = service.create(echo);
-        assertEquals(ResultType.SUCCESS, actual.getType());
+        assertEquals(ResultType.INVALID, actual.getType());
     }
 
     @Test

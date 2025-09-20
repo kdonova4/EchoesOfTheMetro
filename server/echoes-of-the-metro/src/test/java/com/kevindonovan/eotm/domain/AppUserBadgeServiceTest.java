@@ -75,7 +75,8 @@ public class AppUserBadgeServiceTest {
 
     @Test
     void shouldCreateValid() {
-        AppUserBadge mockOut = appUserBadge;
+        AppUserBadgeKey key = new AppUserBadgeKey(appUser.getAppUserId(), badge.getBadgeId());
+        AppUserBadge mockOut = new AppUserBadge(key, appUser, badge, Timestamp.valueOf(LocalDateTime.now()));
         appUserBadge.setId(null);
         when(appUserRepository.findById(appUser.getAppUserId())).thenReturn(Optional.of(appUser));
         when(badgeRepository.findById(badge.getBadgeId())).thenReturn(Optional.of(badge));
