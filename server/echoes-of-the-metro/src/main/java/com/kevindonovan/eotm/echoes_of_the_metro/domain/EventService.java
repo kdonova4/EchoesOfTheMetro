@@ -3,14 +3,11 @@ package com.kevindonovan.eotm.echoes_of_the_metro.domain;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.BadgeRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.EventRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.LocationRepository;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.Badge;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.Event;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.EventType;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.Location;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.*;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -37,4 +34,28 @@ public class EventService {
         return repository.findByBadge(badge);
     }
 
+    public Event generateEvent(Location location, AppUser appUser) {
+
+        Set<Badge> badges = appUser.getBadges().stream()
+                .map(AppUserBadge::getBadge)
+                .collect(Collectors.toSet());
+
+        List<Event> chosenEvents = new ArrayList<>();
+        while(chosenEvents.isEmpty()) {
+            EventType chosenType = EventType.getRandomType();
+
+            if(chosenType == EventType.LOCATION) {
+                // if location has specific events grab those events
+                chosenEvents = repository.findByLocation(location).stream()
+                        .filter(event -> event.getBadge() == null || !badges.contains(event.getBadge()))
+                        .toList();
+            } else {
+                chosenEvents = repository.findByEventType(chosenType).stream()
+                        .filter(event -> event.getBadge() == null || !badges.contains(event.getBadge()))
+                        .toList();
+            }
+        }
+
+        return chosenEvents.get(new Random().nextInt(chosenEvents.size()));
+    }
 }

@@ -3,7 +3,9 @@ package com.kevindonovan.eotm.echoes_of_the_metro.domain;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.AppUserRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.EchoRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.JournalRepository;
+import com.kevindonovan.eotm.echoes_of_the_metro.domain.mappers.EchoMapper;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.AppUser;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.EchoCreate;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Echo;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Journal;
 import org.springframework.stereotype.Service;
@@ -31,7 +33,10 @@ public class EchoService {
         return repository.countByJournal(journal);
     }
 
-    public Result<Echo> create(Echo echo) {
+    public Result<Echo> create(EchoCreate echoCreate) {
+
+        Echo echo = EchoMapper.toEcho(echoCreate, journalRepository, appUserRepository);
+
         Result<Echo> result = validate(echo);
 
         if(!result.isSuccess()) {

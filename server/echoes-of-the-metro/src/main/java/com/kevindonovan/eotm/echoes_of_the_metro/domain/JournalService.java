@@ -4,7 +4,10 @@ import com.kevindonovan.eotm.echoes_of_the_metro.data.AppUserRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.JournalRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.LocationRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.StorylineRepository;
+import com.kevindonovan.eotm.echoes_of_the_metro.domain.mappers.JournalMapper;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.AppUser;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.JournalCreate;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.JournalResponse;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Journal;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Location;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Storyline;
@@ -28,6 +31,10 @@ public class JournalService {
         this.storylineRepository = storylineRepository;
     }
 
+    public List<Journal> findAll() {
+        return repository.findAll();
+    }
+
     public List<Journal> findByStoryline(Storyline storyline) {
         return repository.findByStoryline(storyline);
     }
@@ -44,8 +51,11 @@ public class JournalService {
         return repository.findJournalsByEchoCount(minCount);
     }
 
-    public Result<Journal> create(Journal journal) {
-        Result<Journal> result = validate(journal);
+    public Result<JournalResponse> create(JournalCreate journalCreate) {
+
+        Journal journal = JournalMapper.fromCreate(journalCreate, storylineRepository, appUserRepository, locationRepository);
+
+        Result<JournalResponse> result = validate(journal);
 
         if(!result.isSuccess()) {
             return result;
@@ -57,12 +67,12 @@ public class JournalService {
         }
 
         journal = repository.save(journal);
-        result.setPayload(journal);
+        result.setPayload(JournalMapper.toResponse(journal));
         return result;
     }
 
-    private Result<Journal> validate(Journal journal) {
-        Result<Journal> result = new Result<>();
+    private Result<JournalResponse> validate(Journal journal) {
+        Result<JournalResponse> result = new Result<>();
 
         if(journal == null) {
             result.addMessages("JOURNAL CANNOT BE NULL", ResultType.INVALID);

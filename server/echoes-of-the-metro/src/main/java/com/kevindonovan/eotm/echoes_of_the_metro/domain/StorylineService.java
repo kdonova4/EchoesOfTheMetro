@@ -2,7 +2,10 @@ package com.kevindonovan.eotm.echoes_of_the_metro.domain;
 
 import com.kevindonovan.eotm.echoes_of_the_metro.data.AppUserRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.StorylineRepository;
+import com.kevindonovan.eotm.echoes_of_the_metro.domain.mappers.StoryLineMapper;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.AppUser;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.StorylineCreate;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.StorylineResponse;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Storyline;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +32,11 @@ public class StorylineService {
         return repository.findStorylineByAppUser(appUser);
     }
 
-    public Result<Storyline> create(Storyline storyline) {
-        Result<Storyline> result = validate(storyline);
+    public Result<StorylineResponse> create(StorylineCreate storylineCreate) {
+
+        Storyline storyline = StoryLineMapper.fromRequest(storylineCreate, appUserRepository);
+
+        Result<StorylineResponse> result = validate(storyline);
 
         if(!result.isSuccess()) {
             return result;
@@ -42,12 +48,12 @@ public class StorylineService {
         }
 
         storyline = repository.save(storyline);
-        result.setPayload(storyline);
+        result.setPayload(StoryLineMapper.toResponse(storyline));
         return result;
     }
 
-    private Result<Storyline> validate(Storyline storyline) {
-        Result<Storyline> result = new Result<>();
+    private Result<StorylineResponse> validate(Storyline storyline) {
+        Result<StorylineResponse> result = new Result<>();
 
         if(storyline == null) {
             result.addMessages("STORYLINE CANNOT BE NULL", ResultType.INVALID);

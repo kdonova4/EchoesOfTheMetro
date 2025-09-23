@@ -50,7 +50,7 @@ create table events (
 
 create table storylines (
 	storyline_id serial primary key,
-	storyline_title varchar(50) not null unique
+	storyline_title varchar(50) not null unique,
 	app_user_id int not null,
 	foreign key (app_user_id) references app_user(app_user_id) on delete cascade
 );

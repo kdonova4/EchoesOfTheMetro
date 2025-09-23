@@ -3,9 +3,12 @@ package com.kevindonovan.eotm.echoes_of_the_metro.domain;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.AppUserBadgeRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.AppUserRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.BadgeRepository;
+import com.kevindonovan.eotm.echoes_of_the_metro.domain.mappers.AppUserBadgeMapper;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.AppUser;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.AppUserBadge;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Badge;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.AppUserBadgeCreate;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.AppUserBadgeResponse;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Journal;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +36,11 @@ public class AppUserBadgeService {
         return repository.findByAppUser(appUser);
     }
 
-    public Result<AppUserBadge> create(AppUserBadge appUserBadge) {
-        Result<AppUserBadge> result = validate(appUserBadge);
+    public Result<AppUserBadgeResponse> create(AppUserBadgeCreate appUserBadgeCreate) {
+
+        AppUserBadge appUserBadge = AppUserBadgeMapper.fromRequest(appUserBadgeCreate, appUserRepository, badgeRepository);
+
+        Result<AppUserBadgeResponse> result = validate(appUserBadge);
 
         if(!result.isSuccess()) {
             return result;
@@ -46,12 +52,12 @@ public class AppUserBadgeService {
         }
 
         appUserBadge = repository.save(appUserBadge);
-        result.setPayload(appUserBadge);
+        result.setPayload(AppUserBadgeMapper.toResponse(appUserBadge));
         return result;
     }
 
-    public Result<AppUserBadge> validate(AppUserBadge appUserBadge) {
-        Result<AppUserBadge> result = new Result<>();
+    public Result<AppUserBadgeResponse> validate(AppUserBadge appUserBadge) {
+        Result<AppUserBadgeResponse> result = new Result<>();
 
         if(appUserBadge == null) {
             result.addMessages("APP_USER_BADGE CANNOT BE NULL", ResultType.INVALID);
