@@ -15,6 +15,10 @@ public class BadgeService {
         this.repository = repository;
     }
 
+    public Optional<Badge> findById(int id) {
+        return repository.findById(id);
+    }
+
     public Optional<Badge> findByBadgeName(String badgeName) {
         return repository.findByBadgeName(badgeName);
     }

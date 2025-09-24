@@ -24,6 +24,10 @@ public class StorylineService {
         this.appUserRepository = appUserRepository;
     }
 
+    public Optional<Storyline> findById(int id) {
+        return repository.findById(id);
+    }
+
     public Optional<Storyline> findByStorylineTitle(String storylineTitle) {
         return repository.findByStorylineTitle(storylineTitle);
     }

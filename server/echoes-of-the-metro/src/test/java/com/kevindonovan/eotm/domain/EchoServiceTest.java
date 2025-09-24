@@ -7,6 +7,7 @@ import com.kevindonovan.eotm.echoes_of_the_metro.domain.EchoService;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.Result;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.ResultType;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.*;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.EchoCreate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -77,29 +79,31 @@ public class EchoServiceTest {
 
         echo.setEchoId(0);
 
+        EchoCreate echoCreate = new EchoCreate(journal.getJournalId(), appUser.getAppUserId());
+
         when(appUserRepository.findById(echo.getAppUser().getAppUserId())).thenReturn(Optional.of(appUser));
         when(journalRepository.findById(echo.getJournal().getJournalId())).thenReturn(Optional.of(journal));
         when(repository.save(echo)).thenReturn(mockOut);
 
-        Result<Echo> actual = service.create(echo);
+        Result<Echo> actual = service.create(echoCreate);
 
         assertEquals(ResultType.SUCCESS, actual.getType());
     }
 
     @Test
     void shouldNotCreateInvalid() {
-        Result<Echo> actual = service.create(echo);
-        assertEquals(ResultType.INVALID, actual.getType());
+        EchoCreate echoCreate = new EchoCreate(journal.getJournalId(), appUser.getAppUserId());
 
-        echo.setEchoId(0);
-        echo.setAppUser(null);
-        actual = service.create(echo);
-        assertEquals(ResultType.INVALID, actual.getType());
+        echoCreate.setAppUserId(0);
+        assertThrows(NoSuchElementException.class, () -> {
+            service.create(echoCreate);
+        });
 
-        echo.setAppUser(appUser);
-        echo.setJournal(null);
-        actual = service.create(echo);
-        assertEquals(ResultType.INVALID, actual.getType());
+        echoCreate.setAppUserId(1);
+        echoCreate.setJournalId(0);
+        assertThrows(NoSuchElementException.class, () -> {
+            service.create(echoCreate);
+        });
     }
 
     @Test

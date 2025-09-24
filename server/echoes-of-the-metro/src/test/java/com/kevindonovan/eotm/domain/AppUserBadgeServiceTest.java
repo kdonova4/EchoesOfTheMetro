@@ -7,6 +7,8 @@ import com.kevindonovan.eotm.echoes_of_the_metro.domain.AppUserBadgeService;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.Result;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.ResultType;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.*;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.AppUserBadgeCreate;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.AppUserBadgeResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,10 +20,10 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -50,7 +52,7 @@ public class AppUserBadgeServiceTest {
         appUser = new AppUser(1, "kevin123", "kevin123@gmail.com", "85c*98Kd", 0, 0, 0, appRole, false, Collections.emptyList());
         badge = new Badge(1, "First steps", "path");
         AppUserBadgeKey key = new AppUserBadgeKey(appUser.getAppUserId(), badge.getBadgeId());
-        appUserBadge = new AppUserBadge(key, appUser, badge, Timestamp.valueOf(LocalDateTime.now()));
+        appUserBadge = new AppUserBadge(key, appUser, badge, null);
     }
 
     @Test
@@ -78,34 +80,35 @@ public class AppUserBadgeServiceTest {
         AppUserBadgeKey key = new AppUserBadgeKey(appUser.getAppUserId(), badge.getBadgeId());
         AppUserBadge mockOut = new AppUserBadge(key, appUser, badge, Timestamp.valueOf(LocalDateTime.now()));
         appUserBadge.setId(null);
+
+        AppUserBadgeCreate appUserBadgeCreate = new AppUserBadgeCreate(appUserBadge.getAppUser().getAppUserId(), appUserBadge.getBadge().getBadgeId());
+        AppUserBadgeResponse appUserBadgeResponse = new AppUserBadgeResponse(appUserBadge.getAppUser().getAppUserId(), appUserBadge.getBadge().getBadgeId(), Timestamp.valueOf(LocalDateTime.now()));
+
         when(appUserRepository.findById(appUser.getAppUserId())).thenReturn(Optional.of(appUser));
         when(badgeRepository.findById(badge.getBadgeId())).thenReturn(Optional.of(badge));
         when(repository.save(appUserBadge)).thenReturn(mockOut);
 
-        Result<AppUserBadge> actual = service.create(appUserBadge);
+        Result<AppUserBadgeResponse> actual = service.create(appUserBadgeCreate);
 
         assertEquals(ResultType.SUCCESS, actual.getType());
     }
 
     @Test
     void shouldNotCreateValid() {
-        Result<AppUserBadge> actual = service.create(appUserBadge);
-        assertEquals(ResultType.INVALID, actual.getType());
 
-        appUserBadge.setId(null);
-        appUserBadge.setAppUser(null);
-        actual = service.create(appUserBadge);
-        assertEquals(ResultType.INVALID, actual.getType());
+        AppUserBadgeCreate appUserBadgeCreate = new AppUserBadgeCreate(appUserBadge.getAppUser().getAppUserId(), appUserBadge.getBadge().getBadgeId());
 
-        appUserBadge.setAppUser(appUser);
-        appUserBadge.setBadge(null);
-        actual = service.create(appUserBadge);
-        assertEquals(ResultType.INVALID, actual.getType());
+        appUserBadgeCreate.setAppUserId(0);
+        assertThrows(NoSuchElementException.class, () -> {
+            service.create(appUserBadgeCreate);
+        });
 
-        appUserBadge.setBadge(badge);
-        appUserBadge.setDateEarned(Timestamp.valueOf(LocalDateTime.now().plusDays(5)));
-        actual = service.create(appUserBadge);
-        assertEquals(ResultType.INVALID, actual.getType());
+        appUserBadgeCreate.setAppUserId(1);
+        appUserBadgeCreate.setBadgeId(0);
+        assertThrows(NoSuchElementException.class, () -> {
+            service.create(appUserBadgeCreate);
+        });
+
 
     }
 

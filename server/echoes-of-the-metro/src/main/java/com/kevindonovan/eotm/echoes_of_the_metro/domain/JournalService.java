@@ -35,6 +35,10 @@ public class JournalService {
         return repository.findAll();
     }
 
+    public Optional<Journal> findById(int id) {
+        return repository.findById(id);
+    }
+
     public List<Journal> findByStoryline(Storyline storyline) {
         return repository.findByStoryline(storyline);
     }
@@ -128,10 +132,6 @@ public class JournalService {
             result.addMessages("JOURNAL TITLE CANNOT BE BLANK OR NULL", ResultType.INVALID);
         } else if (journal.getText().length() > 50) {
             result.addMessages("JOURNAL TITLE CANNOT BE LONGER THAN 5000 CHARACTERS", ResultType.INVALID);
-        }
-
-        if(journal.getCreatedStatus() == null) {
-            result.addMessages("CREATED STATUS CANNOT BE NULL", ResultType.INVALID);
         }
 
         return result;

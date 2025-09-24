@@ -1,5 +1,6 @@
 package com.kevindonovan.eotm.echoes_of_the_metro.domain;
 
+import com.kevindonovan.eotm.echoes_of_the_metro.data.AppUserRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.BadgeRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.EventRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.LocationRepository;
@@ -13,13 +14,18 @@ import java.util.stream.Collectors;
 public class EventService {
 
     private final EventRepository repository;
+    private final AppUserRepository appUserRepository;
     private final LocationRepository locationRepository;
-    private final BadgeRepository badgeRepository;
 
-    public EventService(EventRepository repository, LocationRepository locationRepository, BadgeRepository badgeRepository) {
+    public EventService(EventRepository repository, AppUserRepository appUserRepository, LocationRepository locationRepository) {
         this.repository = repository;
+
+        this.appUserRepository = appUserRepository;
         this.locationRepository = locationRepository;
-        this.badgeRepository = badgeRepository;
+    }
+
+    public Optional<Event> findById(int eventId) {
+        return repository.findById(eventId);
     }
 
     public List<Event> findByEventType(EventType eventType) {
@@ -34,7 +40,10 @@ public class EventService {
         return repository.findByBadge(badge);
     }
 
-    public Event generateEvent(Location location, AppUser appUser) {
+    public Event generateEvent(int locationId, int appUserId) {
+
+        AppUser appUser = appUserRepository.findById(appUserId).orElseThrow(() -> new NoSuchElementException("User not found"));
+        Location location = locationRepository.findById(locationId).orElseThrow(() -> new NoSuchElementException("User not found"));
 
         Set<Badge> badges = appUser.getBadges().stream()
                 .map(AppUserBadge::getBadge)

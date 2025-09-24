@@ -9,6 +9,8 @@ import com.kevindonovan.eotm.echoes_of_the_metro.domain.ResultType;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.StorylineService;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.AppRole;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.AppUser;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.StorylineCreate;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.StorylineResponse;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Storyline;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -45,7 +48,8 @@ public class StorylineServiceTest {
     void setup() {
         appRole = new AppRole(1, "STALKER");
         appUser = new AppUser(1, "kevin123", "kevin123@gmail.com", "85c*98Kd", 0, 0, 0, appRole, false, Collections.emptyList());
-        storyline = new Storyline(1, "Returning to Exhibition", appUser, Collections.emptyList());    }
+        storyline = new Storyline(1, "Returning to Exhibition", appUser, Collections.emptyList());
+    }
 
     @Test
     void shouldFindByStorylineTitle() {
@@ -74,28 +78,31 @@ public class StorylineServiceTest {
 
         storyline.setStorylineId(0);
 
+        StorylineCreate storylineCreate = new StorylineCreate(storyline.getStorylineTitle(), storyline.getAppUser().getAppUserId());
+
         when(appUserRepository.findById(appUser.getAppUserId())).thenReturn(Optional.of(appUser));
         when(repository.save(storyline)).thenReturn(mockOut);
 
-        Result<Storyline> actual = service.create(storyline);
+        Result<StorylineResponse> actual = service.create(storylineCreate);
 
         assertEquals(ResultType.SUCCESS, actual.getType());
     }
 
     @Test
     void shouldNotCreateInvalid() {
-            Result<Storyline> actual = service.create(storyline);
-            assertEquals(ResultType.INVALID, actual.getType());
 
-            storyline.setStorylineId(0);
-            storyline.setStorylineTitle("");
-            actual = service.create(storyline);
-            assertEquals(ResultType.INVALID, actual.getType());
+        StorylineCreate storylineCreate = new StorylineCreate(storyline.getStorylineTitle(), storyline.getAppUser().getAppUserId());
+        when(appUserRepository.findById(appUser.getAppUserId())).thenReturn(Optional.of(appUser));
+        storylineCreate.setStorylineTitle("");
+        Result<StorylineResponse> actual = service.create(storylineCreate);
+        assertEquals(ResultType.INVALID, actual.getType());
 
-            storyline.setStorylineTitle("Test");
-            appUser = null;
-            actual = service.create(storyline);
-            assertEquals(ResultType.INVALID, actual.getType());
+        storyline.setStorylineTitle("Test");
+        storylineCreate.setAppUserId(0);
+
+        assertThrows(NoSuchElementException.class, () -> {
+            service.create(storylineCreate);
+        });
     }
 
     @Test

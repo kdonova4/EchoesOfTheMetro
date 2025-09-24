@@ -8,6 +8,8 @@ import com.kevindonovan.eotm.echoes_of_the_metro.domain.JournalService;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.Result;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.ResultType;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.*;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.JournalCreate;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.JournalResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +21,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,7 +59,7 @@ public class JournalServiceTest {
         appUser = new AppUser(1, "kevin123", "kevin123@gmail.com", "85c*98Kd", 0, 0, 0, appRole, false, Collections.emptyList());
         storyline = new Storyline(1, "Returning to Exhibition", appUser, Collections.emptyList());
         location = new Location(1, "Exhibition Station", "Artyom's home station", LocationType.STATION);
-        journal = new Journal(1, "Found something", "You find something", storyline, appUser, location, 0, null, CreatedStatus.FRESH, Collections.emptyList());
+        journal = new Journal(1, "Found something", "You find something", storyline, appUser, location, 0, null, null, Collections.emptyList());
     }
 
     @Test
@@ -109,10 +112,18 @@ public class JournalServiceTest {
 
     @Test
     void shouldCreateValid() {
-        Journal mockOut = new Journal(1, "Found something", "You find something", storyline, appUser, location, 0, null, CreatedStatus.FRESH, Collections.emptyList());
+        Journal mockOut = new Journal(1, "Found something", "You find something", storyline, appUser, location, 0, null, null, Collections.emptyList());
 
         mockOut.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
         journal.setJournalId(0);
+
+        JournalCreate journalCreate = new JournalCreate(
+                journal.getTitle(),
+                journal.getText(),
+                journal.getStoryline().getStorylineId(),
+                journal.getAppUser().getAppUserId(),
+                journal.getLocation().getLocationId()
+        );
 
         when(appUserRepository.findById(appUser.getAppUserId())).thenReturn(Optional.of(appUser));
         when(locationRepository.findById(location.getLocationId())).thenReturn(Optional.of(location));
@@ -120,45 +131,47 @@ public class JournalServiceTest {
 
         when(repository.save(journal)).thenReturn(mockOut);
 
-        Result<Journal> actual = service.create(journal);
+        Result<JournalResponse> actual = service.create(journalCreate);
 
         assertEquals(ResultType.SUCCESS, actual.getType());
     }
 
     @Test
     void shouldNotCreateInvalid() {
-        Result<Journal> actual = service.create(journal);
+
+        when(appUserRepository.findById(appUser.getAppUserId())).thenReturn(Optional.of(appUser));
+        when(locationRepository.findById(location.getLocationId())).thenReturn(Optional.of(location));
+        when(storylineRepository.findById(storyline.getStorylineId())).thenReturn(Optional.of(storyline));
+
+
+        JournalCreate journalCreate = new JournalCreate(
+                journal.getTitle(),
+                journal.getText(),
+                journal.getStoryline().getStorylineId(),
+                journal.getAppUser().getAppUserId(),
+                journal.getLocation().getLocationId()
+        );
+
+        journalCreate.setTitle("");
+        Result<JournalResponse> actual = service.create(journalCreate);
         assertEquals(ResultType.INVALID, actual.getType());
 
-        journal.setJournalId(0);
-        journal.setTitle("");
-        actual = service.create(journal);
+        journalCreate.setTitle("Test");
+        journalCreate.setText("");
+        actual = service.create(journalCreate);
         assertEquals(ResultType.INVALID, actual.getType());
 
-        journal.setTitle("Test");
-        journal.setText("");
-        actual = service.create(journal);
-        assertEquals(ResultType.INVALID, actual.getType());
+        journalCreate.setText("Test Text");
+        journalCreate.setLocationId(0);
+        assertThrows(NoSuchElementException.class, () -> {
+            service.create(journalCreate);
+        });
 
-        journal.setText("Test Text");
-        journal.setCreatedStatus(null);
-        actual = service.create(journal);
-        assertEquals(ResultType.INVALID, actual.getType());
-
-        journal.setCreatedStatus(CreatedStatus.FRESH);
-        journal.setLocation(null);
-        actual = service.create(journal);
-        assertEquals(ResultType.INVALID, actual.getType());
-
-        journal.setLocation(location);
-        journal.setAppUser(null);
-        actual = service.create(journal);
-        assertEquals(ResultType.INVALID, actual.getType());
-
-        journal.setAppUser(appUser);
-        storyline = null;
-        actual = service.create(journal);
-        assertEquals(ResultType.INVALID, actual.getType());
+        journalCreate.setLocationId(1);
+        journalCreate.setAppUserId(0);
+        assertThrows(NoSuchElementException.class, () -> {
+            service.create(journalCreate);
+        });
     }
 
     @Test

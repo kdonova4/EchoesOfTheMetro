@@ -8,6 +8,8 @@ import com.kevindonovan.eotm.echoes_of_the_metro.domain.Result;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.ResultType;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.AppRole;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.AppUser;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.AppUserResponse;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.AppUserUpdate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -108,42 +110,56 @@ public class AppUserServiceTest {
 
     @Test
     void shouldUpdateStalker() {
-        appUser.setMgr(5);
-        appUser.setFuel(10);
-        appUser.setScrap(2);
+
+
+        AppUserUpdate appUserUpdate = new AppUserUpdate(
+                appUser.getAppUserId(),
+                5,
+                10,
+                2
+        );
 
         when(repository.findById(appUser.getAppUserId())).thenReturn(Optional.of(appUser));
+        when(repository.save(appUser)).thenReturn(new AppUser(1, "kevin123", "kevin123@gmail.com", "85c*98Kd", 5, 10, 2, appRole, false, Collections.emptyList()));
 
-        Result<AppUser> actual = service.updateStalker(appUser);
+        Result<AppUserResponse> actual = service.updateStalker(appUserUpdate);
         assertEquals(ResultType.SUCCESS, actual.getType());
     }
 
     @Test
     void shouldNotUpdateInvalidStalker() {
-        appUser.setAppUserId(0);
 
-        Result<AppUser> actual = service.updateStalker(appUser);
+        AppUserUpdate appUserUpdate = new AppUserUpdate(
+                appUser.getAppUserId(),
+                5,
+                10,
+                2
+        );
+
+        appUserUpdate.setAppUserId(0);
+
+        Result<AppUserResponse> actual = service.updateStalker(appUserUpdate);
         assertEquals(ResultType.INVALID, actual.getType());
 
-        appUser.setAppUserId(1);
+        appUserUpdate.setAppUserId(1);
         when(repository.findById(appUser.getAppUserId())).thenReturn(Optional.of(appUser));
-        appUser.setMgr(-5);
-        service.updateStalker(appUser);
+        appUserUpdate.setMgr(-5);
+        service.updateStalker(appUserUpdate);
         assertEquals(ResultType.INVALID, actual.getType());
 
-        appUser.setMgr(5);
-        appUser.setFuel(-5);
-        service.updateStalker(appUser);
+        appUserUpdate.setMgr(5);
+        appUserUpdate.setFuel(-5);
+        service.updateStalker(appUserUpdate);
         assertEquals(ResultType.INVALID, actual.getType());
 
-        appUser.setFuel(5);
-        appUser.setScrap(-5);
-        service.updateStalker(appUser);
+        appUserUpdate.setFuel(5);
+        appUserUpdate.setScrap(-5);
+        service.updateStalker(appUserUpdate);
         assertEquals(ResultType.INVALID, actual.getType());
 
-        appUser.setScrap(5);
+        appUserUpdate.setScrap(5);
         when(repository.findById(appUser.getAppUserId())).thenReturn(Optional.empty());
-        service.updateStalker(appUser);
+        service.updateStalker(appUserUpdate);
         assertEquals(ResultType.INVALID, actual.getType());
     }
 
