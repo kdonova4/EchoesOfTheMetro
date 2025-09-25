@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -53,14 +54,23 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AccountCredentials accountCredentials) {
-        UsernamePasswordAuthenticationToken creds = new UsernamePasswordAuthenticationToken(accountCredentials.username(), accountCredentials.password());
+        UsernamePasswordAuthenticationToken creds =
+                new UsernamePasswordAuthenticationToken(accountCredentials.username(), accountCredentials.password());
 
-        Authentication auth = authenticationManager.authenticate(creds);
+        try {
+            Authentication auth = authenticationManager.authenticate(creds);
 
-        String jwts = jwtService.getToken(auth.getName());
+            String jwts = jwtService.getToken(auth.getName());
 
-        return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION,
-                "Bearer " + jwts).header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "Authorization").build();
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer " + jwts)
+                    .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "Authorization")
+                    .build();
+        } catch (AuthenticationException ex) {
+            // Covers BadCredentialsException and others
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Invalid username or password");
+        }
     }
 
     @PostMapping("/register")
@@ -83,12 +93,8 @@ public class AuthController {
         return new ResponseEntity<>(map, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{userId}")
-    public ResponseEntity<Object> update(@PathVariable int userId, @RequestBody AppUserUpdate appUserUpdate) {
-        if(userId != appUserUpdate.getAppUserId()) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
-
+    @PutMapping
+    public ResponseEntity<Object> update(@RequestBody AppUserUpdate appUserUpdate) {
         Result<AppUserResponse> result = appUserService.updateStalker(appUserUpdate);
 
         if(!result.isSuccess()) {
@@ -97,5 +103,7 @@ public class AuthController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
 
 }

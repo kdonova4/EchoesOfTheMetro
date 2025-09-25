@@ -1,52 +1,44 @@
 package com.kevindonovan.eotm.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.kevindonovan.eotm.echoes_of_the_metro.controllers.StorylineController;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.AppUserService;
+import com.kevindonovan.eotm.echoes_of_the_metro.domain.EchoService;
+import com.kevindonovan.eotm.echoes_of_the_metro.domain.JournalService;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.Result;
-import com.kevindonovan.eotm.echoes_of_the_metro.domain.StorylineService;
-import com.kevindonovan.eotm.echoes_of_the_metro.domain.mappers.StoryLineMapper;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.AppRole;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.AppUser;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.StorylineCreate;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.*;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.EchoCreate;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.StorylineResponse;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.Storyline;
 import com.kevindonovan.eotm.echoes_of_the_metro.security.JwtService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.mockito.Mockito.when;
-
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class StorylineControllerTest {
+public class EchoControllerTest {
 
     @MockitoBean
-    StorylineService service;
+    EchoService echoService;
+
+    @MockitoBean
+    JournalService journalService;
 
     @MockitoBean
     AppUserService appUserService;
@@ -61,13 +53,15 @@ public class StorylineControllerTest {
     private final ObjectMapper jsonMapper = new ObjectMapper();
     private AppUser appUser;
     private AppRole appRole;
-    private Storyline storyline;
+    private Echo echo;
+    private Journal journal;
 
     @BeforeEach
     void setup() {
         appRole = new AppRole(1, "STALKER");
         appUser = new AppUser(1, "kevin123", "kevin123@gmail.com", "85c*98Kd", 0, 0, 0, appRole, false, Collections.emptyList());
-        storyline = new Storyline(1, "Returning to Exhibition", appUser, Collections.emptyList());
+        journal = new Journal(1, "Found something", "You find something", null, appUser, null, 0, null, CreatedStatus.FRESH, Collections.emptyList());
+        echo = new Echo(1, journal, appUser);
 
         when(appUserService.findByUsername("kevin123")).thenReturn(Optional.of(appUser));
         token = jwtService.getToken(appUser.getUsername());
@@ -76,58 +70,33 @@ public class StorylineControllerTest {
     }
 
     @Test
-    void shouldFindByIdShouldReturn200() throws Exception {
-        StorylineResponse storylineResponse = StoryLineMapper.toResponse(storyline);
-        when(service.findById(1)).thenReturn(Optional.of(storyline));
+    void countByJournalShouldReturn404() throws Exception {
+        when(journalService.findById(anyInt())).thenReturn(Optional.empty());
 
-        String storylineJson = jsonMapper.writeValueAsString(storylineResponse);
+        var request = get("/api/echoes/journal/1")
+                .header("Authorization", "Bearer " + token);
 
-        var request = get("/api/storylines/1")
+        mockMvc.perform(request)
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void countByJournalShouldReturn200() throws Exception {
+        when(journalService.findById(anyInt())).thenReturn(Optional.of(journal));
+        when(echoService.countByJournal(any(Journal.class))).thenReturn(Long.valueOf(1));
+        String expectedJson = jsonMapper.writeValueAsString(Long.valueOf(1));
+
+        var request = get("/api/echoes/journal/1")
                 .header("Authorization", "Bearer " + token);
 
         mockMvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(content().json(storylineJson));
-    }
-
-    @Test
-    void shouldFindByIdShouldReturn404() throws Exception {
-        when(service.findById(1)).thenReturn(Optional.empty());
-
-        var request = get("/api/storylines/1")
-                .header("Authorization", "Bearer " + token);
-
-        mockMvc.perform(request)
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
-    void shouldFindByUserShouldReturn200() throws Exception {
-        var request = get("/api/storylines/user/1")
-                .header("Authorization", "Bearer " + token);
-
-        when(appUserService.findById(any(Integer.class))).thenReturn(Optional.of(appUser));
-        when(service.findStorylineByAppUser(any(AppUser.class))).thenReturn(List.of(storyline));
-
-        mockMvc.perform(request)
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void shouldFindByUserShouldReturn404() throws Exception {
-        var request = get("/api/storylines/user/1")
-                .header("Authorization", "Bearer " + token);
-
-        when(appUserService.findById(any(Integer.class))).thenReturn(Optional.empty());
-
-
-        mockMvc.perform(request)
-                .andExpect(status().isNotFound());
+                .andExpect(content().json(expectedJson));
     }
 
     @Test
     void createShouldReturn400WhenEmpty() throws Exception {
-        var request = post("/api/storylines")
+        var request = post("/api/echoes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + token);
 
@@ -137,14 +106,14 @@ public class StorylineControllerTest {
 
     @Test
     void createShouldReturn400WhenInvalid() throws Exception {
-        StorylineResponse storylineResponse = new StorylineResponse();
+        Echo empty = new Echo();
 
-        String storylineJson = jsonMapper.writeValueAsString(storylineResponse);
+        String echoJson = jsonMapper.writeValueAsString(empty);
 
-        var request = post("/api/storylines")
+        var request = post("/api/echoes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + token)
-                .content(storylineJson);
+                .content(echoJson);
 
         mockMvc.perform(request)
                 .andExpect(status().isBadRequest());
@@ -152,14 +121,14 @@ public class StorylineControllerTest {
 
     @Test
     void createShouldReturn415WhenMultipart() throws Exception {
-        StorylineResponse storylineResponse = new StorylineResponse();
+        Echo empty = new Echo();
 
-        String storylineJson = jsonMapper.writeValueAsString(storylineResponse);
+        String echoJson = jsonMapper.writeValueAsString(empty);
 
-        var request = post("/api/storylines")
+        var request = post("/api/echoes")
                 .contentType(MediaType.MULTIPART_FORM_DATA)
                 .header("Authorization", "Bearer " + token)
-                .content(storylineJson);
+                .content(echoJson);
 
         mockMvc.perform(request)
                 .andExpect(status().isUnsupportedMediaType());
@@ -167,34 +136,32 @@ public class StorylineControllerTest {
 
     @Test
     void createShouldReturn201() throws Exception {
-        StorylineCreate storylineCreate = new StorylineCreate(
-                storyline.getStorylineTitle(),
-                storyline.getAppUser().getAppUserId()
+        EchoCreate echoCreate = new EchoCreate(
+                journal.getJournalId(),
+                appUser.getAppUserId()
         );
-        StorylineResponse expected = StoryLineMapper.toResponse(storyline);
 
-        Result<StorylineResponse> result = new Result<>();
-        result.setPayload(expected);
-        when(service.create(storylineCreate)).thenReturn(result);
+        Result<Echo> result = new Result<>();
+        result.setPayload(echo);
+        when(echoService.create(echoCreate)).thenReturn(result);
 
-        String storylineJson = jsonMapper.writeValueAsString(storylineCreate);
-        String expectedJson = jsonMapper.writeValueAsString(expected);
+        String echoJson = jsonMapper.writeValueAsString(echoCreate);
+        String expectedJson = jsonMapper.writeValueAsString(echo);
 
-        var request = post("/api/storylines")
+        var request = post("/api/echoes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + token)
-                .content(storylineJson);
+                .content(echoJson);
 
         mockMvc.perform(request)
                 .andExpect(status().isCreated())
                 .andExpect(content().json(expectedJson));
-
     }
 
     @Test
     void deleteShouldReturn204NoContent() throws Exception {
 
-        var request = delete("/api/storylines/1")
+        var request = delete("/api/echoes/1")
                 .header("Authorization", "Bearer " + token);
 
 

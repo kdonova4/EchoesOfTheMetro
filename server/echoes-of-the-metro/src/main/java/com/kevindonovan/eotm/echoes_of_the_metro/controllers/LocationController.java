@@ -35,5 +35,4 @@ public class LocationController {
         return ResponseEntity.ok(LocationMapper.toResponse(location.get()));
     }
 
-
 }
