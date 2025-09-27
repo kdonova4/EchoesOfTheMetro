@@ -7,6 +7,8 @@ import com.kevindonovan.eotm.echoes_of_the_metro.data.LocationRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.*;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -16,12 +18,14 @@ public class EventService {
     private final EventRepository repository;
     private final AppUserRepository appUserRepository;
     private final LocationRepository locationRepository;
+    private final BadgeRepository badgeRepository;
 
-    public EventService(EventRepository repository, AppUserRepository appUserRepository, LocationRepository locationRepository) {
+    public EventService(EventRepository repository, AppUserRepository appUserRepository, LocationRepository locationRepository, BadgeRepository badgeRepository) {
         this.repository = repository;
 
         this.appUserRepository = appUserRepository;
         this.locationRepository = locationRepository;
+        this.badgeRepository = badgeRepository;
     }
 
     public Optional<Event> findById(int eventId) {
@@ -65,6 +69,23 @@ public class EventService {
             }
         }
 
-        return chosenEvents.get(new Random().nextInt(chosenEvents.size()));
+        Event chosenEvent = chosenEvents.get(new Random().nextInt(chosenEvents.size()));
+
+        appUser.setFuel(appUser.getFuel() + chosenEvent.getFuelFound());
+        appUser.setScrap(appUser.getScrap() + chosenEvent.getScrapFound());
+        appUser.setMgr(appUser.getMgr() + chosenEvent.getMgrCollected());
+
+        List<AppUserBadge> appUserBadges = appUser.getBadges();
+
+
+        if(chosenEvent.getBadge() != null) {
+            Badge badge = badgeRepository.findById(chosenEvent.getBadge().getBadgeId()).orElseThrow(() -> new NoSuchElementException("Badge not found"));
+            appUserBadges.add(new AppUserBadge(null, appUser, badge, Timestamp.valueOf(LocalDateTime.now())));
+            appUser.setBadges(appUserBadges);
+        }
+
+        appUserRepository.save(appUser);
+
+        return chosenEvent;
     }
 }
