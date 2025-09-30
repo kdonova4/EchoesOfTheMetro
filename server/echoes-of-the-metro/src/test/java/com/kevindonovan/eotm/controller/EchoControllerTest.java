@@ -7,6 +7,7 @@ import com.kevindonovan.eotm.echoes_of_the_metro.domain.AppUserService;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.EchoService;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.JournalService;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.Result;
+import com.kevindonovan.eotm.echoes_of_the_metro.domain.mappers.EchoMapper;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.*;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.EchoCreate;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.StorylineResponse;
@@ -63,6 +64,7 @@ public class EchoControllerTest {
         journal = new Journal(1, "Found something", "You find something", null, appUser, null, 0, null, CreatedStatus.FRESH, Collections.emptyList());
         echo = new Echo(1, journal, appUser);
 
+        
         when(appUserService.findByUsername("kevin123")).thenReturn(Optional.of(appUser));
         token = jwtService.getToken(appUser.getUsername());
         jsonMapper.registerModule(new JavaTimeModule());
@@ -146,7 +148,7 @@ public class EchoControllerTest {
         when(echoService.create(echoCreate)).thenReturn(result);
 
         String echoJson = jsonMapper.writeValueAsString(echoCreate);
-        String expectedJson = jsonMapper.writeValueAsString(echo);
+        String expectedJson = jsonMapper.writeValueAsString(EchoMapper.toResponse(echo));
 
         var request = post("/api/echoes")
                 .contentType(MediaType.APPLICATION_JSON)

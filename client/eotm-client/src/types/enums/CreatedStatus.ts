@@ -1,0 +1,1 @@
+export type CreatedStatus = 'FRESH' | 'FADED' | 'WEATHERED' | 'WITHERED';

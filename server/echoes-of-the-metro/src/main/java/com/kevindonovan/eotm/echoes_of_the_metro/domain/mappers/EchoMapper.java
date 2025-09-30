@@ -4,6 +4,7 @@ import com.kevindonovan.eotm.echoes_of_the_metro.data.AppUserRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.JournalRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.AppUser;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.EchoCreate;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.EchoResponse;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Echo;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Journal;
 
@@ -16,5 +17,13 @@ public class EchoMapper {
         Journal journal = journalRepository.findById(echoCreate.getJournalId()).orElseThrow(() -> new NoSuchElementException("Journal not found"));
 
         return new Echo(0, journal, appUser);
+    }
+
+    public static EchoResponse toResponse(Echo echo) {
+        return new EchoResponse(
+                echo.getEchoId(),
+                echo.getAppUser().getAppUserId(),
+                echo.getJournal().getJournalId()
+        );
     }
 }

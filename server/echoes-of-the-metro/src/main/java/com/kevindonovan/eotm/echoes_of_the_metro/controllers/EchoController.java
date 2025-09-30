@@ -3,6 +3,7 @@ package com.kevindonovan.eotm.echoes_of_the_metro.controllers;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.EchoService;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.JournalService;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.Result;
+import com.kevindonovan.eotm.echoes_of_the_metro.domain.mappers.EchoMapper;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.EchoCreate;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Echo;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Journal;
@@ -49,7 +50,7 @@ public class EchoController {
         }
 
 
-        return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
+        return new ResponseEntity<>(EchoMapper.toResponse(result.getPayload()), HttpStatus.CREATED);
     }
 
 

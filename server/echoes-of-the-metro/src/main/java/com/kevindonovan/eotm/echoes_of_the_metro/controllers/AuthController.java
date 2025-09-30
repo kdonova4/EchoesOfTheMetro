@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -50,6 +51,13 @@ public class AuthController {
         }
 
         return ResponseEntity.ok(AppUserMapper.toResponse(appUser.get()));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<AppUserResponse> getCurrentUser(Authentication authentication) {
+        String username = authentication.getName(); // comes from the token
+        AppUser user = appUserService.findByUsername(username).orElseThrow(() -> new NoSuchElementException("Username not found")); // includes userId
+        return ResponseEntity.ok(AppUserMapper.toResponse(user));
     }
 
     @PostMapping("/login")

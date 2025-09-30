@@ -2,9 +2,11 @@ package com.kevindonovan.eotm.echoes_of_the_metro.controllers;
 
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.*;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.mappers.JournalMapper;
+import com.kevindonovan.eotm.echoes_of_the_metro.domain.mappers.StoryLineMapper;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.AppUser;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.JournalCreate;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.JournalResponse;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.StorylineResponse;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Journal;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Location;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Storyline;
@@ -33,6 +35,17 @@ public class JournalController {
         this.appUserService = appUserService;
         this.storylineService = storylineService;
         this.locationService = locationService;
+    }
+
+    @GetMapping("/{journalId}")
+    public ResponseEntity<JournalResponse> findById(@PathVariable int journalId) {
+        Optional<Journal> journal = service.findById(journalId);
+
+        if(journal.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(JournalMapper.toResponse(journal.get()));
     }
 
     @GetMapping("/storyline/{storylineId}")

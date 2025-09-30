@@ -145,3 +145,5 @@ select * from badges;
 	values
 	(1, 1, now()),
 	(3, 2, now());
+
+	select * from app_user;

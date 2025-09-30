@@ -1,0 +1,1 @@
+export type EventType = 'ATTACK' | 'ENCOUNTER' | 'ARTIFACT' | 'ANOMALY' | 'STANDARD' | 'LOCATION';
