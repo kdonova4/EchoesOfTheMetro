@@ -1,6 +1,7 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import type { AppUserResponse } from "../types/response/AppUserResponse";
 import { findMe } from "../api/AppUserAPI";
+import { useNavigate } from "react-router-dom";
 
 interface AuthContextType {
     token: string | null;
@@ -16,10 +17,11 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-    const [token, setToken] = useState<string | null> (
+    const [token, setToken] = useState<string | null>(
         sessionStorage.getItem("jwt")
     );
     const [appUser, setAppUser] = useState<AppUserResponse | null>(null);
+    const navigate = useNavigate();
 
 
     const getMe = async () => {
@@ -27,47 +29,55 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setAppUser(response)
     }
 
+
+    const logoutTimer = useRef<number | null>(null);
+
     useEffect(() => {
-        let timeoutId: number | undefined;
-
         const checkAuth = async () => {
-            if (token) {
-                try {
-                    const decodedToken = JSON.parse(atob(token.split(".")[1]));
+            if (!token) {
+                logout();
+                return;
+            }
 
-                    // If token already expired, log out immediately
-                    if (decodedToken.exp * 1000 < Date.now()) {
-                        logout();
-                        return;
-                    }
+            try {
+                const decoded = JSON.parse(atob(token.split(".")[1]));
 
-                    // Fetch user info
-                    await getMe();
-
-                    // Calculate remaining time until token expiration
-                    const remainingTime = decodedToken.exp * 1000 - Date.now();
-
-                    // Set a timeout to auto-logout when the token expires
-                    timeoutId = window.setTimeout(() => {
-                        logout();
-                        alert("Your session has expired. Please log in again.");
-                    }, remainingTime);
-
-                    sessionStorage.setItem("jwt", token);
-                } catch (e) {
-                    console.error("Invalid Token", e);
+                // If token already expired, log out immediately
+                if (decoded.exp * 1000 < Date.now()) {
                     logout();
+                    return;
                 }
-            } else {
-                setAppUser(null);
-                sessionStorage.removeItem("jwt");
+
+                // Fetch user info
+                await getMe();
+
+                const remainingTime = decoded.exp * 1000 - Date.now();
+
+                // Clear any existing timer
+                if (logoutTimer.current) {
+                    clearTimeout(logoutTimer.current);
+                }
+
+                // Set a new timer
+                logoutTimer.current = window.setTimeout(() => {
+                    logout();
+                    alert("Your session has expired. Please log in again.");
+                    logoutTimer.current = null;
+                }, remainingTime);
+
+            } catch (e) {
+                console.error("Invalid token", e);
+                logout();
             }
         };
 
         checkAuth();
 
         return () => {
-            if (timeoutId) window.clearTimeout(timeoutId);
+            if (logoutTimer.current) {
+                clearTimeout(logoutTimer.current);
+                logoutTimer.current = null;
+            }
         };
     }, [token]);
 
@@ -79,9 +89,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setToken(null);
         setAppUser(null);
         sessionStorage.removeItem("jwt");
+        navigate('/')
     };
 
-    return(
+    return (
         <>
             <AuthContext.Provider value={{ token, login, logout, appUser }}>
                 {children}
@@ -93,7 +104,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
 export const useAuth = (): AuthContextType => {
     const context = useContext(AuthContext);
-    if(!context) {
+    if (!context) {
         throw new Error("useAuth must be used within an AuthProvider");
     }
 

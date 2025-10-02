@@ -26,7 +26,16 @@ export const login = async (credentials: Credentials): Promise<AxiosResponse<voi
 }
 
 export const register = async (credentials: AppUserCreateRequest): Promise<RegisterResponse> => {
-    const response = await axios.post(`${url}/register`, credentials);
+    try {
+        const response = await axios.post(`${url}/register`, credentials);
+        return response.data;
+    } catch (error: any) {
+        // Grab backend error message(s)
+        if (error.response && error.response.data) {
+            throw error.response.data; // your backend sends ["Username is REQUIRED"] etc.
+        }
 
-    return response.data;
+        // Fallback if nothing useful is in response
+        throw new Error("Registration failed");
+    }
 }
