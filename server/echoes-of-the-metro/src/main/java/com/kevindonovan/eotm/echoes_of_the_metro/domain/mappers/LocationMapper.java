@@ -8,7 +8,7 @@ public class LocationMapper {
     public static LocationResponse toResponse(Location location) {
         return new LocationResponse(location.getLocationId(),
                 location.getLocationName(),
-                location.getLocationName(),
+                location.getDescription(),
                 location.getLocationType());
     }
 

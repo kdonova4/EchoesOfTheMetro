@@ -25,6 +25,10 @@ public class EchoService {
         this.journalRepository = journalRepository;
     }
 
+    public Optional<Echo> findById(int id) {
+        return repository.findById(id);
+    }
+
     public Optional<Echo> findByJournalAndAppUser(Journal journal, AppUser appUser) {
         return repository.findByJournalAndAppUser(journal, appUser);
     }

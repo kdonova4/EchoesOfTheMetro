@@ -20,7 +20,7 @@ public class Location {
     @Column(name = "location_name", nullable = false, length = 50)
     private String locationName;
 
-    @Column(name = "description", nullable = false, length = 200)
+    @Column(name = "description", nullable = false, length = 5000)
     private String description;
 
     @Enumerated(EnumType.STRING)

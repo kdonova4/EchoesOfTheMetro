@@ -1,10 +1,13 @@
 package com.kevindonovan.eotm.echoes_of_the_metro.controllers;
 
+import com.kevindonovan.eotm.echoes_of_the_metro.domain.AppUserService;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.EchoService;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.JournalService;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.Result;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.mappers.EchoMapper;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.AppUser;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.EchoCreate;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.EchoResponse;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Echo;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Journal;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,10 +25,41 @@ public class EchoController {
 
     private final EchoService service;
     private final JournalService journalService;
+    private final AppUserService appUserService;
 
-    public EchoController(EchoService service, JournalService journalService) {
+    public EchoController(EchoService service, JournalService journalService, AppUserService appUserService) {
         this.service = service;
         this.journalService = journalService;
+        this.appUserService = appUserService;
+    }
+
+    @GetMapping("/{echoId}")
+    public ResponseEntity<EchoResponse> findById(@PathVariable int echoId) {
+        Optional<Echo> echo = service.findById(echoId);
+
+        if(echo.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(EchoMapper.toResponse(echo.get()));
+    }
+
+    @GetMapping("/journal/{journalId}/user/{userId}")
+    public ResponseEntity<EchoResponse> findByJournalAndAppUser(@PathVariable int journalId, @PathVariable int userId) {
+        Optional<Journal> journal = journalService.findById(journalId);
+        Optional<AppUser> appUser = appUserService.findById(userId);
+
+        if(journal.isEmpty() || appUser.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Optional<Echo> echo = service.findByJournalAndAppUser(journal.get(), appUser.get());
+
+        if(echo.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(EchoMapper.toResponse(echo.get()));
     }
 
     @GetMapping("/journal/{journalId}")

@@ -24,3 +24,19 @@ export const deleteEcho = async(echoId: number): Promise<void> => {
         throw new Error(`Unexpected status: ${response.status}`);
     }
 }
+
+export const findEchoForJournalAndUser = async(journalId: number, userId: number): Promise<EchoResponse | null> => {
+    const response = await axios.get(`${url}/journal/${journalId}/user/${userId}`, getAxiosConfig());
+
+    if(response.status !== 200) {
+        return null;
+    }
+    
+    return response.data;
+}
+
+export const findEchoById = async (echoId: number): Promise<EchoResponse> => {
+    const response = await axios.get(`${url}/${echoId}`, getAxiosConfig());
+
+    return response.data;
+}

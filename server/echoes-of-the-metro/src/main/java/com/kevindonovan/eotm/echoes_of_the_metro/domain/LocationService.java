@@ -17,6 +17,10 @@ public class LocationService {
         this.repository = repository;
     }
 
+    public List<Location> findAll() {
+        return repository.findAll();
+    }
+
     public Optional<Location> findById(int id) {
         return repository.findById(id);
     }

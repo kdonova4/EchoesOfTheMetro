@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -33,6 +34,14 @@ public class LocationController {
         }
 
         return ResponseEntity.ok(LocationMapper.toResponse(location.get()));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<LocationResponse>> findAll() {
+
+        List<Location> locations = locationService.findAll();
+
+        return ResponseEntity.ok(locations.stream().map(LocationMapper::toResponse).toList());
     }
 
 }
