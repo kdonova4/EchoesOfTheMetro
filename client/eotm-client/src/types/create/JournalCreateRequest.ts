@@ -3,5 +3,5 @@ export type JournalCreateRequest = {
     text: string;
     storylineId: number;
     appUserId: number;
-    locaitonId: number;
+    locationId: number;
 }

@@ -2,10 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { findByLocation } from "../../api/JournalAPI";
 import { useParams } from "react-router-dom";
 import EchoCount from "./EchoCount";
-import { Button, Stack } from "@mui/material";
 import Echo from "./Echo";
+import type { JournalResponse } from "../../types/response/JournalResponse";
 
-function JournalList() {
+type JournalListProps = {
+    onSelectJournal: (journal: JournalResponse) => void;
+}
+
+function JournalList({ onSelectJournal }: JournalListProps) {
 
     const { id } = useParams();
     const locationId = Number(id);
@@ -22,17 +26,14 @@ function JournalList() {
     return (
         <>
             {data.map((journal) => (
-                <div key={journal.journalId}>
+                <div key={journal.journalId} onClick={() => onSelectJournal(journal)} style={{ cursor: "pointer", margin: "8px 0" }}>
                     <h2>{journal.journalId}</h2>
                     <h3>{journal.title}</h3>
+                    <h5>{journal.username}</h5>
                     <h4>{journal.text}</h4>
                     <p>{new Date(journal.createdAt).toLocaleString()}</p>
                     <p>{journal.createdStatus}</p>
-                    <Stack direction="row">
-                        
-                        <Echo journalId={journal.journalId}><EchoCount journalId={journal.journalId}/></Echo>
-                    </Stack>
-                    
+                    <Echo journalId={journal.journalId}><EchoCount journalId={journal.journalId}/></Echo>
                     <p>--------------------------------</p>
                 </div>
             ))}

@@ -122,16 +122,16 @@ public class JournalService {
             }
         }
 
+        if(journal.getTitle() == null || journal.getTitle().isBlank()) {
+            result.addMessages("JOURNAL TITLE CANNOT BE BLANK OR NULL", ResultType.INVALID);
+        } else if (journal.getTitle().length() > 50) {
+            result.addMessages("JOURNAL TITLE CANNOT BE LONGER THAN 50 CHARACTERS", ResultType.INVALID);
+        }
+
         if(journal.getText() == null || journal.getText().isBlank()) {
             result.addMessages("JOURNAL TEXT CANNOT BE BLANK OR NULL", ResultType.INVALID);
         } else if (journal.getText().length() > 5000) {
             result.addMessages("JOURNAL TEXT CANNOT BE LONGER THAN 5000 CHARACTERS", ResultType.INVALID);
-        }
-
-        if(journal.getTitle() == null || journal.getTitle().isBlank()) {
-            result.addMessages("JOURNAL TITLE CANNOT BE BLANK OR NULL", ResultType.INVALID);
-        } else if (journal.getText().length() > 50) {
-            result.addMessages("JOURNAL TITLE CANNOT BE LONGER THAN 5000 CHARACTERS", ResultType.INVALID);
         }
 
         return result;

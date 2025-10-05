@@ -50,7 +50,7 @@ public class Journal {
     private Timestamp createdAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "created_status", length = 50 , nullable = false)
+    @Column(name = "created_status", length = 50 , insertable = false, nullable = false)
     private CreatedStatus createdStatus;
 
     @OneToMany(mappedBy = "journal", cascade = CascadeType.ALL, orphanRemoval = true)

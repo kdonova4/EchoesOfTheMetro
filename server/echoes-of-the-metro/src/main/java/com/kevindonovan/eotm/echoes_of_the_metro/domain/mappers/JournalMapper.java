@@ -23,6 +23,7 @@ public class JournalMapper {
                 journal.getText(),
                 journal.getStoryline() != null ? journal.getStoryline().getStorylineId() : 0,
                 journal.getAppUser().getAppUserId(),
+                journal.getAppUser().getUsername(),
                 journal.getWhispers(),
                 journal.getLocation().getLocationId(),
                 journal.getCreatedAt(),

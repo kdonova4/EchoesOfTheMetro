@@ -25,7 +25,20 @@ export const findByEchoes = async (minCount: number): Promise<JournalResponse[]>
 }
 
 export const createJournal = async (journal: JournalCreateRequest): Promise<JournalResponse> => {
-    const response = await axios.post(`${url}`, journal, getAxiosConfig());
 
-    return response.data;
+    try {
+        const response = await axios.post(`${url}`, journal, getAxiosConfig());
+        return response.data;
+    } catch (error: any) {
+        // Grab backend error message(s)
+        if (error.response && error.response.data) {
+            throw error.response.data; // your backend sends ["Username is REQUIRED"] etc.
+        }
+
+        // Fallback if nothing useful is in response
+        throw new Error("Journal Creation failed");
+    }
+
+
+
 }

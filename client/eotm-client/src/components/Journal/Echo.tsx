@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/AuthContext";
-import { createEcho, deleteEcho, findEchoById, findEchoForJournalAndUser } from "../../api/EchoAPI";
+import { createEcho, deleteEcho, findEchoForJournalAndUser } from "../../api/EchoAPI";
 import type { EchoCreateRequest } from "../../types/create/EchoCreateRequest";
 import { Button } from "@mui/material";
 import type { EchoResponse } from "../../types/response/EchoResponse";

@@ -64,7 +64,7 @@ create table journal (
 	location_id int not null,
 	whispers int default 0,
 	created_at timestamp not null,
-	created_status varchar(50) not null check(created_status in ('FRESH', 'FADED', 'WEATHERED', 'WITHERED')),
+	created_status varchar(50) not null default 'FRESH' check(created_status in ('FRESH', 'FADED', 'WEATHERED', 'WITHERED')),
 	foreign key (storyline_id) references storylines(storyline_id),
 	foreign key (location_id) references locations(location_id),
 	foreign key (app_user_id) references app_user(app_user_id) on delete cascade

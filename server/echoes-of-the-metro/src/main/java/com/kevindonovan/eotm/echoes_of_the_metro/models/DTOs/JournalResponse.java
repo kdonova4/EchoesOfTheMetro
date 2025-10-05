@@ -17,6 +17,7 @@ public class JournalResponse {
     private String text;
     private int storylineId;
     private int appUserId;
+    private String username;
     private int whispers;
     private int locationId;
     private Timestamp createdAt;

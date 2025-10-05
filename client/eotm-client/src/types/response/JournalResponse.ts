@@ -6,6 +6,7 @@ export type JournalResponse = {
     text: string;
     storylineId: number;
     appUserId: number;
+    username: string;
     whispers: number;
     locationId: number;
     createdAt: string;
