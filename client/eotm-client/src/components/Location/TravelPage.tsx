@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../hooks/AuthContext";
 import type { LocationResponse } from "../../types/response/LocationResponse";
 import { fetchAllLocations } from "../../api/LocationAPI";
 import { Link } from "react-router-dom";
 
-function TravelPage() {
+type TravelProps = {
+    handleClose?: () => void;
+}
+
+function TravelPage({ handleClose }: TravelProps) {
 
     const [locations, setLocations] = useState<LocationResponse[]>([]);
 
@@ -30,7 +33,7 @@ function TravelPage() {
                 <ul>
                     {locations.map((location) => (
                         <div key={location.locationId}>
-                            <Link to={`/location/${location.locationId}`}>{location.locationName}</Link>
+                            <Link onClick={handleClose} to={`/location/${location.locationId}`}>{location.locationName}</Link>
                         </div>
                     ))}
                 </ul>

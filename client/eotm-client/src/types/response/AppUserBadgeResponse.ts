@@ -1,5 +1,7 @@
+import type { BadgeResponse } from "./BadgeResponse";
+
 export type AppUserBadgeResponse = {
     appUserId: number;
-    badgeId: number;
+    badge: BadgeResponse;
     dateEarned: string;
 }

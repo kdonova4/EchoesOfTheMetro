@@ -6,7 +6,9 @@ import Register from './components/Auth/Register';
 import TravelPage from './components/Location/TravelPage';
 import LocationPage from './components/Location/LocationPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
+import ProfilePage from './components/Profile/ProfilePage';
+import Loading from './components/Event/Loading';
+import './index.css';
 function App() {
 
   const queryClient = new QueryClient();
@@ -22,7 +24,6 @@ function App() {
       </AppBar>
       <Router>
         <Container maxWidth="xl">
-          <CssBaseline />
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
             <Routes>
@@ -30,6 +31,8 @@ function App() {
               <Route path='/register' element={<Register />} />
               <Route path='/travel' element={<TravelPage />} />
               <Route path='/location/:id' element={<LocationPage />} />
+              <Route path='/profile' element={<ProfilePage/>}/>
+              <Route path='/traveling' element={<Loading/>}/>
             </Routes>
           </AuthProvider>
         </QueryClientProvider>

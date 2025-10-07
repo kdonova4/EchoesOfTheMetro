@@ -19,7 +19,7 @@ public class AppUserBadgeMapper {
         List<AppUserBadgeResponse> appUserBadgeResponses = new ArrayList<>();
         for(AppUserBadge badge : badges) {
             appUserBadgeResponses.add(new AppUserBadgeResponse(badge.getAppUser().getAppUserId(),
-                    badge.getBadge().getBadgeId(), badge.getDateEarned()));
+                    badge.getBadge(), badge.getDateEarned()));
         }
 
         return appUserBadgeResponses;
@@ -34,7 +34,7 @@ public class AppUserBadgeMapper {
 
     public static AppUserBadgeResponse toResponse(AppUserBadge appUserBadge) {
         return new AppUserBadgeResponse(appUserBadge.getAppUser().getAppUserId(),
-                appUserBadge.getBadge().getBadgeId(),
+                appUserBadge.getBadge(),
                 appUserBadge.getDateEarned());
     }
 }
