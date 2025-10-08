@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { EventResponse } from "../types/response/EventJournal";
+import type { EventResponse } from "../types/response/EventResponse";
 import { getAxiosConfig } from "./axiosConfig";
 
 const url = `${import.meta.env.VITE_API_URL}/api/events`;

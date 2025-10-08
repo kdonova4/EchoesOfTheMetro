@@ -4,11 +4,17 @@ import { GiBullets } from "react-icons/gi";
 import GasMeterIcon from '@mui/icons-material/GasMeter';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAuth } from "../../hooks/AuthContext";
+import { useEffect } from "react";
 
 
 function StatsViewer() {
 
-    const { appUser } = useAuth();
+    const { appUser, getMe } = useAuth();
+
+    useEffect(() => {
+        getMe();
+    }, [])
+
 
     if(!appUser) {
         return (
@@ -47,7 +53,7 @@ function StatsViewer() {
                     borderRadius: 2,
                     p: 2,
                     maxWidth: 800,
-                    minWidth: 500,
+                    minWidth: 300,
                 }}
             >
                 <Stack direction="row" alignItems="center">
@@ -62,12 +68,12 @@ function StatsViewer() {
                         {appUser.scrap}
                     </Box>
 
-                    <GasMeterIcon style={{ marginLeft: 50}} fontSize="large"/>
+                    <GasMeterIcon style={{ marginLeft: 50 }} fontSize="large"/>
                     <Box sx={{ margin: 1, color: 'black', fontSize: 34, fontWeight: 'medium' }}>
                         {appUser.fuel}
                     </Box>
 
-                    <GiBullets style={{ marginLeft: 50}} fontSize="large"/>
+                    <GiBullets style={{ marginLeft: 50 }} fontSize="large"/>
                     <Box sx={{ margin: 1, color: 'black', fontSize: 34, fontWeight: 'medium' }}>
                         {appUser.mgr}
                     </Box>

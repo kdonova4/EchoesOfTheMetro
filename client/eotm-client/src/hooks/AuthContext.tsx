@@ -8,6 +8,7 @@ interface AuthContextType {
     login: (tok: string) => void;
     logout: () => void;
     appUser: AppUserResponse | null;
+    getMe: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -94,7 +95,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     return (
         <>
-            <AuthContext.Provider value={{ token, login, logout, appUser }}>
+            <AuthContext.Provider value={{ token, login, logout, appUser, getMe }}>
                 {children}
             </AuthContext.Provider>
         </>

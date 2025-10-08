@@ -1,5 +1,6 @@
 package com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs;
 
+import com.kevindonovan.eotm.echoes_of_the_metro.models.Badge;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.EventType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +18,7 @@ public class EventResponse {
     private int fuelFound;
     private int mgrCollected;
     private int locationId;
-    private int badgeId;
+    private Badge badge;
     private String soundPath;
     private String mediaPath;
 }

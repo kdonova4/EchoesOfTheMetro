@@ -14,7 +14,7 @@ public class EventMapper {
                 event.getFuelFound(),
                 event.getMgrCollected(),
                 event.getLocation() != null ? event.getLocation().getLocationId() : 0,
-                event.getBadge() != null ? event.getBadge().getBadgeId() : 0,
+                event.getBadge(),
                 event.getSoundPath(),
                 event.getMediaPath()
         );

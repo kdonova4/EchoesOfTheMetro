@@ -82,7 +82,7 @@ public class AppUserBadgeServiceTest {
         appUserBadge.setId(null);
 
         AppUserBadgeCreate appUserBadgeCreate = new AppUserBadgeCreate(appUserBadge.getAppUser().getAppUserId(), appUserBadge.getBadge().getBadgeId());
-        AppUserBadgeResponse appUserBadgeResponse = new AppUserBadgeResponse(appUserBadge.getAppUser().getAppUserId(), appUserBadge.getBadge().getBadgeId(), Timestamp.valueOf(LocalDateTime.now()));
+        AppUserBadgeResponse appUserBadgeResponse = new AppUserBadgeResponse(appUserBadge.getAppUser().getAppUserId(), appUserBadge.getBadge(), Timestamp.valueOf(LocalDateTime.now()));
 
         when(appUserRepository.findById(appUser.getAppUserId())).thenReturn(Optional.of(appUser));
         when(badgeRepository.findById(badge.getBadgeId())).thenReturn(Optional.of(badge));

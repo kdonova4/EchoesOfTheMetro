@@ -10,8 +10,6 @@ import type { JournalResponse } from "../../types/response/JournalResponse";
 import JournalForm from "../Journal/JournalForm";
 import TravelPage from "./TravelPage";
 import StatsViewer from "../Profile/StatsViewer";
-import LoadingAnim from "../Event/Bootprint";
-import Bootprint from "../Event/Bootprint";
 
 function LocationPage() {
 
@@ -53,7 +51,9 @@ function LocationPage() {
 
     useEffect(() => {
         fetchLocation();
-    }, [])
+    }, [id])
+
+
 
     if (!location) {
         return <h1>Loading...</h1>

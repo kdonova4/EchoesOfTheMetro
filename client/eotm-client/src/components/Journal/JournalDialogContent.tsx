@@ -10,11 +10,11 @@ type DialogFormProps = {
 function JournalDialogContent({ journal, handleChange}: DialogFormProps) {
     return(
         <DialogContent
-    dividers
     sx={{
       width: '60vw',
       maxWidth: '40vw', 
-      height: '90vh',          // fixed width
+      height: '90vh',
+      backgroundImage: `url(https://res.cloudinary.com/dhucaqc0o/image/upload/v1759880068/cutout-journal_o6hd2m.png)`,          // fixed width
       maxHeight: '90vh',    // max height responsive
       overflowY: 'auto'     // scroll if content exceeds maxHeight
     }}
@@ -32,7 +32,7 @@ function JournalDialogContent({ journal, handleChange}: DialogFormProps) {
       name="text"
       fullWidth
       multiline
-      rows={40}
+
       value={journal.text}
       onChange={handleChange}
       margin="normal"

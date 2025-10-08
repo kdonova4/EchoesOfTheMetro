@@ -178,7 +178,7 @@ select * from badges;
 	-- Insert events
 	insert into events (event_text, event_type, scrap_found, fuel_found, mgr_collected, location_id, badge_id, sound_path, media_path)
 	values
-	('You stumble upon a hidden stash of scrap.', 'STANDARD', 15, 0, 0, 1, null, '/sounds/stash.mp3', '/media/stash.png'),
+	('You stumble upon a hidden stash of scrap.', 'STANDARD', 15, 2, 1, 1, null, 'https://res.cloudinary.com/dhucaqc0o/video/upload/v1759875245/ghost_scream_1_scllb9.wav', '/media/stash.png'),
 	('A strange anomaly blocks your path.', 'ANOMALY', 0, 0, 5, null, 2, '/sounds/anomaly.mp3', '/media/anomaly.png');
 	
 	-- Insert journals

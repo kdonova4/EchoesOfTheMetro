@@ -49,7 +49,6 @@ function Echo({ journalId, children }: EchoProps) {
         if (echoed && appUser && echoId) {
             try {
                 mutantDelete(echoId);
-                console.log(echoed)
             } catch (e) {
                 console.error(e)
             }
@@ -59,9 +58,7 @@ function Echo({ journalId, children }: EchoProps) {
                 appUserId: appUser?.appUserId
             }
             try {
-                    mutate(echoCreate);
-                    console.log(echoed)
-                
+                    mutate(echoCreate);                
             } catch (e) {
                 console.error(e)
             }
@@ -80,12 +77,10 @@ function Echo({ journalId, children }: EchoProps) {
 
                     if (response !== null) {
                         setEchoed(true)
-                        console.log(journalId + "TRUE")
                         setEchoId(response.echoId);
                     }
                 } catch (e) {
                     setEchoed(false)
-                    console.log(journalId + "FALSE")
                 }
 
             }

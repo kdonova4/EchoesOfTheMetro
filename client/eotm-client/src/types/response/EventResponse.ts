@@ -1,4 +1,5 @@
 import type { EventType } from "../enums/EventType";
+import type { BadgeResponse } from "./BadgeResponse";
 
 export type EventResponse = {
     eventId: number;
@@ -8,7 +9,7 @@ export type EventResponse = {
     fuelFound: number;
     mgrCollected: number;
     locationId: number;
-    badgeId: number;
+    badge: BadgeResponse | null;
     soundPath: string;
     mediaPath: string;
 }
