@@ -20,6 +20,7 @@ public class JournalResponse {
     private String username;
     private int whispers;
     private int locationId;
+    private String locationName;
     private Timestamp createdAt;
     private CreatedStatus createdStatus;
 }

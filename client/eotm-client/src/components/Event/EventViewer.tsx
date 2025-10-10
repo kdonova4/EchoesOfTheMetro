@@ -1,61 +1,96 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { EventResponse } from "../../types/response/EventResponse";
-import { Button} from "@mui/material";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useSnackbar } from 'notistack'
-
+import { Button } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSnackbar } from "notistack";
+import { useAuth } from "../../hooks/AuthContext";
+import { generateEvent } from "../../api/EventAPI";
 
 function EventViewer() {
-
     const { id } = useParams();
-    const location = useLocation();
     const { enqueueSnackbar } = useSnackbar();
-
-    const { event } = location.state as { event: EventResponse }
-    
-
-
+    const { appUser } = useAuth();
+    const event = useRef<EventResponse | null>(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const hasNotified = useRef(false);
     const navigate = useNavigate();
 
-    const handleResources = () => {
-        if(event) {
-            if(event.fuelFound > 0) {
-                enqueueSnackbar(`Collected ${event.fuelFound}L of fuel`, { variant: 'default', autoHideDuration: 3000 })
-            }
-            if(event.scrapFound > 0) {
-                enqueueSnackbar(`Collected ${event.scrapFound} pieces of scrap`, { variant: 'default', autoHideDuration: 3000 })
-            }
-            if(event.mgrCollected > 0) {
-                enqueueSnackbar(`Collected ${event.mgrCollected} Military Grade Rounds`, { variant: 'default', autoHideDuration: 3000 })
-            }
-            if(event.badge) {
-                enqueueSnackbar(<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <img src={event.badge.badgeImagePath} style={{ width: 24, height: 24 }} />
-                    <span>Earned The '{event.badge.badgeName}' Badge</span>
-                </div>, { variant: 'default', autoHideDuration: 3000 })
-            } 
-        }
-    }
+    const fetchEvent = async () => {
+        if (!appUser) return;
 
-    const hasNotified = useRef(false);
+        try {
+            const key = `event_${id}_${appUser.appUserId}`;
+            const stored = sessionStorage.getItem(key);
+
+            if (stored) {
+                event.current = JSON.parse(stored);
+                setIsLoaded(true);
+                return;
+            }
+
+            const response = await generateEvent(Number(id), appUser.appUserId);
+            event.current = response;
+            sessionStorage.setItem(key, JSON.stringify(response));
+            setIsLoaded(true);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleResources = () => {
+        const e = event.current;
+        if (!e) return;
+
+        if (e.fuelFound > 0) {
+            enqueueSnackbar(`Collected ${e.fuelFound}L of fuel`, { autoHideDuration: 3000 });
+        }
+        if (e.scrapFound > 0) {
+            enqueueSnackbar(`Collected ${e.scrapFound} pieces of scrap`, { autoHideDuration: 3000 });
+        }
+        if (e.mgrCollected > 0) {
+            enqueueSnackbar(`Collected ${e.mgrCollected} Military Grade Rounds`, { autoHideDuration: 3000 });
+        }
+        if (e.badge) {
+            enqueueSnackbar(
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <img src={e.badge.badgeImagePath} style={{ width: 24, height: 24 }} />
+                    <span>Earned The '{e.badge.badgeName}' Badge</span>
+                </div>,
+                { autoHideDuration: 3000 }
+            );
+        }
+    };
 
     useEffect(() => {
-        if(!hasNotified.current) {
+        fetchEvent();
+    }, [id, appUser]);
+
+    useEffect(() => {
+        if (isLoaded && !hasNotified.current && event.current) {
             handleResources();
             hasNotified.current = true;
-            const audio = new Audio(event.soundPath);
+            const audio = new Audio(event.current.soundPath);
             audio.play();
         }
-    }, [event])
+    }, [isLoaded]);
+
+    if (!isLoaded || !event.current) {
+        return <h1>Loading...</h1>;
+    }
 
     return (
         <>
-            
-            
-            <p>{event.text}</p>
-            <Button onClick={() => navigate(`/location/${id}`, { replace: true })}>Continue to Destination</Button>
+            <p>{event.current.text}</p>
+            <Button
+                onClick={() => {
+                    navigate(`/location/${id}`, { replace: true });
+                    sessionStorage.removeItem(`event_${id}_${appUser?.appUserId}`);
+                }}
+            >
+                Continue to Destination
+            </Button>
         </>
-    )
+    );
 }
 
 export default EventViewer;

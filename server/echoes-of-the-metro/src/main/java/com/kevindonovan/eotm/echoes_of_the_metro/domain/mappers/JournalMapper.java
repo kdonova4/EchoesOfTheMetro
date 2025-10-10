@@ -26,6 +26,7 @@ public class JournalMapper {
                 journal.getAppUser().getUsername(),
                 journal.getWhispers(),
                 journal.getLocation().getLocationId(),
+                journal.getLocation().getLocationName(),
                 journal.getCreatedAt(),
                 journal.getCreatedStatus()
         );

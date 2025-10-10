@@ -1,0 +1,8 @@
+.stat-viewer {
+    transition: transform 0.2s;
+}
+
+.stat-viewer:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}

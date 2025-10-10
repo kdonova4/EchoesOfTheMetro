@@ -17,13 +17,13 @@ function Loading() {
             if (!appUser) return;
 
             try {
-                const response = await generateEvent(Number(id), appUser.appUserId);
+                
 
                 // Start the timer AFTER event is loaded
                 const waitTime = Math.random() * 2000 + 8000;
                 console.log(`Waiting for ${(waitTime / 1000).toFixed(2)} seconds`);
                 const timer = setTimeout(() => {
-                    navigate(`/event/${id}`, { state: { event: response }, replace: true });
+                    navigate(`/event/${id}`, { replace: true });
                 }, waitTime);
 
                 // Cleanup

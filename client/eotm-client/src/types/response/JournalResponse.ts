@@ -9,6 +9,7 @@ export type JournalResponse = {
     username: string;
     whispers: number;
     locationId: number;
+    locationName: string;
     createdAt: string;
     createdStatus: CreatedStatus;
 }
