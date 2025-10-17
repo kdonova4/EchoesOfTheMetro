@@ -1,55 +1,52 @@
 import { Card, CardContent, Typography } from "@mui/material";
+import type { JournalResponse } from "../../types/response/JournalResponse";
+import './journal.css'
+import EchoCount from "./EchoCount";
+import Echo from "./Echo";
 
-function JournalCard() {
+type JournalCardProps = {
+    journal: JournalResponse;
+    onSelectJournal: (journal: JournalResponse) => void;
+}
+
+function JournalCard({ journal, onSelectJournal }: JournalCardProps) {
 
     return (
         <>
-
-            <Card sx={{ maxWidth: 345, backgroundColor: 'orange' }}>
+            
+                <Card className="journal-card" key={journal.journalId} sx={{ maxWidth: '100%', backgroundColor: '#d773105e', color: 'white' }}>
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                        Liszart
+                    <div onClick={() => onSelectJournal(journal)}>
+                        <Typography sx={{  display: 'flex', flexDirection: 'row', width: '100%', gap: '10px', alignItems: 'flex-end' }} gutterBottom variant="h5" component="div">
+                        <Typography sx={{  height: '25%', width: '50%', fontSize: '1.5rem' }}>
+                            {journal.title}
+                        </Typography>
+                        <Typography sx={{  height: '10%', width: '60%', color: 'gray', fontSize: '.8rem' }}>
+                            written by {journal.username} | Condition: {journal.createdStatus}
+                        </Typography>
+
                     </Typography>
+
+                    <Typography sx={{
+                        padding: 2,
+                        height: '50px',
+                        width: '80%',
+                        overflow: 'hidden',
+                        display: '-webkit-box',
+                        WebkitBoxOrient: 'vertical',
+                        WebkitLineClamp: 3, // number of lines before truncating
+                        textOverflow: 'ellipsis',
+                    }}>
+                        {journal.text}
+                    </Typography>
+                    </div>
+                    
+                    <Echo journalId={journal.journalId}><EchoCount journalId={journal.journalId} /></Echo>
                 </CardContent>
+                
             </Card>
-
-            <div style={{ outline: '1px solid yellow', borderRadius: 5, padding: 10, width: '40vw' }} className="journal-card-container">
-                <div style={{
-                    outline: '1px solid red',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    width: '30vw',
-                    gap: '10px',
-                    alignItems: 'flex-end'
-                }} className="journal-title-container">
-                    <div style={{ outline: '1px solid yellow', height: '25%', fontSize: '3rem' }} className="journal-title">
-                        Echoes of the past
-                    </div>
-
-                    <div style={{ outline: '1px solid purple', height: '10%' }} className="journal-username">
-                        written by shadowrunner
-                    </div>
-                </div>
-
-                <div style={{
-                    outline: '1px solid blue',
-                    padding: 10,
-                    whiteSpace: 'nowrap',     // keep text on one line
-                    overflow: 'hidden',       // hide overflow
-                    textOverflow: 'ellipsis',  // show "..." at the end
-                    width: '80%'
-                }} className="journal-text">
-                    Every footstep here feels borrowed, as if the station remembers its passengers more vividly than the living do.
-                    Every footstep here feels borrowed, as if the station remembers its passengers more vividly than the living do.
-                    Every footstep here feels borrowed, as if the station remembers its passengers more vividly than the living do.
-                </div>
-                <div style={{ outline: '1px solid gray' }} className="journal-status">
-                    Fresh
-                </div>
-                <div style={{ outline: '1px solid gray' }} className="echo-button">
-                    ECHO
-                </div>
-            </div>
+            
+            
         </>
     )
 }

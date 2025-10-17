@@ -15,27 +15,33 @@ function EventViewer() {
     const hasNotified = useRef(false);
     const navigate = useNavigate();
 
-    const fetchEvent = async () => {
-        if (!appUser) return;
+const isFetching = useRef(false);
 
-        try {
-            const key = `event_${id}_${appUser.appUserId}`;
-            const stored = sessionStorage.getItem(key);
+const fetchEvent = async () => {
+    if (!appUser || isFetching.current) return;
+    isFetching.current = true;
 
-            if (stored) {
-                event.current = JSON.parse(stored);
-                setIsLoaded(true);
-                return;
-            }
+    try {
+        const key = `event_${id}_${appUser.appUserId}`;
+        const stored = sessionStorage.getItem(key);
 
-            const response = await generateEvent(Number(id), appUser.appUserId);
-            event.current = response;
-            sessionStorage.setItem(key, JSON.stringify(response));
+        if (stored) {
+            event.current = JSON.parse(stored);
             setIsLoaded(true);
-        } catch (error) {
-            console.error(error);
+            return;
         }
-    };
+
+        const response = await generateEvent(Number(id), appUser.appUserId);
+        event.current = response;
+        sessionStorage.setItem(key, JSON.stringify(response));
+        setIsLoaded(true);
+    } catch (error) {
+        console.error(error);
+    } finally {
+        isFetching.current = false;
+    }
+};
+
 
     const handleResources = () => {
         const e = event.current;
@@ -54,7 +60,7 @@ function EventViewer() {
             enqueueSnackbar(
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                     <img src={e.badge.badgeImagePath} style={{ width: 24, height: 24 }} />
-                    <span>Earned The '{e.badge.badgeName}' Badge</span>
+                    <span>Earned '{e.badge.badgeName}' Badge</span>
                 </div>,
                 { autoHideDuration: 3000 }
             );

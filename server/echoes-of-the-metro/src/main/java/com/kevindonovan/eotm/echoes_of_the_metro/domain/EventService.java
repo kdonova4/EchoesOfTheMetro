@@ -80,7 +80,8 @@ public class EventService {
 
         if(chosenEvent.getBadge() != null) {
             Badge badge = badgeRepository.findById(chosenEvent.getBadge().getBadgeId()).orElseThrow(() -> new NoSuchElementException("Badge not found"));
-            appUserBadges.add(new AppUserBadge(null, appUser, badge, Timestamp.valueOf(LocalDateTime.now())));
+            AppUserBadgeKey key = new AppUserBadgeKey(appUser.getAppUserId(), badge.getBadgeId());
+            appUserBadges.add(new AppUserBadge(key, appUser, badge, Timestamp.valueOf(LocalDateTime.now())));
             appUser.setBadges(appUserBadges);
         }
 

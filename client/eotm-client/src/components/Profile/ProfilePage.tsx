@@ -73,56 +73,72 @@ function ProfilePage() {
          */}
 
 
-            <Box sx={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                display: 'inline-block', // box will shrink/grow with image
-            }}>
-                <img
-                    src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760047166/profile-background_e6jrdo.png"
-                    alt="Profile"
-                    style={{
-                        display: 'block',
-                        maxWidth: '100%', // responsive scaling
-                        height: 'auto',
-                    }}
-                />
+            <Box
+  sx={{
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    display: 'inline-block',
+    width: '80vw',          // controls image scaling
+    maxWidth: '1500px',      // optional, for upper limit
+    position: 'relative',   // makes children position relative to image
+  }}
+>
+  <img
+    src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760047166/profile-background_e6jrdo.png"
+    alt="Profile"
+    style={{
+      display: 'block',
+      width: '100%',         // fill parent
+      height: 'auto',
+    }}
+  />
 
-                <h3 style={{
-                    position: 'absolute',
-                    top: '18%',
-                    color: '#000',
-                    left: '20%',
-                    width: '80%',
-                    height: '100%',
-                    textAlign: 'center'
-                }}>{appUser.username}
-                </h3>
-                <div style={{ position: 'absolute', top: '28%', left: '53%'}}>
-                    <Stack direction="row" alignItems="center">
-                        <DeleteIcon sx={{ color: "black" }} fontSize="medium" />
-                        <Box sx={{ margin: 1, color: 'black', fontSize: 34, fontWeight: 'medium' }}>
-                            {appUser.scrap}
-                        </Box>
+  <h3
+    style={{
+      position: 'absolute',
+      top: '18%',
+      left: '62%',
+      transform: 'translateX(-50%)',
+      color: '#000',
+      width: '80%',
+      textAlign: 'center',
+      fontSize: 'clamp(1rem, 2vw, 1.8rem)', // responsive text scaling
+    }}
+  >
+    {appUser.username}
+  </h3>
 
-                        <GasMeterIcon sx={{ color: "black" }} style={{ marginLeft: 50 }} fontSize="large" />
-                        <Box sx={{ margin: 1, color: 'black', fontSize: 34, fontWeight: 'medium' }}>
-                            {appUser.fuel}
-                        </Box>
+  {/* overlay that scales with image */}
+  <Box
+    sx={{
+      position: 'absolute',
+      top: '27%',
+      left: '68%',
+      transform: 'translate(-50%, 0)',
+      outline: '1px solid blue',
+      height: '9%', // percentage of the image height
+      width: '30%',  // percentage of the image width
+    }}
+  >
+    <Stack
+      direction="row"
+      alignItems="center"
+      justifyContent="space-between"
+      sx={{ outline: '1px solid yellow' }}
+    >
+      <DeleteIcon sx={{ color: 'black', fontSize: { xs: 20, sm: 28, md: 34 } }} />
+      <Box sx={{ color: 'black', fontSize: { xs: 16, sm: 24, md: 32 } }}>{appUser.scrap}</Box>
 
-                        <GiBullets style={{ marginLeft: 50, color: 'black' }} fontSize="large" />
-                        <Box sx={{ margin: 1, color: 'black', fontSize: 34, fontWeight: 'medium' }}>
-                            {appUser.mgr}
-                        </Box>
+      <GasMeterIcon sx={{ color: 'black', fontSize: { xs: 20, sm: 28, md: 34 } }} />
+      <Box sx={{ color: 'black', fontSize: { xs: 16, sm: 24, md: 32 } }}>{appUser.fuel}</Box>
 
-                    </Stack>
-                </div>
+      <GiBullets style={{ color: 'black', fontSize: '2rem' }} />
+      <Box sx={{ color: 'black', fontSize: { xs: 16, sm: 24, md: 32 } }}>{appUser.mgr}</Box>
+    </Stack>
+  </Box>
+</Box>
 
-
-
-            </Box>
 
         </>
     )

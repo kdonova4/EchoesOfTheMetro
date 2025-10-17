@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import EchoCount from "./EchoCount";
 import Echo from "./Echo";
 import type { JournalResponse } from "../../types/response/JournalResponse";
+import JournalCard from "./JournalCard";
 
 type JournalListProps = {
     onSelectJournal: (journal: JournalResponse) => void;
@@ -26,7 +27,12 @@ function JournalList({ onSelectJournal }: JournalListProps) {
     return (
         <>
             {data.map((journal) => (
-                <div key={journal.journalId} >
+                
+                <div style={{ padding: 15, cursor: "pointer" }}>
+                    <JournalCard  onSelectJournal={onSelectJournal} journal={journal} />
+                </div>
+
+            ))}{/**<div key={journal.journalId} >
                     <div onClick={() => onSelectJournal(journal)} style={{ cursor: "pointer", margin: "8px 0" }}>
                         <h2>{journal.journalId}</h2>
                         <h3>{journal.title}</h3>
@@ -37,9 +43,10 @@ function JournalList({ onSelectJournal }: JournalListProps) {
                     </div>
                     <Echo journalId={journal.journalId}><EchoCount journalId={journal.journalId} /></Echo>
                     <p>--------------------------------</p>
-                </div>
-            ))}
+                </div> */}
         </>
+
+
     )
 
 

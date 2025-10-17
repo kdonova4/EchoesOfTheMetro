@@ -92,9 +92,9 @@ function Echo({ journalId, children }: EchoProps) {
 
 
     if (echoed) {
-        return <Button variant="contained" onClick={handleEchoPress}>{children}</Button>
+        return <Button sx={{  height: '50px', backgroundColor: '#d77012', marginTop: 1 }} variant="contained" onClick={handleEchoPress}>{children}</Button>
     } else {
-        return <Button variant="outlined" onClick={handleEchoPress}>{children}</Button>
+        return <Button sx={{ height: '50px', backgroundColor: '#d771123f', marginTop: 1 }} variant="contained" onClick={handleEchoPress}>{children}</Button>
     }
 }
 

@@ -18,7 +18,8 @@ function EchoCount({ journalId }: EchoProps) {
 
     return (
         <>
-            <p>Echoes: {data}</p>
+            <img src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760652092/echo-icon_pgh8y0.png"/>
+            <p style={{ color: 'white' }}>{data}</p>
         </>
     )
 }
