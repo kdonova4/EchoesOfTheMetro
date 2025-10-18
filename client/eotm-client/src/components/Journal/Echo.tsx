@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/AuthContext";
 import { createEcho, deleteEcho, findEchoForJournalAndUser } from "../../api/EchoAPI";
 import type { EchoCreateRequest } from "../../types/create/EchoCreateRequest";
-import { Button } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import type { EchoResponse } from "../../types/response/EchoResponse";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -92,9 +92,21 @@ function Echo({ journalId, children }: EchoProps) {
 
 
     if (echoed) {
-        return <Button sx={{  height: '50px', backgroundColor: '#d77012', marginTop: 1 }} variant="contained" onClick={handleEchoPress}>{children}</Button>
+        return (
+            <>
+                <Tooltip enterDelay={1200} title="Echo" placement="top">
+                    <Button sx={{  height: '50px', backgroundColor: '#d31c1fa6', marginTop: 2 }} variant="contained" onClick={handleEchoPress}>{children}</Button>
+                </Tooltip>
+            </>
+        )
     } else {
-        return <Button sx={{ height: '50px', backgroundColor: '#d771123f', marginTop: 1 }} variant="contained" onClick={handleEchoPress}>{children}</Button>
+        return(
+            <>
+                <Tooltip enterDelay={1200} title="Echo" placement="top">
+                    <Button sx={{ height: '50px', backgroundColor: '#390405', marginTop: 2 }} variant="contained" onClick={handleEchoPress}>{children}</Button>
+                </Tooltip>
+            </>
+        ) 
     }
 }
 

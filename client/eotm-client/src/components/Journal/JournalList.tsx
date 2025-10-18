@@ -29,7 +29,7 @@ function JournalList({ onSelectJournal }: JournalListProps) {
             {data.map((journal) => (
                 
                 <div style={{ padding: 15, cursor: "pointer" }}>
-                    <JournalCard  onSelectJournal={onSelectJournal} journal={journal} />
+                    <JournalCard mode="location" onSelectJournal={onSelectJournal} journal={journal} />
                 </div>
 
             ))}{/**<div key={journal.journalId} >

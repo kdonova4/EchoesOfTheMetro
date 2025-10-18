@@ -1,4 +1,4 @@
-import { Box, Container, Modal, Stack } from "@mui/material";
+import { Box, Container, Modal, Stack, Tooltip } from "@mui/material";
 import { useAuth } from "../../hooks/AuthContext";
 import { useEffect, useState } from "react";
 import type { JournalResponse } from "../../types/response/JournalResponse";
@@ -7,43 +7,27 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { GiBullets } from "react-icons/gi";
 import GasMeterIcon from '@mui/icons-material/GasMeter';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import JournalProfileList from "../Journal/JournalProfileList";
 type ProfilePageProps = {
-    handleClickOpen: () => void;
-    handleClose: () => void;
+  handleClickOpen: () => void;
+  handleClose: () => void;
 }
 
 
 function ProfilePage() {
 
-    const [journals, setJournals] = useState<JournalResponse[]>([]);
-    const { appUser } = useAuth();
 
-
-    const fetchJournals = async () => {
-        if (appUser) {
-            try {
-                const response = await findByUser(appUser.appUserId)
-
-                setJournals(response)
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-    }
+  const { appUser } = useAuth();
 
 
 
-    useEffect(() => {
-        fetchJournals();
-    }, [appUser])
 
-    if (!appUser) {
-        return <h1>Loading...</h1>
-    }
-    return (
-        <>
-            {/**
+  if (!appUser) {
+    return <h1>Loading...</h1>
+  }
+  return (
+    <>
+      {/**
          * 
          * <Container>
                 <h1>{appUser.username}</h1>
@@ -73,75 +57,119 @@ function ProfilePage() {
          */}
 
 
-            <Box
-  sx={{
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    display: 'inline-block',
-    width: '80vw',          // controls image scaling
-    maxWidth: '1500px',      // optional, for upper limit
-    position: 'relative',   // makes children position relative to image
-  }}
->
-  <img
-    src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760047166/profile-background_e6jrdo.png"
-    alt="Profile"
-    style={{
-      display: 'block',
-      width: '100%',         // fill parent
-      height: 'auto',
-    }}
-  />
+      <Box
+        sx={{
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          display: 'inline-block',
+          width: '80vw',          // controls image scaling
+          maxWidth: '1500px',      // optional, for upper limit
+          position: 'relative',   // makes children position relative to image
+        }}
+      >
+        <img
+          src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760047166/profile-background_e6jrdo.png"
+          alt="Profile"
+          style={{
+            display: 'block',
+            width: '100%',         // fill parent
+            height: 'auto',
+          }}
+        />
 
-  <h3
-    style={{
-      position: 'absolute',
-      top: '18%',
-      left: '62%',
-      transform: 'translateX(-50%)',
-      color: '#000',
-      width: '80%',
-      textAlign: 'center',
-      fontSize: 'clamp(1rem, 2vw, 1.8rem)', // responsive text scaling
-    }}
-  >
-    {appUser.username}
-  </h3>
+        <h3
+          style={{
+            position: 'absolute',
+            top: '18%',
+            left: '62%',
+            transform: 'translateX(-50%)',
+            color: '#000',
+            width: '80%',
+            textAlign: 'center',
+            fontSize: 'clamp(1rem, 2vw, 1.8rem)', // responsive text scaling
+          }}
+        >
+          {appUser.username} stats
+        </h3>
 
-  {/* overlay that scales with image */}
-  <Box
-    sx={{
-      position: 'absolute',
-      top: '27%',
-      left: '68%',
-      transform: 'translate(-50%, 0)',
-      outline: '1px solid blue',
-      height: '9%', // percentage of the image height
-      width: '30%',  // percentage of the image width
-    }}
-  >
-    <Stack
-      direction="row"
-      alignItems="center"
-      justifyContent="space-between"
-      sx={{ outline: '1px solid yellow' }}
-    >
-      <DeleteIcon sx={{ color: 'black', fontSize: { xs: 20, sm: 28, md: 34 } }} />
-      <Box sx={{ color: 'black', fontSize: { xs: 16, sm: 24, md: 32 } }}>{appUser.scrap}</Box>
+        {/* overlay that scales with image */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '27%',
+            left: '68%',
+            transform: 'translate(-50%, 0)',
+            outline: '1px solid blue',
+            height: '9%', // percentage of the image height
+            width: '30%',  // percentage of the image width
+          }}
+        >
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            sx={{ outline: '1px solid yellow' }}
+          >
 
-      <GasMeterIcon sx={{ color: 'black', fontSize: { xs: 20, sm: 28, md: 34 } }} />
-      <Box sx={{ color: 'black', fontSize: { xs: 16, sm: 24, md: 32 } }}>{appUser.fuel}</Box>
+            <Tooltip title="Scrap" arrow placement="top">
+              <img
+                src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760731227/scrap_icon_dark_lny9jt.png"
+                alt="Scrap Icon"
+                style={{
+                  width: '10%',
+                  objectFit: 'contain',
+                }}
+              />
+            </Tooltip>
+            <Box sx={{ color: 'black', fontSize: { xs: 16, sm: 24, md: 32 } }}>{appUser.scrap}</Box>
 
-      <GiBullets style={{ color: 'black', fontSize: '2rem' }} />
-      <Box sx={{ color: 'black', fontSize: { xs: 16, sm: 24, md: 32 } }}>{appUser.mgr}</Box>
-    </Stack>
-  </Box>
-</Box>
+            <Tooltip title="Fuel" arrow placement="top">
+              <img
+                src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760731548/fuel_icon_dark_kw4e7j.png"
+                alt="Fuel icon"
+                style={{
+                  width: '10%',
+                  objectFit: 'contain',
+                }}
+              />
+            </Tooltip>
+            <Box sx={{ color: 'black', fontSize: { xs: 16, sm: 24, md: 32 } }}>{appUser.fuel}</Box>
+
+            <Tooltip title="Money" arrow placement="top">
+              <img
+                src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760731548/mgr_icon_dark_ad7ct6.png"
+                alt="Money icon"
+                style={{
+                  width: '10%',
+                  objectFit: 'contain',
+                }}
+              />
+            </Tooltip>
+            <Box sx={{ color: 'black', fontSize: { xs: 16, sm: 24, md: 32 } }}>{appUser.mgr}</Box>
+          </Stack>
+        </Box>
+
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '26%',
+            left: '26.5%',
+            transform: 'translate(-50%, 0)',
+            height: '48%', // percentage of the image height
+            width: '34%',  // percentage of the image width
+            overflowY: 'auto',
+          }}>
+          <JournalProfileList />
+        </Box>
+
+      </Box>
 
 
-        </>
-    )
+
+
+    </>
+  )
 }
 
 export default ProfilePage;
