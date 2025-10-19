@@ -11,7 +11,7 @@ function JournalViewer({ journal }: JournalViewerProps) {
     if (!journal) {
         return (
             <>
-                <Box sx={{ position: "sticky", top: 65, marginTop: 4, display: 'inline-block', transform: "translateZ(0)" }}>
+                <Box sx={{  marginTop: 14, display: 'inline-block', transform: "translateZ(0)" }}>
                 
                 <img
                 className="content"
@@ -40,7 +40,8 @@ function JournalViewer({ journal }: JournalViewerProps) {
 
     return (
         <>
-            <Box sx={{ position: "sticky", top: 65, marginTop: 4, display: 'inline-block', transform: "translateZ(0)" }}>
+
+            <Box sx={{  marginTop: 14, display: 'inline-block', transform: "translateZ(0)", height: 'auto', width: '100%' }}>
                 
                 <img
                 className="content"
@@ -72,25 +73,44 @@ function JournalViewer({ journal }: JournalViewerProps) {
                     }}
                 />
 
+                    <Box
+          sx={{
+            position: 'absolute',
+            top: '0%',
+            left: '52%',
+            transform: 'translate(-50%, 0)',
+            width: '55%',  // percentage of the image width
+          }}
+        >
 
-
-                
-                <h3 style={{
+            <h3 style={{
                     position: 'absolute',
                     top: '0%',
-                    color: '#000',
+                    color: 'black',
                     left: '11%',
                     width: '80%',
                     height: '100%',
                     textAlign: 'center'
                 }}>{journal.title}</h3>
+        </Box>
 
-                <div style={{
+                
+                
+<Box
+          sx={{
+            position: 'absolute',
+            top: '8%',
+            left: '53%',
+            transform: 'translate(-50%, 0)',
+            height: '65%',
+            width: '70%',  // percentage of the image width
+
+          }}
+        >
+<div style={{
                     position: 'absolute',
-                    top: '9%',
-                    left: '19%',
-                    width: '65%',
-                    height: '75%',
+                    width: '100%',
+                    height: '100%',
                     overflowY: 'auto',       // <--- makes it scrollable
                     background: 'transparent',
                     fontSize: '16px',
@@ -99,6 +119,9 @@ function JournalViewer({ journal }: JournalViewerProps) {
                     whiteSpace: 'pre-wrap',  // preserves line breaks
                     wordWrap: 'break-word',  // optional for spacing like notebook lines
                 }}>{journal.text}</div>
+            
+        </Box>
+                
                 
             </Box>
 

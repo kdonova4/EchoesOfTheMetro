@@ -179,7 +179,7 @@ select * from badges;
 	insert into events (event_text, event_type, scrap_found, fuel_found, mgr_collected, location_id, badge_id, sound_path, media_path)
 	values
 	('You stumble upon a hidden stash of scrap.', 'STANDARD', 15, 2, 1, null, 1, 'https://res.cloudinary.com/dhucaqc0o/video/upload/v1759875245/ghost_scream_1_scllb9.wav', '/media/stash.png'),
-	('A strange anomaly blocks your path.', 'ANOMALY', 0, 0, 5, null, 2, '/sounds/anomaly.mp3', '/media/anomaly.png');
+	('A strange anomaly blocks your path.', 'ANOMALY', 0, 0, 5, null, null, null, '/media/anomaly.png');
 	
 	-- Insert journals
 	insert into journal (title, text, storyline_id, app_user_id, location_id, whispers, created_at, created_status)

@@ -1,4 +1,4 @@
-import { Box, Container, Modal, Stack, Tooltip } from "@mui/material";
+import { Box, Button, Container, Modal, Stack, Tooltip } from "@mui/material";
 import { useAuth } from "../../hooks/AuthContext";
 import { useEffect, useState } from "react";
 import type { JournalResponse } from "../../types/response/JournalResponse";
@@ -16,11 +16,18 @@ type ProfilePageProps = {
 
 function ProfilePage() {
 
+  const [view, setView] = useState("journals");
 
   const { appUser } = useAuth();
 
 
+  const handleJournalOpen = () => {
+    setView("journals");
+  }
 
+  const handleBadgeOpen = () => {
+    setView("badges");
+  }
 
   if (!appUser) {
     return <h1>Loading...</h1>
@@ -98,7 +105,7 @@ function ProfilePage() {
           sx={{
             position: 'absolute',
             top: '27%',
-            left: '68%',
+            left: '69%',
             transform: 'translate(-50%, 0)',
             outline: '1px solid blue',
             height: '9%', // percentage of the image height
@@ -153,14 +160,33 @@ function ProfilePage() {
         <Box
           sx={{
             position: 'absolute',
-            top: '26%',
+            top: '27%',
             left: '26.5%',
             transform: 'translate(-50%, 0)',
             height: '48%', // percentage of the image height
             width: '34%',  // percentage of the image width
             overflowY: 'auto',
           }}>
-          <JournalProfileList />
+          {view === "journals" ? (
+            <div style={{ display: 'flex', flexDirection: 'row', marginLeft: 18 }}>
+              <Button onClick={handleJournalOpen} sx={{ height: '50px', backgroundColor: '#d31c1fa6', marginTop: 2, borderRadius: 0 }} variant="contained">Journals</Button>
+              <Button onClick={handleBadgeOpen} sx={{ height: '50px', backgroundColor: '#390405', marginTop: 2, borderRadius: 0 }} variant="contained">Badges</Button>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'row', marginLeft: 18 }}>
+
+              
+              <Button onClick={handleJournalOpen} sx={{ height: '50px', backgroundColor: '#390405', marginTop: 2, borderRadius: 0 }} variant="contained">Journals</Button>
+              <Button onClick={handleBadgeOpen} sx={{ height: '50px', backgroundColor: '#d31c1fa6', marginTop: 2, borderRadius: 0 }} variant="contained">Badges</Button>
+            </div>
+          )}
+
+          {view === "journals" ? (
+            <JournalProfileList />
+          ) : (
+            <p>asd</p>
+          )}
+
         </Box>
 
       </Box>

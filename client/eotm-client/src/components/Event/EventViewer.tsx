@@ -48,13 +48,31 @@ const fetchEvent = async () => {
         if (!e) return;
 
         if (e.fuelFound > 0) {
-            enqueueSnackbar(`Collected ${e.fuelFound}L of fuel`, { autoHideDuration: 3000 });
+            enqueueSnackbar(
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <img src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760730508/fuel_icon_ferytw.png" style={{ height: '24px', width: 'auto' }} />
+                    <span>Collected {e.scrapFound}L of fuel</span>
+                </div>,
+                { autoHideDuration: 3000 }
+            );
         }
         if (e.scrapFound > 0) {
-            enqueueSnackbar(`Collected ${e.scrapFound} pieces of scrap`, { autoHideDuration: 3000 });
+            enqueueSnackbar(
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <img src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760730508/scrap_icon_w6v9lt.png" style={{ height: '24px', width: 'auto' }} />
+                    <span>Collected {e.scrapFound} pieces of scrap</span>
+                </div>,
+                { autoHideDuration: 3000 }
+            );
         }
         if (e.mgrCollected > 0) {
-            enqueueSnackbar(`Collected ${e.mgrCollected} Military Grade Rounds`, { autoHideDuration: 3000 });
+            enqueueSnackbar(
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <img src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760730508/mgr_icon_caywlj.png" style={{ height: '24px', width: 'auto' }} />
+                    <span>Collected {e.mgrCollected} Military Grade Rounds</span>
+                </div>,
+                { autoHideDuration: 3000 }
+            );
         }
         if (e.badge) {
             enqueueSnackbar(

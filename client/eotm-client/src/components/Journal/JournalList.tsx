@@ -26,13 +26,16 @@ function JournalList({ onSelectJournal }: JournalListProps) {
 
     return (
         <>
+        <div style={{ overflowY: 'auto', height: '90%' }}>
             {data.map((journal) => (
                 
                 <div style={{ padding: 15, cursor: "pointer" }}>
                     <JournalCard mode="location" onSelectJournal={onSelectJournal} journal={journal} />
                 </div>
 
-            ))}{/**<div key={journal.journalId} >
+            ))}
+        </div>
+            {/**<div key={journal.journalId} >
                     <div onClick={() => onSelectJournal(journal)} style={{ cursor: "pointer", margin: "8px 0" }}>
                         <h2>{journal.journalId}</h2>
                         <h3>{journal.title}</h3>

@@ -11,7 +11,6 @@ import Loading from './components/Event/Loading';
 import './index.css';
 import EventViewer from './components/Event/EventViewer';
 import { SnackbarProvider } from 'notistack';
-import JournalCard from './components/Journal/JournalCard';
 function App() {
 
   const queryClient = new QueryClient();
@@ -39,7 +38,6 @@ function App() {
               <Route path='/profile' element={<ProfilePage/>}/>
               <Route path='/traveling/:id' element={<Loading/>}/>
               <Route path='/event/:id' element={<EventViewer/>}/>
-              <Route path='/test' element={<JournalCard/>}/>
             </Routes>
           </AuthProvider>
         </QueryClientProvider>
