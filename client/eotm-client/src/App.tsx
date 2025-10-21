@@ -17,33 +17,33 @@ function App() {
 
   return (
     <>
-      <AppBar style={{ backgroundColor: "orange", color: "black" }} position='static'>
+      <AppBar style={{ backgroundColor: "#390405ff", color: "black" }} position='static'>
         <Toolbar sx={{ justifyContent: "center" }}>
           <Typography variant='h6'>
-            Echoes of The Metro
+            <img style={{ borderRadius: 0, maxWidth: '300px', marginTop: 6 }} src='https://res.cloudinary.com/dhucaqc0o/image/upload/v1761004137/eotm_logo_red_jyhgyz.png'></img>
           </Typography>
         </Toolbar>
       </AppBar>
       <Router>
         <Container maxWidth="xl">
-          
-          <SnackbarProvider maxSnack={5} anchorOrigin={{ vertical: 'bottom', horizontal: 'left'}}>
+
+          <SnackbarProvider maxSnack={5} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
             <QueryClientProvider client={queryClient}>
-          <AuthProvider>
-            <Routes>
-              <Route path='/' element={<Login />} />
-              <Route path='/register' element={<Register />} />
-              <Route path='/travel' element={<TravelPage />} />
-              <Route path='/location/:id' element={<LocationPage />} />
-              <Route path='/profile' element={<ProfilePage/>}/>
-              <Route path='/traveling/:id' element={<Loading/>}/>
-              <Route path='/event/:id' element={<EventViewer/>}/>
-            </Routes>
-          </AuthProvider>
-        </QueryClientProvider>
+              <AuthProvider>
+                <Routes>
+                  <Route path='/' element={<Login />}/>
+                  <Route path='/register' element={<Register />} />
+                  <Route path='/travel' element={<TravelPage />} />
+                  <Route path='/location/:id' element={<LocationPage />} />
+                  <Route path='/profile' element={<ProfilePage />} />
+                  <Route path='/traveling/:id' element={<Loading />} />
+                  <Route path='/event/:id' element={<EventViewer />} />
+                </Routes>
+              </AuthProvider>
+            </QueryClientProvider>
           </SnackbarProvider>
-        
-          
+
+
 
         </Container>
       </Router>

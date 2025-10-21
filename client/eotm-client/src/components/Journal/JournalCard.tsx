@@ -18,7 +18,7 @@ function JournalCard({ journal, onSelectJournal, mode }: JournalCardProps) {
         return (
             <>
 
-                <Card className="journal-card" key={journal.journalId} sx={{ maxWidth: '100%', backgroundColor: '#d31c1f63', color: 'white' }}>
+                <Card className="journal-card" key={journal.journalId} sx={{ maxWidth: '100%', backgroundColor: '#d31c1f73', color: 'white' }}>
                     <CardContent>
                         <div onClick={() => onSelectJournal?.(journal)}>
                             <Typography sx={{ display: 'flex', flexDirection: 'row', width: '100%', gap: '10px', alignItems: 'flex-end' }} gutterBottom variant="h5" component="div">

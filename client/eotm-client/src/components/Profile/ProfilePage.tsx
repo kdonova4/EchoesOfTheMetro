@@ -8,6 +8,7 @@ import { GiBullets } from "react-icons/gi";
 import GasMeterIcon from '@mui/icons-material/GasMeter';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import JournalProfileList from "../Journal/JournalProfileList";
+import BadgesList from "./BadgesList";
 type ProfilePageProps = {
   handleClickOpen: () => void;
   handleClose: () => void;
@@ -107,7 +108,6 @@ function ProfilePage() {
             top: '27%',
             left: '69%',
             transform: 'translate(-50%, 0)',
-            outline: '1px solid blue',
             height: '9%', // percentage of the image height
             width: '30%',  // percentage of the image width
           }}
@@ -116,7 +116,6 @@ function ProfilePage() {
             direction="row"
             alignItems="center"
             justifyContent="space-between"
-            sx={{ outline: '1px solid yellow' }}
           >
 
             <Tooltip title="Scrap" arrow placement="top">
@@ -156,7 +155,6 @@ function ProfilePage() {
             <Box sx={{ color: 'black', fontSize: { xs: 16, sm: 24, md: 32 } }}>{appUser.mgr}</Box>
           </Stack>
         </Box>
-
         <Box
           sx={{
             position: 'absolute',
@@ -175,16 +173,29 @@ function ProfilePage() {
           ) : (
             <div style={{ display: 'flex', flexDirection: 'row', marginLeft: 18 }}>
 
-              
+
               <Button onClick={handleJournalOpen} sx={{ height: '50px', backgroundColor: '#390405', marginTop: 2, borderRadius: 0 }} variant="contained">Journals</Button>
               <Button onClick={handleBadgeOpen} sx={{ height: '50px', backgroundColor: '#d31c1fa6', marginTop: 2, borderRadius: 0 }} variant="contained">Badges</Button>
             </div>
           )}
 
+        </Box>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '32%',
+            left: '26.5%',
+            transform: 'translate(-50%, 0)',
+            height: '42%', // percentage of the image height
+            width: '34%',  // percentage of the image width
+            overflowY: 'auto',
+          }}>
+
+
           {view === "journals" ? (
             <JournalProfileList />
           ) : (
-            <p>asd</p>
+            <BadgesList />
           )}
 
         </Box>

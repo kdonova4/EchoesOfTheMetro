@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import type { LocationResponse } from "../../types/response/LocationResponse";
 import { fetchLocationById } from "../../api/LocationAPI";
 import JournalList from "../Journal/JournalList";
-import { Box, Button, Container, Stack } from "@mui/material";
+import { Box, Button, Card, CardContent, Container, Stack, Typography } from "@mui/material";
 import JournalViewer from "../Journal/JournalViewer";
 import Modal from '@mui/material/Modal';
 import type { JournalResponse } from "../../types/response/JournalResponse";
@@ -72,11 +72,36 @@ function LocationPage() {
 
 
 
-            
-                <h1>{location.locationName}</h1>
-                <p>{location.description}</p>
+                <Card sx={{ maxWidth: '100%', backgroundColor: '#3904058c', color: 'white', marginTop: 5, position: 'relative', borderRadius: 1 }}>
+                    <CardContent>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+                            <Typography sx={{ fontSize: '4rem' }}>
+                                {location.locationName}
+                            </Typography>
+                            <Typography sx={{ fontSize: '1.1rem' }}>
+                                {location.description}
+                            </Typography>
+                        </Box>
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                top: 16,  // distance from bottom edge
+                                right: 16,   // distance from right edge
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                gap: 2,
+                            }}
+                        >
+                            <JournalForm />
+                            <Button sx={{ backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding:1.5 }} onClick={handleOpen}>Travel</Button>
+                        </Box>
+
+                    </CardContent>
+                </Card>
+
+
                 <StatsViewer />
-                <Button onClick={handleOpen}>Travel</Button>
                 <Modal
                     open={open}
                     onClose={handleClose}
@@ -85,11 +110,11 @@ function LocationPage() {
                         <TravelPage handleClose={handleClose} />
                     </Box>
                 </Modal>
-                <JournalForm />
+
                 <div style={{}}>
                     <video
-                    className={`fade-in ${loaded ? "fade-in-loaded" : ""}`}
-                    onCanPlay={() => setLoaded(true)}
+                        className={`fade-in ${loaded ? "fade-in-loaded" : ""}`}
+                        onCanPlay={() => setLoaded(true)}
                         autoPlay
                         loop
                         muted
