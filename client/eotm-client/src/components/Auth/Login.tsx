@@ -27,7 +27,7 @@ function Login() {
         }).then(res => {
             const jwtToken = res.headers.authorization;
 
-            
+
             if (jwtToken !== null) {
                 login(jwtToken);
                 sessionStorage.setItem("jwt", jwtToken);
@@ -49,18 +49,56 @@ function Login() {
             <>
                 <Stack spacing={2} alignItems="center" mt={2}>
                     <TextField
+
                         name="username"
                         label="Username"
-                        onChange={handleChange} 
-                        />
+                        variant="filled"
+                        sx={{
+                            backgroundColor: '#cfcfd1',
+                            borderRadius: 1,
+
+                            // Target the underline pseudo-elements
+                            '& .MuiFilledInput-underline:after': {
+                                borderBottomColor: '#d31c20', // focused color
+                            },
+                        }}
+                        slotProps={{
+                            inputLabel: {
+                                sx: {
+                                    color: '#333',
+                                    '&.Mui-focused': { color: '#d31c20' },
+                                },
+                            },
+                        }}
+                        onChange={handleChange}
+                    />
                     <TextField
                         name="password"
                         label="Password"
                         type="password"
+                        variant="filled"
+                        sx={{
+                            backgroundColor: '#cfcfd1',
+                            borderRadius: 1,
+
+                            // Target the underline pseudo-elements
+                            '& .MuiFilledInput-underline:after': {
+                                borderBottomColor: '#d31c20', // focused color
+                            },
+                        }}
+                        slotProps={{
+                            inputLabel: {
+                                sx: {
+                                    color: '#333',
+                                    '&.Mui-focused': { color: '#d31c20' },
+                                },
+                            },
+                        }}
                         onChange={handleChange} />
-                    <Button variant="outlined" color="primary" onClick={handleLogin}>Login</Button>
-                    <label>OR</label>
-                    <Button variant="outlined" color="primary" onClick={handleRegister}>Register</Button>
+                    <Button sx={{ backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding:1.5 }}  onClick={handleLogin}>Login</Button>
+                    
+                    <div style={{ borderBottom: '1px solid #cfcfd1', width: '250px' }}></div>
+                    <Button sx={{ backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding:1.5 }}  onClick={handleRegister}>Register</Button>
                 </Stack>
                 <Snackbar
                     open={open}

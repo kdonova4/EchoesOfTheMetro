@@ -21,3 +21,15 @@
     animation: driftDown 2s forwards ease-in-out infinite;
     animation-delay: 1s;
 }
+
+.jump-in {
+  opacity: 0;
+  transform: scale(.1);
+  transition: opacity 1s ease-in, transform 0.3s ease-in-out; /* fade duration */
+}
+
+.jump-in-loaded {
+  opacity: 1;
+  transform: scale(1);
+}
+

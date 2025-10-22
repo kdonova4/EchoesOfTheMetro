@@ -45,18 +45,76 @@ function Register() {
                 <TextField
                     name="email"
                     label="Email"
-                    onChange={handleChange} />
+                    onChange={handleChange}
+                    variant="filled"
+                        sx={{
+                            backgroundColor: '#cfcfd1',
+                            borderRadius: 1,
+
+                            // Target the underline pseudo-elements
+                            '& .MuiFilledInput-underline:after': {
+                                borderBottomColor: '#d31c20', // focused color
+                            },
+                        }}
+                        slotProps={{
+                            inputLabel: {
+                                sx: {
+                                    color: '#333',
+                                    '&.Mui-focused': { color: '#d31c20' },
+                                },
+                            },
+                        }}
+                    />
                 <TextField
                     name="username"
                     label="Username"
-                    onChange={handleChange} />
+                    onChange={handleChange} 
+                    variant="filled"
+                        sx={{
+                            backgroundColor: '#cfcfd1',
+                            borderRadius: 1,
+
+                            // Target the underline pseudo-elements
+                            '& .MuiFilledInput-underline:after': {
+                                borderBottomColor: '#d31c20', // focused color
+                            },
+                        }}
+                        slotProps={{
+                            inputLabel: {
+                                sx: {
+                                    color: '#333',
+                                    '&.Mui-focused': { color: '#d31c20' },
+                                },
+                            },
+                        }}
+                    />
                 <TextField
                     name="password"
                     label="Password"
-                    onChange={handleChange} />
-                <Button variant="outlined" color="primary" onClick={handleRegister}>Register</Button>
-                <label>OR</label>
-                <Button variant="outlined" color="primary" onClick={goToLogin}>Login</Button>
+                    type="password"
+                    onChange={handleChange} 
+                    variant="filled"
+                        sx={{
+                            backgroundColor: '#cfcfd1',
+                            borderRadius: 1,
+
+                            // Target the underline pseudo-elements
+                            '& .MuiFilledInput-underline:after': {
+                                borderBottomColor: '#d31c20', // focused color
+                            },
+                        }}
+                        slotProps={{
+                            inputLabel: {
+                                sx: {
+                                    color: '#333',
+                                    '&.Mui-focused': { color: '#d31c20' },
+                                },
+                            },
+                        }}
+                    />
+                <Button sx={{ backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding:1.5 }} onClick={handleRegister}>Register</Button>
+                <div style={{ borderBottom: '1px solid #cfcfd1', width: '250px' }}></div>
+                <Button sx={{ backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding:1.5 }} onClick={goToLogin}>Login</Button>
             </Stack>
             <Snackbar
                 open={open}
