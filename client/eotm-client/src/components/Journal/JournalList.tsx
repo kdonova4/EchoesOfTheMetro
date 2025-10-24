@@ -24,12 +24,17 @@ function JournalList({ onSelectJournal }: JournalListProps) {
     if (!isSuccess) return <div>Loading...</div>;
     if (error) return <div>Error loading journals</div>;
 
+    if(data.length === 0) {
+        return (<p>No Journals Found</p>)
+    }
+
     return (
         <>
+        <span style={{ fontSize: '1.5rem', marginLeft: 15}}>{data.length} Journals Found</span>
         <div style={{ overflowY: 'auto', height: '90%' }}>
             {data.map((journal) => (
                 
-                <div style={{ padding: 15, cursor: "pointer" }}>
+                <div style={{ padding: 15 }}>
                     <JournalCard mode="location" onSelectJournal={onSelectJournal} journal={journal} />
                 </div>
 

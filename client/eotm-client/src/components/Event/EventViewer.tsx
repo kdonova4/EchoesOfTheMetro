@@ -119,7 +119,7 @@ function EventViewer() {
                         flexDirection: 'column',  // stack p and button vertically
                         justifyContent: 'center', // center vertically
                         alignItems: 'center',
-                        marginTop: 2,
+                        marginTop: 20,
                         gap: 4     // center horizontally
                     }}
                 >

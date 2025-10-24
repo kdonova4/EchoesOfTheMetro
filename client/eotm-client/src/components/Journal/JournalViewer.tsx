@@ -11,29 +11,7 @@ function JournalViewer({ journal }: JournalViewerProps) {
     if (!journal) {
         return (
             <>
-                <Box sx={{  marginTop: 14, display: 'inline-block', transform: "translateZ(0)" }}>
                 
-                <img
-                className="content"
-                    src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760040543/journal-background_fxf7af.png"
-                    alt="Journal"
-                    style={{
-                        scale: '1.2',
-                        display: 'block',
-                        borderRadius: 20,
-                        maxWidth: '100%', // responsive scaling
-                        height: 'auto',
-                    }}
-                />
-                
-                
-
-
-
-                
-                
-                
-            </Box>
             </>
         )
     }

@@ -26,15 +26,17 @@ function LocationPage() {
     }, [id])
 
     const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
+      position: 'relative', // instead of absolute
+      width: '100%',
+      height: '100%',
+      transform: '',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      background: 'transparent', // remove default background
+      boxShadow: 'none',         // remove default shadow
+      padding: 0,
+      margin: 0,
     };
 
 
@@ -106,9 +108,9 @@ function LocationPage() {
                     open={open}
                     onClose={handleClose}
                 >
-                    <Box sx={style}>
+
                         <TravelPage handleClose={handleClose} />
-                    </Box>
+
                 </Modal>
 
                 <div style={{}}>

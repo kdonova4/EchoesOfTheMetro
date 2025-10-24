@@ -18,9 +18,9 @@ function JournalCard({ journal, onSelectJournal, mode }: JournalCardProps) {
         return (
             <>
 
-                <Card className="journal-card" key={journal.journalId} sx={{ maxWidth: '100%', backgroundColor: '#d31c1f73', color: 'white' }}>
+                <Card key={journal.journalId} sx={{ maxWidth: '100%', backgroundColor: '#d31c1f73', color: 'white' }}>
                     <CardContent>
-                        <div onClick={() => onSelectJournal?.(journal)}>
+                        <div style={{ borderRadius: 10, padding: 4 }} className="journal-card" onClick={() => onSelectJournal?.(journal)}>
                             <Typography sx={{ display: 'flex', flexDirection: 'row', width: '100%', gap: '10px', alignItems: 'flex-end' }} gutterBottom variant="h5" component="div">
                                 <Typography sx={{ height: '25%', width: '50%', fontSize: '1.5rem' }}>
                                     {journal.title}
@@ -53,7 +53,7 @@ function JournalCard({ journal, onSelectJournal, mode }: JournalCardProps) {
     } else {
         return (
             <>
-                <Card className="journal-card" key={journal.journalId} sx={{ maxWidth: '100%', backgroundColor: '#d31c1f63', color: 'white' }}>
+                <Card key={journal.journalId} sx={{ maxWidth: '100%', backgroundColor: '#d31c1f63', color: 'white' }}>
                     <CardContent>
                         <div>
                             <Typography sx={{ display: 'flex', flexDirection: 'row', width: '70%', gap: '10px', alignItems: 'flex-end' }} gutterBottom variant="h5" component="div">

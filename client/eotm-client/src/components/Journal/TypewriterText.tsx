@@ -1,26 +1,32 @@
 import { useEffect, useState } from "react";
 
 type TypewriterProps = {
-    text: string;
-    speed: number;
-}
+  text: string;
+  speed?: number;
+};
 
 function TypewriterText({ text, speed = 50 }: TypewriterProps) {
-  const [displayed, setDisplayed] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    setDisplayed("")
-    let i = -1;
-    
-    const interval = setInterval(() => {
-      setDisplayed((prev) => prev + text.charAt(i));
-      i++;
-      if (i >= text.length) clearInterval(interval);
-    }, speed);
-    return () => clearInterval(interval);
-  }, [text, speed]);
+    setIndex(0); // reset when text changes
+  }, [text]);
 
-  return <p style={{ whiteSpace: "pre-wrap" }}>{displayed}</p>;
+  useEffect(() => {
+    if (index >= text.length) return; // stop when done
+
+    const timeout = setTimeout(() => {
+      setIndex(index + 1);
+    }, speed);
+
+    return () => clearTimeout(timeout);
+  }, [index, text, speed]);
+
+  return (
+    <p style={{ whiteSpace: "pre-wrap", margin: 0 }}>
+      {text.substring(0, index)}
+    </p>
+  );
 }
 
 export default TypewriterText;

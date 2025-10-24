@@ -6,3 +6,18 @@
 .fade-in-loaded {
   opacity: 1;
 }
+
+.location-mark {
+  width: 1.6%;                 /* base size */
+  transition: width 0.2s;    /* smooth animation */
+}
+
+.location-mark:hover {
+  width: 2.2%;                 /* grows on hover */
+  cursor: pointer;
+}
+
+.marker-text {
+  color: black;
+  opacity: 1;
+}
