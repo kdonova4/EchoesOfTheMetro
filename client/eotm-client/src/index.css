@@ -1,4 +1,12 @@
 body {
   background-color: #121212; /* dark gray / black */
-  color: #ffffff;            /* optional: make text readable */
+  color: #ffffff; 
+  overflow-x: hidden;           /* optional: make text readable */
 }
+
+.stalin {
+  font-family: "Stalinist One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+

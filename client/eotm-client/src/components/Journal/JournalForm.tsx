@@ -81,7 +81,7 @@ function JournalForm() {
 
   return (
     <>
-      <Button sx={{ backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding: 1.5 }} onClick={handleClickOpen}>Write Journal</Button>
+      <Button sx={{ fontFamily: '"Russo One", sans-serif', backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding: 1.5 }} onClick={handleClickOpen}>Write Journal</Button>
 
       <Modal open={open} onClose={handleClose}>
 

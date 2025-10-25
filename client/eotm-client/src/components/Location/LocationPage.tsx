@@ -54,6 +54,10 @@ function LocationPage() {
     const handleClose = () => setOpen(false)
     const handleOpen = () => setOpen(true)
 
+    const selectJournal = (Journal: JournalResponse) => {
+
+    }
+
     useEffect(() => {
         fetchLocation();
     }, [id])
@@ -77,10 +81,10 @@ function LocationPage() {
                 <Card sx={{ maxWidth: '100%', backgroundColor: '#3904058c', color: 'white', marginTop: 5, position: 'relative', borderRadius: 1 }}>
                     <CardContent>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-                            <Typography sx={{ fontSize: '4rem' }}>
+                            <Typography className="stalin">
                                 {location.locationName}
                             </Typography>
-                            <Typography sx={{ fontSize: '1.1rem' }}>
+                            <Typography className="russo">
                                 {location.description}
                             </Typography>
                         </Box>
@@ -96,7 +100,7 @@ function LocationPage() {
                             }}
                         >
                             <JournalForm />
-                            <Button sx={{ backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding:1.5 }} onClick={handleOpen}>Travel</Button>
+                            <Button sx={{ fontFamily: '"Russo One", sans-serif', backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding:1.5 }} onClick={handleOpen}>Travel</Button>
                         </Box>
 
                     </CardContent>
@@ -105,11 +109,14 @@ function LocationPage() {
 
                 <StatsViewer />
                 <Modal
+                
                     open={open}
                     onClose={handleClose}
                 >
-
+                    <div className="map">
                         <TravelPage handleClose={handleClose} />
+                    </div>
+                        
 
                 </Modal>
 
@@ -135,10 +142,10 @@ function LocationPage() {
                     </video>
 
                     <Stack direction="row" sx={{ height: '75vh', gap: 5, mt: 6 }}>
-                        <Container>
+                        <Container sx={{  }}>
                             <JournalList onSelectJournal={setSelectedJournal} />
                         </Container>
-                        <Container>
+                        <Container sx={{ minWidth: '800px'}}>
                             <JournalViewer journal={selectedJournal} />
                         </Container>
                     </Stack>

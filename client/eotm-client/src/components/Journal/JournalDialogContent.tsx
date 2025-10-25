@@ -48,7 +48,7 @@ function JournalDialogContent({ journal, handleChange, handleClose, handleSave, 
           name="title"
           value={journal.title}
           onChange={handleChange}
-          maxLength={50}
+          maxLength={25}
           style={{
             position: 'absolute',
             top: '25%', // adjust as needed

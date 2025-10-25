@@ -58,7 +58,6 @@ function TravelPage({ handleClose }: TravelProps) {
 >
   <Box
     sx={{
-      outline: '2px solid green',
       width: '80vw',
       maxWidth: '1170px',
       height: 'auto',

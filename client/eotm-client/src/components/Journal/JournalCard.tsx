@@ -18,29 +18,46 @@ function JournalCard({ journal, onSelectJournal, mode }: JournalCardProps) {
         return (
             <>
 
-                <Card key={journal.journalId} sx={{ maxWidth: '100%', backgroundColor: '#d31c1f73', color: 'white' }}>
+                <Card key={journal.journalId} sx={{  maxWidth: '629px', backgroundColor: '#d31c1f73', color: 'white' }}>
                     <CardContent>
-                        <div style={{ borderRadius: 10, padding: 4 }} className="journal-card" onClick={() => onSelectJournal?.(journal)}>
-                            <Typography sx={{ display: 'flex', flexDirection: 'row', width: '100%', gap: '10px', alignItems: 'flex-end' }} gutterBottom variant="h5" component="div">
-                                <Typography sx={{ height: '25%', width: '50%', fontSize: '1.5rem' }}>
+                        <div style={{  borderRadius: 10, padding: 4 }} className="journal-card" onClick={() => onSelectJournal?.(journal)}>
+                            <Typography sx={{  display: 'flex', flexDirection: 'row', width: '100%', gap: '10px', alignItems: 'flex-end' }} gutterBottom variant="h5" component="div">
+                                <Typography sx={{ fontFamily: '"Russo One", sans-serif', fontSize: '1.6rem', height: '25%', width: '50%', overflow: "hidden", flex: 1, whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
                                     {journal.title}
                                 </Typography>
-                                <Typography sx={{ height: '10%', width: '60%', color: 'gray', fontSize: '.8rem' }}>
-                                    written by {journal.username} | Condition: {journal.createdStatus}
+                                <Typography  sx={{  flexShrink: 0, fontFamily: '"Russo One", sans-serif', height: '10%', width: '50%', color: 'gray', fontSize: '.7rem', textAlign: 'right' }}>
+                                    written by {journal.username}
                                 </Typography>
                             </Typography>
 
                             <Typography sx={{
                                 padding: 2,
-                                height: '50px',
+
+                                fontFamily: '"Russo One", sans-serif',
+                                height: '35px',
                                 width: '80%',
                                 overflow: 'hidden',
                                 display: '-webkit-box',
                                 WebkitBoxOrient: 'vertical',
-                                WebkitLineClamp: 3, // number of lines before truncating
+                                WebkitLineClamp: 2, // number of lines before truncating
                                 textOverflow: 'ellipsis',
                             }}>
                                 {journal.text}
+                            </Typography>
+                            <Typography sx={{
+                                padding: 1,
+                                fontFamily: '"Russo One", sans-serif',
+                                color: 'gray', fontSize: '.7rem',
+                                textAlign: 'left',
+                                height: '20px',
+                                width: '90%',
+                                overflow: 'hidden',
+                                display: '-webkit-box',
+                                WebkitBoxOrient: 'vertical',
+                                WebkitLineClamp: 2, // number of lines before truncating
+                                textOverflow: 'ellipsis',
+                            }}>
+                                Condition: {journal.createdStatus}
                             </Typography>
                         </div>
                         <Echo journalId={journal.journalId}><EchoCount journalId={journal.journalId} /></Echo>
@@ -57,7 +74,7 @@ function JournalCard({ journal, onSelectJournal, mode }: JournalCardProps) {
                     <CardContent>
                         <div>
                             <Typography sx={{ display: 'flex', flexDirection: 'row', width: '70%', gap: '10px', alignItems: 'flex-end' }} gutterBottom variant="h5" component="div">
-                                <Typography sx={{ height: '25%', width: '100%', fontSize: '1.5rem' }}>
+                                <Typography sx={{ fontFamily: '"Russo One", sans-serif', fontSize: '1.6rem', height: '25%', width: '100%', overflow: "hidden", whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
                                     {journal.title}
                                 </Typography>
                             </Typography>
@@ -65,6 +82,7 @@ function JournalCard({ journal, onSelectJournal, mode }: JournalCardProps) {
                                 padding: 2,
                                 height: '10px',
                                 width: '80%',
+                                fontFamily: '"Russo One", sans-serif',
                                 overflow: 'hidden',
                                 display: '-webkit-box',
                                 WebkitBoxOrient: 'vertical',
@@ -75,7 +93,7 @@ function JournalCard({ journal, onSelectJournal, mode }: JournalCardProps) {
                             </Typography>
                         </div>
                         
-                    <div style={{ marginTop: 15 }}>
+                    <div style={{ marginTop: 15, fontFamily: '"Russo One", sans-serif', }}>
                         <EchoCount journalId={journal.journalId} />
                     </div>
                         

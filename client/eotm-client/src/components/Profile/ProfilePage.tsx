@@ -66,17 +66,19 @@ function ProfilePage() {
 
 
       <Box
+
         sx={{
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
           display: 'inline-block',
           width: '80vw',          // controls image scaling
-          maxWidth: '1500px',      // optional, for upper limit
+          maxWidth: '1400px',      // optional, for upper limit
           position: 'relative',   // makes children position relative to image
         }}
       >
-        <img
+        <div className="profile">
+<img
           src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760047166/profile-background_e6jrdo.png"
           alt="Profile"
           style={{
@@ -90,11 +92,13 @@ function ProfilePage() {
           style={{
             position: 'absolute',
             top: '18%',
-            left: '62%',
+            left: '64%',
             transform: 'translateX(-50%)',
             color: '#000',
             width: '80%',
             textAlign: 'center',
+            fontFamily: '"Russo One", sans-serif',
+            textDecoration: 'underline',
             fontSize: 'clamp(1rem, 2vw, 1.8rem)', // responsive text scaling
           }}
         >
@@ -128,7 +132,7 @@ function ProfilePage() {
                 }}
               />
             </Tooltip>
-            <Box sx={{ color: 'black', fontSize: { xs: 16, sm: 24, md: 32 } }}>{appUser.scrap}</Box>
+            <Box sx={{ color: 'black',  fontSize: { xs: 16, sm: 24, md: 32 } }}>{appUser.scrap}</Box>
 
             <Tooltip title="Fuel" arrow placement="top">
               <img
@@ -167,15 +171,15 @@ function ProfilePage() {
           }}>
           {view === "journals" ? (
             <div style={{ display: 'flex', flexDirection: 'row', marginLeft: 18 }}>
-              <Button onClick={handleJournalOpen} sx={{ height: '50px', backgroundColor: '#d31c1fa6', marginTop: 2, borderRadius: 0 }} variant="contained">Journals</Button>
-              <Button onClick={handleBadgeOpen} sx={{ height: '50px', backgroundColor: '#390405', marginTop: 2, borderRadius: 0 }} variant="contained">Badges</Button>
+              <Button onClick={handleJournalOpen} sx={{ fontFamily: '"Russo One", sans-serif', height: '50px', backgroundColor: '#d31c1fa6', marginTop: 2, borderRadius: 0 }} variant="contained">Journals</Button>
+              <Button onClick={handleBadgeOpen} sx={{ fontFamily: '"Russo One", sans-serif', height: '50px', backgroundColor: '#390405', marginTop: 2, borderRadius: 0 }} variant="contained">Badges</Button>
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'row', marginLeft: 18 }}>
 
 
-              <Button onClick={handleJournalOpen} sx={{ height: '50px', backgroundColor: '#390405', marginTop: 2, borderRadius: 0 }} variant="contained">Journals</Button>
-              <Button onClick={handleBadgeOpen} sx={{ height: '50px', backgroundColor: '#d31c1fa6', marginTop: 2, borderRadius: 0 }} variant="contained">Badges</Button>
+              <Button onClick={handleJournalOpen} sx={{ fontFamily: '"Russo One", sans-serif', height: '50px', backgroundColor: '#390405', marginTop: 2, borderRadius: 0 }} variant="contained">Journals</Button>
+              <Button onClick={handleBadgeOpen} sx={{ fontFamily: '"Russo One", sans-serif', height: '50px', backgroundColor: '#d31c1fa6', marginTop: 2, borderRadius: 0 }} variant="contained">Badges</Button>
             </div>
           )}
 
@@ -199,6 +203,7 @@ function ProfilePage() {
           )}
 
         </Box>
+      </div>
 
       </Box>
 

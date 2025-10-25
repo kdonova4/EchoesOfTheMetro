@@ -25,13 +25,13 @@ function JournalList({ onSelectJournal }: JournalListProps) {
     if (error) return <div>Error loading journals</div>;
 
     if(data.length === 0) {
-        return (<p>No Journals Found</p>)
+        return (<p style={{ fontFamily: '"Russo One", sans-serif', fontSize: '1.5rem', marginLeft: 15 }}>No Journals Found</p>)
     }
 
     return (
         <>
-        <span style={{ fontSize: '1.5rem', marginLeft: 15}}>{data.length} Journals Found</span>
-        <div style={{ overflowY: 'auto', height: '90%' }}>
+        <span style={{ fontFamily: '"Russo One", sans-serif', fontSize: '1.5rem', marginLeft: 15}}>{data.length} Journals Found</span>
+        <div style={{ overflowY: 'auto', height: '90%', maxWidth: '724px' }}>
             {data.map((journal) => (
                 
                 <div style={{ padding: 15 }}>

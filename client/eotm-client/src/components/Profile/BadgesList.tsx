@@ -20,7 +20,7 @@ function BadgesList() {
                                     <img src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760730508/fuel_icon_ferytw.png" style={{ height: '64px', width: 'auto' }} />
 
                                     <Typography sx={{ display: 'flex', flexDirection: 'row', width: '70%', gap: '10px', alignItems: 'flex-end' }} gutterBottom variant="h5" component="div">
-                                        <Typography sx={{ height: '25%', width: '100%', fontSize: '1.5rem' }}>
+                                        <Typography sx={{ fontFamily: '"Russo One", sans-serif', height: '25%', width: '100%', fontSize: '1.5rem' }}>
                                             {badge.badge.badgeName}
                                         </Typography>
                                     </Typography>
