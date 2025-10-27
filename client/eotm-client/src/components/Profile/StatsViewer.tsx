@@ -80,7 +80,7 @@ function StatsViewer() {
 
 
                 <Modal open={open} onClose={handleClose}>
-                    <ProfilePage />
+                    <ProfilePage handleClose={handleClose} />
                 </Modal>
 
 

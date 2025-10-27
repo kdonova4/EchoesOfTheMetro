@@ -64,7 +64,7 @@ function LocationPage() {
     }, [id])
 
 
-    console.log(isMobile)
+    
     if (!location) {
         return <h1>Loading...</h1>
     } else {

@@ -10,12 +10,11 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import JournalProfileList from "../Journal/JournalProfileList";
 import BadgesList from "./BadgesList";
 type ProfilePageProps = {
-  handleClickOpen: () => void;
   handleClose: () => void;
 }
 
 
-function ProfilePage() {
+function ProfilePage({ handleClose }: ProfilePageProps) {
 
   const [view, setView] = useState("journals");
   const isMobile = useMediaQuery('(max-width:960px)');
@@ -479,6 +478,36 @@ function ProfilePage() {
         }}
           onClick={logout}
         >Logout</Button>
+      </Box>
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '90%',
+          left: '12%',
+          height: '64%',
+          transform: 'translate(-50%, 0)',
+          width: '65%',  // percentage of the image width
+        }}
+      >
+        <Button 
+        disableRipple
+        sx={{
+          position: 'absolute',
+          top: '0%',
+          left: '0%',
+          fontFamily: '"Rock Salt", cursive',
+          color: 'black',
+          width: '100%',
+          border: 'none',
+          fontSize: 'clamp(.34rem, 1.8vw, 2rem)',
+          '&:hover': {
+      color: '#d31c20', // 👈 hover text color
+      backgroundColor: 'transparent', // prevent default MUI blue hover background
+      transform: 'scale(1.05)', // optional, adds a nice hover effect
+    },
+        }}
+          onClick={handleClose}
+        >Close</Button>
       </Box>
 
         </Box>
