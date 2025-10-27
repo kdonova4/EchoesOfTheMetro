@@ -29,6 +29,7 @@ import java.util.Optional;
 @RestController
 @Tag(name = "Auth Controller", description = "Login/Register Operations")
 @RequestMapping("/api/users")
+@CrossOrigin(origins = {"http://192.168.1.14:5173"})
 public class AuthController {
 
     private final JwtService jwtService;

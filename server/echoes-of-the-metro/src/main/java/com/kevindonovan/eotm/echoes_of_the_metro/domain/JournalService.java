@@ -5,14 +5,15 @@ import com.kevindonovan.eotm.echoes_of_the_metro.data.JournalRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.LocationRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.StorylineRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.mappers.JournalMapper;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.AppUser;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.*;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.JournalCreate;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.JournalResponse;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.Journal;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.Location;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.Storyline;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,6 +74,22 @@ public class JournalService {
         journal = repository.save(journal);
         result.setPayload(JournalMapper.toResponse(journal));
         return result;
+    }
+
+    @Scheduled(fixedRate = 60000)
+    public void changeStatus() {
+        List<Journal> freshJournals = repository.findJournalsByCreatedStatus(CreatedStatus.FRESH);
+        List<Journal> fadedJournals = repository.findJournalsByCreatedStatus(CreatedStatus.FADED);
+        List<Journal> weatheredJournals = repository.findJournalsByCreatedStatus(CreatedStatus.WEATHERED);
+        List<Journal> witheredJournals = repository.findJournalsByCreatedStatus(CreatedStatus.WITHERED);
+
+        for(Journal j : freshJournals) {
+
+            if(j.getCreatedAt().toLocalDateTime().plusMinutes(1).isBefore(LocalDateTime.now())) {
+                j.setCreatedStatus(CreatedStatus.FADED);
+                repository.save(j);
+            }
+        }
     }
 
     private Result<JournalResponse> validate(Journal journal) {

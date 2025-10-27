@@ -5,16 +5,22 @@ import EchoCount from "./EchoCount";
 import Echo from "./Echo";
 import type { JournalResponse } from "../../types/response/JournalResponse";
 import JournalCard from "./JournalCard";
+import { useState } from "react";
+import { Pagination, Stack } from "@mui/material";
 
 type JournalListProps = {
     onSelectJournal: (journal: JournalResponse) => void;
 }
 
+
+const ITEMS_PER_PAGE = 5;
+
+
 function JournalList({ onSelectJournal }: JournalListProps) {
 
     const { id } = useParams();
     const locationId = Number(id);
-
+    const [page, setPage] = useState(1);
     const { data, error, isSuccess } = useQuery({
         queryKey: ["journals", locationId],
         queryFn: () => findByLocation(locationId),
@@ -24,22 +30,53 @@ function JournalList({ onSelectJournal }: JournalListProps) {
     if (!isSuccess) return <div>Loading...</div>;
     if (error) return <div>Error loading journals</div>;
 
-    if(data.length === 0) {
+    if (data.length === 0) {
         return (<p style={{ fontFamily: '"Russo One", sans-serif', fontSize: '1.5rem', marginLeft: 15 }}>No Journals Found</p>)
     }
 
-    return (
-        <>
-        <span style={{ fontFamily: '"Russo One", sans-serif', fontSize: '1.5rem', marginLeft: 15}}>{data.length} Journals Found</span>
-        <div style={{ overflowY: 'auto', height: '90%', maxWidth: '724px' }}>
-            {data.map((journal) => (
-                
-                <div style={{ padding: 15 }}>
-                    <JournalCard mode="location" onSelectJournal={onSelectJournal} journal={journal} />
-                </div>
+    const startIndex = (page - 1) * ITEMS_PER_PAGE;
+    const currentPageData = data.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
 
-            ))}
-        </div>
+    return (
+        <><Stack sx={{ height: '90%' }} spacing={2} alignItems="center" marginTop={2}>
+            <span style={{ fontFamily: '"Russo One", sans-serif', fontSize: '1.5rem', marginLeft: 15 }}>{data.length} Journals Found</span>
+            <div style={{ overflowY: 'auto', height: '90%', maxWidth: '724px', width: '100%' }}>
+                {currentPageData.map((journal) => (
+
+                    <div style={{ padding: 15 }}>
+                        <JournalCard mode="location" onSelectJournal={onSelectJournal} journal={journal} />
+                    </div>
+
+                ))}
+            </div>
+
+            <Pagination
+                count={totalPages}
+                page={page}
+                onChange={(_, value) => setPage(value)}
+                color="primary"
+                showFirstButton
+                showLastButton
+                sx={{
+                    '& .MuiPaginationItem-root': {
+                        color: '#d31c20',             // text color
+                        fontFamily: '"Russo One", sans-serif',
+                        fontSize: '1rem',
+                        border: '1px solid #cfcfd1',
+                        borderRadius: '8px',
+                        transition: 'all 0.2s ease',
+                        '&.Mui-selected': {
+                            backgroundColor: '#d31c20', // blue highlight
+                            color: '#cfcfd1',
+                        },
+                        '&:hover': {
+                            backgroundColor: '#d31c1f79',
+                        },
+                    },
+                }}
+            />
+        </Stack>
             {/**<div key={journal.journalId} >
                     <div onClick={() => onSelectJournal(journal)} style={{ cursor: "pointer", margin: "8px 0" }}>
                         <h2>{journal.journalId}</h2>

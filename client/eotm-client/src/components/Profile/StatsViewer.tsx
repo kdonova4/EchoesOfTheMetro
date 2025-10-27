@@ -57,11 +57,10 @@ function StatsViewer() {
                     position: "fixed",
                     bottom: 15,
                     right: 15,
-                    boxShadow: 1,
-                    borderRadius: 2,
                     p: 2,
                     display: 'inline-block',
-                    zIndex: 1000
+                    zIndex: 1000,
+
                 }}
             >
 
@@ -74,7 +73,7 @@ function StatsViewer() {
 
 
 
-                <img className="stat-viewer" onClick={handleClickOpen} src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1759973965/journal-icon_dcxkmy.png" />
+                <img style={{ height: '98px'}} className="stat-viewer" onClick={handleClickOpen} src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1759973965/journal-icon_dcxkmy.png" />
 
 
 

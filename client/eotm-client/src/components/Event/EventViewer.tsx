@@ -53,7 +53,7 @@ function EventViewer() {
             enqueueSnackbar(
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                     <img src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760730508/fuel_icon_ferytw.png" style={{ height: '24px', width: 'auto' }} />
-                    <span>Collected {e.fuelFound}L of fuel</span>
+                    <span style={{ fontFamily: '"Russo One", sans-serif', }}>Collected {e.fuelFound}L of fuel</span>
                 </div>,
                 { autoHideDuration: 8000 }
             );
@@ -62,7 +62,7 @@ function EventViewer() {
             enqueueSnackbar(
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                     <img src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760730508/scrap_icon_w6v9lt.png" style={{ height: '24px', width: 'auto' }} />
-                    <span>Collected {e.scrapFound} pieces of scrap</span>
+                    <span style={{ fontFamily: '"Russo One", sans-serif', }}>Collected {e.scrapFound} pieces of scrap</span>
                 </div>,
                 { autoHideDuration: 8000 }
             );
@@ -71,7 +71,7 @@ function EventViewer() {
             enqueueSnackbar(
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                     <img src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760730508/mgr_icon_caywlj.png" style={{ height: '24px', width: 'auto' }} />
-                    <span>Collected {e.mgrCollected} Military Grade Rounds</span>
+                    <span style={{ fontFamily: '"Russo One", sans-serif', }}>Collected {e.mgrCollected} Military Grade Rounds</span>
                 </div>,
                 { autoHideDuration: 8000 }
             );
@@ -80,7 +80,7 @@ function EventViewer() {
             enqueueSnackbar(
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                     <img src={e.badge.badgeImagePath} style={{ width: 24, height: 24 }} />
-                    <span>Earned '{e.badge.badgeName}' Badge</span>
+                    <span style={{ fontFamily: '"Russo One", sans-serif', }}>Earned '{e.badge.badgeName}' Badge</span>
                 </div>,
                 { autoHideDuration: 8000 }
             );
@@ -119,13 +119,14 @@ function EventViewer() {
                         flexDirection: 'column',  // stack p and button vertically
                         justifyContent: 'center', // center vertically
                         alignItems: 'center',
+                        
                         marginTop: 20,
                         gap: 4     // center horizontally
                     }}
                 >
-                    <p style={{}}>{event.current.text}</p>
+                    <p style={{fontFamily: '"Russo One", sans-serif',}}>{event.current.text}</p>
                     <Button
-                        sx={{ color: '#d31c20' }}
+                        sx={{ color: '#d31c20', fontFamily: '"Stalinist One", sans-serif' }}
                         onClick={() => {
                             navigate(`/location/${id}`, { replace: true });
                             sessionStorage.removeItem(`event_${id}_${appUser?.appUserId}`);
@@ -163,14 +164,15 @@ function EventViewer() {
                             display: 'block', 
                             borderRadius: 20,        // removes inline spacing issues
                             width: '40vw',            // scales to fit the container width
+                            
                             height: 'auto',           // keeps aspect ratio       // scales responsively vertically
                             objectFit: 'contain',     // preserves aspect ratio
                         }}
                     />
                 </div>
-                    <p style={{}}>{event.current.text}</p>
+                    <p style={{fontFamily: '"Russo One", sans-serif',}}>{event.current.text}</p>
                     <Button
-                        sx={{ color: '#d31c20' }}
+                        sx={{ color: '#d31c20', fontFamily: '"Stalinist One", sans-serif', }}
                         onClick={() => {
                             navigate(`/location/${id}`, { replace: true });
                             sessionStorage.removeItem(`event_${id}_${appUser?.appUserId}`);

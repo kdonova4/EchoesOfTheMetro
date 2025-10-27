@@ -9,8 +9,10 @@ import com.kevindonovan.eotm.echoes_of_the_metro.models.Storyline;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@EnableScheduling
 public class EchoesOfTheMetroApplication implements CommandLineRunner {
 
 	private final AppUserRepository appUserRepository;

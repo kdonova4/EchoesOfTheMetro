@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from "@mui/material";
+import { Card, CardContent, Typography, useMediaQuery } from "@mui/material";
 import type { JournalResponse } from "../../types/response/JournalResponse";
 import './journal.css'
 import EchoCount from "./EchoCount";
@@ -12,7 +12,7 @@ type JournalCardProps = {
 
 function JournalCard({ journal, onSelectJournal, mode }: JournalCardProps) {
 
-
+    const isMobile = useMediaQuery('(max-width:960px)');
 
     if (mode === "location") {
         return (
@@ -25,7 +25,7 @@ function JournalCard({ journal, onSelectJournal, mode }: JournalCardProps) {
                                 <Typography sx={{ fontFamily: '"Russo One", sans-serif', fontSize: '1.6rem', height: '25%', width: '50%', overflow: "hidden", flex: 1, whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
                                     {journal.title}
                                 </Typography>
-                                <Typography  sx={{  flexShrink: 0, fontFamily: '"Russo One", sans-serif', height: '10%', width: '50%', color: 'gray', fontSize: '.7rem', textAlign: 'right' }}>
+                                <Typography  sx={{  color: '#cfcfd1', flexShrink: 0, fontFamily: '"Russo One", sans-serif', height: '10%', width: '50%', fontSize: '.7rem', textAlign: 'right' }}>
                                     written by {journal.username}
                                 </Typography>
                             </Typography>
@@ -47,7 +47,7 @@ function JournalCard({ journal, onSelectJournal, mode }: JournalCardProps) {
                             <Typography sx={{
                                 padding: 1,
                                 fontFamily: '"Russo One", sans-serif',
-                                color: 'gray', fontSize: '.7rem',
+                                color: '#cfcfd1', fontSize: '.7rem',
                                 textAlign: 'left',
                                 height: '20px',
                                 width: '90%',
@@ -56,6 +56,7 @@ function JournalCard({ journal, onSelectJournal, mode }: JournalCardProps) {
                                 WebkitBoxOrient: 'vertical',
                                 WebkitLineClamp: 2, // number of lines before truncating
                                 textOverflow: 'ellipsis',
+                                
                             }}>
                                 Condition: {journal.createdStatus}
                             </Typography>
@@ -68,7 +69,33 @@ function JournalCard({ journal, onSelectJournal, mode }: JournalCardProps) {
             </>
         )
     } else {
-        return (
+        if(isMobile) {
+            return (
+            <>
+                <Card key={journal.journalId} sx={{ maxWidth: '100%', height: '100%', backgroundColor: '#d31c1f63', color: 'white' }}>
+                    <CardContent>
+                        <div>
+                            <Typography sx={{ display: 'flex', flexDirection: 'row', width: '70%', gap: '10px', alignItems: 'flex-end' }} gutterBottom variant="h5" component="div">
+                                <Typography sx={{ fontFamily: '"Russo One", sans-serif', fontSize: '1.4vw', height: '2%', width: '100%', overflow: "hidden", whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
+                                    {journal.title}
+                                </Typography>
+                            </Typography>
+                            
+                        </div>
+                        
+                    <div style={{ marginTop: 15, fontFamily: '"Russo One", sans-serif', height: '20%', width: 'auto'}}>
+                        <EchoCount journalId={journal.journalId} />
+                    </div>
+                        
+                    </CardContent>
+
+                </Card>
+
+
+            </>
+        )
+        } else {
+            return (
             <>
                 <Card key={journal.journalId} sx={{ maxWidth: '100%', backgroundColor: '#d31c1f63', color: 'white' }}>
                     <CardContent>
@@ -104,6 +131,8 @@ function JournalCard({ journal, onSelectJournal, mode }: JournalCardProps) {
 
             </>
         )
+        }
+        
     }
 
 }

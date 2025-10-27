@@ -220,6 +220,8 @@ select * from badges;
 	values
 	(3, 2, now());
 
+
 	select * from echoes;
+	select * from journal;
 	select * from app_user_badge;
 	select * from app_user;

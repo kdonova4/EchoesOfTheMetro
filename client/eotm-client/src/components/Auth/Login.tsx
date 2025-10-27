@@ -95,10 +95,10 @@ function Login() {
                             },
                         }}
                         onChange={handleChange} />
-                    <Button sx={{ backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding:1.5 }}  onClick={handleLogin}>Login</Button>
+                    <Button sx={{ fontFamily: '"Russo One", sans-serif', backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding:1.5 }}  onClick={handleLogin}>Login</Button>
                     
                     <div style={{ borderBottom: '1px solid #cfcfd1', width: '250px' }}></div>
-                    <Button sx={{ backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding:1.5 }}  onClick={handleRegister}>Register</Button>
+                    <Button sx={{ fontFamily: '"Russo One", sans-serif', backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding:1.5 }}  onClick={handleRegister}>Register</Button>
                 </Stack>
                 <Snackbar
                     open={open}

@@ -17,6 +17,13 @@
   animation: fadeInRight 0.8s ease-out forwards;
 }
 
+.journal {
+  opacity: 0;
+  transform: translateY(600px) rotate(-5deg);
+  
+  animation: fadeInRight 0.8s ease-out forwards;
+}
+
 @keyframes fadeInRight {
   to {
     opacity: 1;

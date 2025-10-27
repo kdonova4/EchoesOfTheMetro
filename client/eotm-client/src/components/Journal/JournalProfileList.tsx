@@ -10,8 +10,8 @@ function JournalProfileList() {
     const [journals, setJournals] = useState<JournalResponse[]>([])
 
     const fetchProfilesJournal = async () => {
-        
-        if(appUser) {
+
+        if (appUser) {
             try {
                 const response = await findByUser(appUser.appUserId)
 
@@ -20,7 +20,7 @@ function JournalProfileList() {
                 console.log(error)
             }
         }
-        
+
     }
 
     useEffect(() => {
@@ -28,14 +28,14 @@ function JournalProfileList() {
     }, [appUser])
 
 
-    return(
+    return (
         <>
             {journals.map((journal) => (
                 <div style={{ padding: 15 }}>
-                    <JournalCard mode="profile" journal={journal}/>
+                    <JournalCard mode="profile" journal={journal} />
                 </div>
-                    
-                
+
+
             ))}
         </>
     )

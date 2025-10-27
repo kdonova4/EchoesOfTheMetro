@@ -1,9 +1,6 @@
 package com.kevindonovan.eotm.echoes_of_the_metro.data;
 
-import com.kevindonovan.eotm.echoes_of_the_metro.models.AppUser;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.Journal;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.Location;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.Storyline;
+import com.kevindonovan.eotm.echoes_of_the_metro.models.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -29,5 +26,7 @@ public interface JournalRepository extends JpaRepository<Journal, Integer> {
                 ORDER BY COUNT(e) DESC
             """)
     List<Journal> findJournalsByEchoCount(@Param("minCount") long minCount);
+
+    List<Journal> findJournalsByCreatedStatus(CreatedStatus status);
 
 }
