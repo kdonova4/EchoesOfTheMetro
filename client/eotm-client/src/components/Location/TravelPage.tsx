@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { LocationResponse } from "../../types/response/LocationResponse";
 import { fetchAllLocations } from "../../api/LocationAPI";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Box, Tooltip } from "@mui/material";
 import TypewriterText from "../Journal/TypewriterText";
 import { locationList } from './locations'
@@ -9,7 +9,21 @@ type TravelProps = {
   handleClose?: () => void;
 }
 
-
+const props = {
+  tooltip: {
+    sx: {
+      backgroundColor: '#da00007a',
+      color: 'white',
+      maxWidth: 400,
+      whiteSpace: 'normal',
+      fontFamily: '"Rock Salt", cursive',
+      fontSize: '14px',
+      padding: '6px 10px',
+      textAlign: 'center',
+    },
+  },
+  arrow: { sx: { color: '#da00007a' } },
+}
 
 function TravelPage({ handleClose }: TravelProps) {
 
@@ -48,10 +62,10 @@ function TravelPage({ handleClose }: TravelProps) {
 
         sx={{
           display: 'flex',
-          justifyContent: 'center', // center children horizontally
-          alignItems: 'center',     // center children vertically
-          minHeight: '90vh',        // so it fills most of the viewport vertically
-          width: '100%',            // full width of parent
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: '90vh',
+          width: '100%',
         }}
 
         onClick={handleClose}
@@ -67,7 +81,7 @@ function TravelPage({ handleClose }: TravelProps) {
             alignItems: 'center',
           }}
           onClick={(e) => {
-            e.stopPropagation(); // stops the click from bubbling to parent elements
+            e.stopPropagation();
             console.log("Box clicked!");
           }}
         >
@@ -75,11 +89,7 @@ function TravelPage({ handleClose }: TravelProps) {
           <img
             src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1761176300/map-background_w28ody.png"
             alt="Map"
-            style={{
-              display: 'block',
-              width: '100%',
-              height: 'auto',
-            }}
+            className="background-img"
           />
 
           {/* Marker wrapper */}
@@ -97,21 +107,7 @@ function TravelPage({ handleClose }: TravelProps) {
               <Tooltip
                 title={<TypewriterText text={location.locationName} speed={50} />}
                 placement="right"
-                componentsProps={{
-                  tooltip: {
-                    sx: {
-                      backgroundColor: '#da00007a',
-                      color: 'white',
-                      maxWidth: 400,
-                      whiteSpace: 'normal',
-                      fontFamily: '"Rock Salt", cursive',
-                      fontSize: '14px',
-                      padding: '6px 10px',
-                      textAlign: 'center',
-                    },
-                  },
-                  arrow: { sx: { color: '#da00007a' } },
-                }}
+                componentsProps={props}
               >
                 <img
                   onClick={() => navTo(location.locationId)}
@@ -128,31 +124,6 @@ function TravelPage({ handleClose }: TravelProps) {
           ))}
         </Box>
       </Box>
-
-
-
-
-
-
-      {/**
-           * 
-           * <div>
-                <ul>
-                    {locations.map((location) => (
-                        location.locationId === locationId ? (
-                            <div key={location.locationId}>
-                                <Link onClick={handleClose} to={``}>{location.locationName} &lt;</Link>
-                            </div> 
-                        ) : (
-                           <div key={location.locationId}>
-                            <Link onClick={handleClose} to={`/traveling/${location.locationId}`}>{location.locationName}</Link>
-                        </div> 
-                        )
-                        
-                    ))}
-                </ul>
-            </div>
-           */}
 
     </>
   )

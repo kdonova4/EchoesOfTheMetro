@@ -90,6 +90,20 @@ public class JournalController {
         return ResponseEntity.ok(journals.stream().map(JournalMapper::toResponse).toList());
     }
 
+    @GetMapping("/ordered/location/{locationId}")
+    @Operation(summary = "Finds journals for location")
+    public ResponseEntity<List<JournalResponse>> findByLocationOrdered(@PathVariable int locationId) {
+        Optional<Location> location = locationService.findById(locationId);
+
+        if(location.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        List<Journal> journals = service.findByLocationOrderByEchoCountAndCreatedAt(location.get());
+
+        return ResponseEntity.ok(journals.stream().map(JournalMapper::toResponse).toList());
+    }
+
     @GetMapping("/echoes/{minCount}")
     @Operation(summary = "Find journals by minCount of echoes")
     public ResponseEntity<List<JournalResponse>> findByEchoes(@PathVariable long minCount) {

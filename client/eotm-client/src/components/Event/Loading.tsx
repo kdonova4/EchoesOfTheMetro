@@ -3,7 +3,6 @@ import Bootprint from "./Bootprint";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/AuthContext";
-import { generateEvent } from "../../api/EventAPI";
 
 
 function Loading() {
@@ -19,14 +18,14 @@ function Loading() {
             try {
                 
 
-                // Start the timer AFTER event is loaded
+                
                 const waitTime = Math.random() * 2000 + 8000;
                 console.log(`Waiting for ${(waitTime / 1000).toFixed(2)} seconds`);
                 const timer = setTimeout(() => {
                     navigate(`/event/${id}`, { replace: true });
                 }, waitTime);
 
-                // Cleanup
+                
                 return () => clearTimeout(timer);
             } catch (error) {
                 console.error(error);
@@ -40,11 +39,11 @@ function Loading() {
         <>
             <Box
                 sx={{
-                    position: 'fixed',      // stay fixed relative to viewport
+                    position: 'fixed',      
                     top: '40%',
                     left: '50%',
-                    transform: 'translate(-50%, -50%)', // center
-                    zIndex: 1000,           // optional: make sure it's on top
+                    transform: 'translate(-50%, -50%)', 
+                    zIndex: 1000,           
                 }}
             >
                 <Bootprint />

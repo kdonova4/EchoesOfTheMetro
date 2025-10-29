@@ -27,6 +27,16 @@ public interface JournalRepository extends JpaRepository<Journal, Integer> {
             """)
     List<Journal> findJournalsByEchoCount(@Param("minCount") long minCount);
 
+    @Query("""
+                SELECT j 
+                FROM Journal j 
+                LEFT JOIN Echo e ON e.journal = j
+                WHERE j.location = :location
+                GROUP BY j
+                ORDER BY COUNT(e) DESC, j.createdAt DESC
+            """)
+    List<Journal> findJournalByLocationOrderByEchoCountAndCreatedAt(Location location);
+
     List<Journal> findJournalsByCreatedStatus(CreatedStatus status);
 
 }

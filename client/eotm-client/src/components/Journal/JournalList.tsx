@@ -1,8 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { findByLocation } from "../../api/JournalAPI";
+import { findByLocation, findByLocationOrdered } from "../../api/JournalAPI";
 import { useParams } from "react-router-dom";
-import EchoCount from "./EchoCount";
-import Echo from "./Echo";
 import type { JournalResponse } from "../../types/response/JournalResponse";
 import JournalCard from "./JournalCard";
 import { useState } from "react";
@@ -23,7 +21,7 @@ function JournalList({ onSelectJournal }: JournalListProps) {
     const [page, setPage] = useState(1);
     const { data, error, isSuccess } = useQuery({
         queryKey: ["journals", locationId],
-        queryFn: () => findByLocation(locationId),
+        queryFn: () => findByLocationOrdered(locationId),
         enabled: !isNaN(locationId)
     })
 
@@ -31,7 +29,7 @@ function JournalList({ onSelectJournal }: JournalListProps) {
     if (error) return <div>Error loading journals</div>;
 
     if (data.length === 0) {
-        return (<p style={{ fontFamily: '"Russo One", sans-serif', fontSize: '1.5rem', marginLeft: 15 }}>No Journals Found</p>)
+        return (<p className="journal-results russo">No Journals Found</p>)
     }
 
     const startIndex = (page - 1) * ITEMS_PER_PAGE;
@@ -40,8 +38,9 @@ function JournalList({ onSelectJournal }: JournalListProps) {
 
     return (
         <><Stack sx={{ height: '90%' }} spacing={2} alignItems="center" marginTop={2}>
-            <span style={{ fontFamily: '"Russo One", sans-serif', fontSize: '1.5rem', marginLeft: 15 }}>{data.length} Journals Found</span>
-            <div style={{ overflowY: 'auto', height: '90%', maxWidth: '724px', width: '100%' }}>
+            {/*---------------> Clean this up <-----------------*/}
+            <span className="journal-results russo">{data.length} Journals Found</span>
+            <div className="journal-list">
                 {currentPageData.map((journal) => (
 
                     <div style={{ padding: 15 }}>
@@ -60,14 +59,14 @@ function JournalList({ onSelectJournal }: JournalListProps) {
                 showLastButton
                 sx={{
                     '& .MuiPaginationItem-root': {
-                        color: '#d31c20',             // text color
+                        color: '#d31c20',             
                         fontFamily: '"Russo One", sans-serif',
                         fontSize: '1rem',
                         border: '1px solid #cfcfd1',
                         borderRadius: '8px',
                         transition: 'all 0.2s ease',
                         '&.Mui-selected': {
-                            backgroundColor: '#d31c20', // blue highlight
+                            backgroundColor: '#d31c20', 
                             color: '#cfcfd1',
                         },
                         '&:hover': {
@@ -77,18 +76,7 @@ function JournalList({ onSelectJournal }: JournalListProps) {
                 }}
             />
         </Stack>
-            {/**<div key={journal.journalId} >
-                    <div onClick={() => onSelectJournal(journal)} style={{ cursor: "pointer", margin: "8px 0" }}>
-                        <h2>{journal.journalId}</h2>
-                        <h3>{journal.title}</h3>
-                        <h5>{journal.username}</h5>
-                        <h4>{journal.text}</h4>
-                        <p>{new Date(journal.createdAt).toLocaleString()}</p>
-                        <p>{journal.createdStatus}</p>
-                    </div>
-                    <Echo journalId={journal.journalId}><EchoCount journalId={journal.journalId} /></Echo>
-                    <p>--------------------------------</p>
-                </div> */}
+
         </>
 
 

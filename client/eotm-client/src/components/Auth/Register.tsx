@@ -3,6 +3,7 @@ import type { AppUserCreateRequest } from "../../types/create/AppUserCreateReque
 import { register } from "../../api/AppUserAPI";
 import { useNavigate } from "react-router-dom";
 import { Button, Snackbar, Stack, TextField } from "@mui/material";
+import { AuthButton, CustomTextField, fieldProps } from "./MuiTypes";
 
 function Register() {
 
@@ -25,7 +26,7 @@ function Register() {
     const handleRegister = async () => {
         try {
             await register(credentials);
-            
+
             navigate("/");
         } catch (e) {
             if (Array.isArray(e)) {
@@ -41,86 +42,41 @@ function Register() {
 
     return (
         <>
+        
             <Stack spacing={2} alignItems="center" mt={2}>
-                <TextField
+                <CustomTextField
                     name="email"
                     label="Email"
                     onChange={handleChange}
                     variant="filled"
-                        sx={{
-                            backgroundColor: '#cfcfd1',
-                            borderRadius: 1,
-
-                            // Target the underline pseudo-elements
-                            '& .MuiFilledInput-underline:after': {
-                                borderBottomColor: '#d31c20', // focused color
-                            },
-                        }}
-                        slotProps={{
-                            inputLabel: {
-                                sx: {
-                                    color: '#333',
-                                    '&.Mui-focused': { color: '#d31c20' },
-                                },
-                            },
-                        }}
-                    />
-                <TextField
+                    slotProps={fieldProps}
+                />
+                <CustomTextField
                     name="username"
                     label="Username"
-                    onChange={handleChange} 
+                    onChange={handleChange}
                     variant="filled"
-                        sx={{
-                            backgroundColor: '#cfcfd1',
-                            borderRadius: 1,
-
-                            // Target the underline pseudo-elements
-                            '& .MuiFilledInput-underline:after': {
-                                borderBottomColor: '#d31c20', // focused color
-                            },
-                        }}
-                        slotProps={{
-                            inputLabel: {
-                                sx: {
-                                    color: '#333',
-                                    '&.Mui-focused': { color: '#d31c20' },
-                                },
-                            },
-                        }}
-                    />
-                <TextField
+                    slotProps={fieldProps}
+                />
+                
+                <CustomTextField
                     name="password"
                     label="Password"
                     type="password"
-                    onChange={handleChange} 
+                    onChange={handleChange}
                     variant="filled"
-                        sx={{
-                            backgroundColor: '#cfcfd1',
-                            borderRadius: 1,
-
-                            // Target the underline pseudo-elements
-                            '& .MuiFilledInput-underline:after': {
-                                borderBottomColor: '#d31c20', // focused color
-                            },
-                        }}
-                        slotProps={{
-                            inputLabel: {
-                                sx: {
-                                    color: '#333',
-                                    '&.Mui-focused': { color: '#d31c20' },
-                                },
-                            },
-                        }}
-                    />
-                <Button sx={{ fontFamily: '"Russo One", sans-serif', backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding:1.5 }} onClick={handleRegister}>Register</Button>
-                <div style={{ borderBottom: '1px solid #cfcfd1', width: '250px' }}></div>
-                <Button sx={{ fontFamily: '"Russo One", sans-serif', backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding:1.5 }} onClick={goToLogin}>Login</Button>
+                    slotProps={fieldProps}
+                />
+                
+                <AuthButton onClick={handleRegister}>Register</AuthButton>
+                <div className="seperator"></div>
+                <AuthButton onClick={goToLogin}>Login</AuthButton>
             </Stack>
             <Snackbar
                 open={open}
                 autoHideDuration={3000}
                 onClose={() => setOpen(false)}
-                message={errors[0]}// <-- list only first error
+                message={errors[0]}
             />
 
         </>

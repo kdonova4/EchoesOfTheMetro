@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import type { JournalCreateRequest } from "../../types/create/JournalCreateRequest";
-import { Box, Button, Dialog, DialogActions, DialogTitle, Modal, Snackbar } from "@mui/material";
+import { Button, Modal, Snackbar } from "@mui/material";
 import { useState } from "react";
 import { useAuth } from "../../hooks/AuthContext";
 import { createJournal } from "../../api/JournalAPI";
@@ -102,7 +102,7 @@ function JournalForm() {
           setSnackOpen(false);
           setErrors([]);
         }}
-        message={errors[0]}// <-- list only first error
+        message={errors[0]}
       />
     </>
   )

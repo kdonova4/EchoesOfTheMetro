@@ -3,15 +3,16 @@ import { useParams } from "react-router-dom";
 import type { LocationResponse } from "../../types/response/LocationResponse";
 import { fetchLocationById } from "../../api/LocationAPI";
 import JournalList from "../Journal/JournalList";
-import { Box, Button, Card, CardContent, Container, Stack, Typography, useMediaQuery, type Theme } from "@mui/material";
+import { Box, Button, Card, CardContent, Container, Stack, Typography, useMediaQuery } from "@mui/material";
 import JournalViewer from "../Journal/JournalViewer";
 import Modal from '@mui/material/Modal';
 import type { JournalResponse } from "../../types/response/JournalResponse";
 import JournalForm from "../Journal/JournalForm";
 import TravelPage from "./TravelPage";
 import StatsViewer from "../Profile/StatsViewer";
+import { LocationCard, MobileLocationDescription, MobileLocationName, TravelButton } from "./MuiLocationTypes";
 
-import './location.css'
+
 
 function LocationPage() {
 
@@ -25,21 +26,6 @@ function LocationPage() {
     useEffect(() => {
         setSelectedJournal(null)
     }, [id])
-
-    const style = {
-        position: 'relative', // instead of absolute
-        width: '100%',
-        height: '100%',
-        transform: '',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        background: 'transparent', // remove default background
-        boxShadow: 'none',         // remove default shadow
-        padding: 0,
-        margin: 0,
-    };
-
 
     const fetchLocation = async () => {
         try {
@@ -55,16 +41,12 @@ function LocationPage() {
     const handleClose = () => setOpen(false)
     const handleOpen = () => setOpen(true)
 
-    const selectJournal = (Journal: JournalResponse) => {
-
-    }
-
     useEffect(() => {
         fetchLocation();
     }, [id])
 
 
-    
+
     if (!location) {
         return <h1>Loading...</h1>
     } else {
@@ -72,38 +54,34 @@ function LocationPage() {
         if (isMobile) {
             return (
                 <>
+
                     <video
-                            className={`fade-in ${loaded ? "fade-in-loaded" : ""}`}
-                            onCanPlay={() => setLoaded(true)}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            style={{
-                                position: "fixed",
-                                top: 0,
-                                left: 0,
-                                width: "100vw",
-                                height: "100vh",
-                                objectFit: 'cover',
-                                objectPosition: '30% center',
-                                zIndex: -1, // 👈 puts it behind everything
-                            }}
-                        >
-                            <source src="https://res.cloudinary.com/dhucaqc0o/video/upload/v1760816718/mylivewallpapers.com-Metro-2033-Redux_hmczdy.mp4" type="video/mp4" />
-                        </video><Card sx={{ maxWidth: '100%', backgroundColor: '#3904058c', color: 'white', marginTop: 5, position: 'relative', borderRadius: 1 }}>
+                        className={`fade-in ${loaded ? "fade-in-loaded" : ""} video-background`}
+                        onCanPlay={() => setLoaded(true)}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                    >
+                        <source src="https://res.cloudinary.com/dhucaqc0o/video/upload/v1760816718/mylivewallpapers.com-Metro-2033-Redux_hmczdy.mp4" type="video/mp4" />
+                    </video>
+
+                    <LocationCard>
+
+
                         <CardContent>
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-                                <Typography sx={{ fontFamily: '"Stalinist One", sans-serif', fontSize: '1.4rem' }}>
+
+                                <MobileLocationName>
                                     {location.locationName}
-                                </Typography>
-                                <Typography sx={{ fontFamily: '"Russo One", sans-serif', fontSize: '1rem' }}>
+                                </MobileLocationName>
+
+                                <MobileLocationDescription sx={{ fontFamily: '"Russo One", sans-serif', fontSize: '1rem' }}>
                                     {location.description}
-                                </Typography>
+                                </MobileLocationDescription>
                             </Box>
                             <Box
                                 sx={{
-
                                     marginTop: 2,
                                     display: 'flex',
                                     flexDirection: 'row',
@@ -112,15 +90,18 @@ function LocationPage() {
                                 }}
                             >
                                 <JournalForm />
-                                <Button sx={{ fontFamily: '"Russo One", sans-serif', backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding: 1.5 }} onClick={handleOpen}>Travel</Button>
+
+                                <TravelButton onClick={handleOpen}>Travel</TravelButton>
                             </Box>
 
                         </CardContent>
-                    </Card>
-                    <div style={{ overflowX: 'hidden', overflowY: 'hidden', paddingTop: 10 }}>
+                    </LocationCard>
+
+                    <div className="journal-viewer-div">
                         <JournalViewer journal={selectedJournal} />
                     </div>
-                    <div style={{ height: '95vh', paddingBottom: 60, }}>
+                    {/*---------------> Clean this up <-----------------*/}
+                    <div className="journal-list-div">
                         <JournalList onSelectJournal={setSelectedJournal} />
                     </div>
 
@@ -144,19 +125,10 @@ function LocationPage() {
         } else {
             return (
                 <>
-
-
-
-
-
-
-
-
-
-                    <Card sx={{ maxWidth: '100%', backgroundColor: '#3904058c', color: 'white', marginTop: 5, position: 'relative', borderRadius: 1 }}>
+                    <LocationCard sx={{ maxWidth: '100%', backgroundColor: '#3904058c', color: 'white', marginTop: 5, position: 'relative', borderRadius: 1 }}>
                         <CardContent>
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-                                <Typography sx={{}} className="stalin">
+                                <Typography className="stalin">
                                     {location.locationName}
                                 </Typography>
                                 <Typography className="russo">
@@ -174,11 +146,11 @@ function LocationPage() {
                                 }}
                             >
                                 <JournalForm />
-                                <Button sx={{ fontFamily: '"Russo One", sans-serif', backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding: 1.5 }} onClick={handleOpen}>Travel</Button>
+                                <TravelButton onClick={handleOpen}>Travel</TravelButton>
                             </Box>
 
                         </CardContent>
-                    </Card>
+                    </LocationCard>
 
 
                     <StatsViewer />
@@ -194,7 +166,9 @@ function LocationPage() {
 
                     </Modal>
 
-                    <div style={{}}>
+
+                    <div>
+                        {/*---------------> Clean this up <-----------------*/}
                         <video
                             className={`fade-in ${loaded ? "fade-in-loaded" : ""}`}
                             onCanPlay={() => setLoaded(true)}
@@ -209,14 +183,13 @@ function LocationPage() {
                                 width: "100vw",
                                 height: "100vh",
                                 objectFit: 'cover',
-                                zIndex: -1, // 👈 puts it behind everything
+                                zIndex: -1,
                             }}
                         >
                             <source src="https://res.cloudinary.com/dhucaqc0o/video/upload/v1760816718/mylivewallpapers.com-Metro-2033-Redux_hmczdy.mp4" type="video/mp4" />
                         </video>
-
                         <Stack direction="row" sx={{ height: '75vh', gap: 5, mt: 6 }}>
-                            <Container sx={{}}>
+                            <Container>
                                 <JournalList onSelectJournal={setSelectedJournal} />
                             </Container>
                             <Container sx={{ minWidth: '800px' }}>

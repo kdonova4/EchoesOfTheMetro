@@ -52,6 +52,10 @@ public class JournalService {
         return repository.findByLocation(location);
     }
 
+    public List<Journal> findByLocationOrderByEchoCountAndCreatedAt(Location location) {
+        return repository.findJournalByLocationOrderByEchoCountAndCreatedAt(location);
+    }
+
     public List<Journal> findByEchoCount(long minCount) {
         return repository.findJournalsByEchoCount(minCount);
     }
@@ -81,15 +85,32 @@ public class JournalService {
         List<Journal> freshJournals = repository.findJournalsByCreatedStatus(CreatedStatus.FRESH);
         List<Journal> fadedJournals = repository.findJournalsByCreatedStatus(CreatedStatus.FADED);
         List<Journal> weatheredJournals = repository.findJournalsByCreatedStatus(CreatedStatus.WEATHERED);
-        List<Journal> witheredJournals = repository.findJournalsByCreatedStatus(CreatedStatus.WITHERED);
 
         for(Journal j : freshJournals) {
 
-            if(j.getCreatedAt().toLocalDateTime().plusMinutes(1).isBefore(LocalDateTime.now())) {
+            if(j.getCreatedAt().toLocalDateTime().plusDays(7).isBefore(LocalDateTime.now())) {
                 j.setCreatedStatus(CreatedStatus.FADED);
                 repository.save(j);
             }
         }
+
+        for(Journal j : fadedJournals) {
+
+            if(j.getCreatedAt().toLocalDateTime().plusDays(14).isBefore(LocalDateTime.now())) {
+                j.setCreatedStatus(CreatedStatus.WEATHERED);
+                repository.save(j);
+            }
+        }
+
+        for(Journal j : weatheredJournals) {
+
+            if(j.getCreatedAt().toLocalDateTime().plusDays(21).isBefore(LocalDateTime.now())) {
+                j.setCreatedStatus(CreatedStatus.WITHERED);
+                repository.save(j);
+            }
+        }
+
+
     }
 
     private Result<JournalResponse> validate(Journal journal) {

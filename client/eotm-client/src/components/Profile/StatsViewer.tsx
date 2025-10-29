@@ -1,11 +1,6 @@
-import { Box, Modal, Stack } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
-import { GiBullets } from "react-icons/gi";
-import GasMeterIcon from '@mui/icons-material/GasMeter';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Box, Modal } from "@mui/material";
 import { useAuth } from "../../hooks/AuthContext";
 import { useEffect, useState } from "react";
-import './profile.css'
 import ProfilePage from "./ProfilePage";
 
 function StatsViewer() {
@@ -17,13 +12,13 @@ function StatsViewer() {
         getMe();
     }, [])
 
-      const handleClickOpen = () => {
-    setOpen(true)
-  }
+    const handleClickOpen = () => {
+        setOpen(true)
+    }
 
-  const handleClose = () => {
-    setOpen(false)
-  }
+    const handleClose = () => {
+        setOpen(false)
+    }
 
 
     if (!appUser) {
@@ -43,8 +38,6 @@ function StatsViewer() {
                     }}
                 >
                     Loading...
-
-
                 </Box>
             </>
         )
@@ -60,67 +53,12 @@ function StatsViewer() {
                     p: 2,
                     display: 'inline-block',
                     zIndex: 1000,
-
                 }}
             >
-
-
-                
-
-
-
-
-
-
-
-                <img style={{ height: '98px'}} className="stat-viewer" onClick={handleClickOpen} src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1759973965/journal-icon_dcxkmy.png" />
-
-
-
-
-
+                <img style={{ height: '98px' }} className="stat-viewer" onClick={handleClickOpen} src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1759973965/journal-icon_dcxkmy.png" />
                 <Modal open={open} onClose={handleClose}>
                     <ProfilePage handleClose={handleClose} />
                 </Modal>
-
-
-
-
-
-
-
-
-
-
-                {/** 
-                 * 
-                 * <Stack direction="row" alignItems="center">
-                    <AccountCircleIcon fontSize="large"/>
-                   <Box sx={{ margin: 1, color: 'black' }}>{appUser.username} | Stats</Box> 
-                </Stack>
-                
-                <img src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1759973965/journal-icon_dcxkmy.png"/>
-                    <Stack direction="row" alignItems= "center">
-                    <DeleteIcon fontSize="medium"/>
-                    <Box sx={{ margin: 1, color: 'black', fontSize: 34, fontWeight: 'medium' }}>
-                        {appUser.scrap}
-                    </Box>
-
-                    <GasMeterIcon style={{ marginLeft: 50 }} fontSize="large"/>
-                    <Box sx={{ margin: 1, color: 'black', fontSize: 34, fontWeight: 'medium' }}>
-                        {appUser.fuel}
-                    </Box>
-
-                    <GiBullets style={{ marginLeft: 50 }} fontSize="large"/>
-                    <Box sx={{ margin: 1, color: 'black', fontSize: 34, fontWeight: 'medium' }}>
-                        {appUser.mgr}
-                    </Box>
-                    
-                </Stack>
-                 */}
-
-
-
             </Box>
         </>
     )

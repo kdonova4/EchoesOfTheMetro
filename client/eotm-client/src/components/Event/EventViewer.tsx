@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { useAuth } from "../../hooks/AuthContext";
 import { generateEvent } from "../../api/EventAPI";
-import './loading.css'
+
 
 function EventViewer() {
     const { id } = useParams();
@@ -51,36 +51,39 @@ function EventViewer() {
 
         if (e.fuelFound > 0) {
             enqueueSnackbar(
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <img src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760730508/fuel_icon_ferytw.png" style={{ height: '24px', width: 'auto' }} />
-                    <span style={{ fontFamily: '"Russo One", sans-serif', }}>Collected {e.fuelFound}L of fuel</span>
+                <div className="snack-div">
+                    <img src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760730508/fuel_icon_ferytw.png" className="snack-img"/>
+                    <span className="russo snack-font">Collected {e.fuelFound}L of fuel</span>
                 </div>,
                 { autoHideDuration: 8000 }
             );
         }
         if (e.scrapFound > 0) {
             enqueueSnackbar(
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <img src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760730508/scrap_icon_w6v9lt.png" style={{ height: '24px', width: 'auto' }} />
-                    <span style={{ fontFamily: '"Russo One", sans-serif', }}>Collected {e.scrapFound} pieces of scrap</span>
+                
+                <div className="snack-div">
+                    {/*---------------> Clean this up <-----------------*/}
+                    <img src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760730508/scrap_icon_w6v9lt.png" className="snack-img"/>
+                    {/*---------------> Clean this up <-----------------*/}
+                    <span className="russo snack-font">Collected {e.scrapFound} pieces of scrap</span>
                 </div>,
                 { autoHideDuration: 8000 }
             );
         }
         if (e.mgrCollected > 0) {
             enqueueSnackbar(
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <img src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760730508/mgr_icon_caywlj.png" style={{ height: '24px', width: 'auto' }} />
-                    <span style={{ fontFamily: '"Russo One", sans-serif', }}>Collected {e.mgrCollected} Military Grade Rounds</span>
+                <div className="snack-div">
+                    <img src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760730508/mgr_icon_caywlj.png" className="snack-img" />
+                    <span className="russo snack-font">Collected {e.mgrCollected} Military Grade Rounds</span>
                 </div>,
                 { autoHideDuration: 8000 }
             );
         }
         if (e.badge) {
             enqueueSnackbar(
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <img src={e.badge.badgeImagePath} style={{ width: 24, height: 24 }} />
-                    <span style={{ fontFamily: '"Russo One", sans-serif', }}>Earned '{e.badge.badgeName}' Badge</span>
+                <div className="snack-div">
+                    <img src={e.badge.badgeImagePath} className="snack-badge-img" />
+                    <span className="russo snack-font">Earned '{e.badge.badgeName}' Badge</span>
                 </div>,
                 { autoHideDuration: 8000 }
             );
@@ -116,15 +119,15 @@ function EventViewer() {
                     sx={{
 
                         display: 'flex',
-                        flexDirection: 'column',  // stack p and button vertically
-                        justifyContent: 'center', // center vertically
+                        flexDirection: 'column',  
+                        justifyContent: 'center', 
                         alignItems: 'center',
                         
                         marginTop: 20,
-                        gap: 4     // center horizontally
+                        gap: 4
                     }}
                 >
-                    <p style={{fontFamily: '"Russo One", sans-serif',}}>{event.current.text}</p>
+                    <p className="russo">{event.current.text}</p>
                     <Button
                         sx={{ color: '#d31c20', fontFamily: '"Stalinist One", sans-serif' }}
                         onClick={() => {
@@ -140,37 +143,20 @@ function EventViewer() {
                     sx={{
 
                         display: 'flex',
-                        flexDirection: 'column',  // stack p and button vertically
-                        justifyContent: 'center', // center vertically
+                        flexDirection: 'column',  
+                        justifyContent: 'center', 
                         alignItems: 'center',
                         marginTop: 2,
-                        gap: 4     // center horizontally
+                        gap: 4     
                     }}
-                ><div
-                    style={{
-                        display: 'inline-block',    // shrink to fit the image
-                        marginTop: 10,
-                        width: '40vw',
-                        height: 'auto',           // rounded corners
-                        aspectRatio: '16/9',
-  // ensures rounded corners clip the image
-                    }}
-                >
+                ><div className="event-div">
                     <img
-                    className={`jump-in ${ready ? "jump-in-loaded" : ""}`}
+                    className={`jump-in ${ready ? "jump-in-loaded" : ""} event-img` }
                         onLoad={() => setReady(true)}
                         src={event.current.mediaPath}
-                        style={{
-                            display: 'block', 
-                            borderRadius: 20,        // removes inline spacing issues
-                            width: '40vw',            // scales to fit the container width
-                            
-                            height: 'auto',           // keeps aspect ratio       // scales responsively vertically
-                            objectFit: 'contain',     // preserves aspect ratio
-                        }}
-                    />
+                        />
                 </div>
-                    <p style={{fontFamily: '"Russo One", sans-serif',}}>{event.current.text}</p>
+                    <p className="russo">{event.current.text}</p>
                     <Button
                         sx={{ color: '#d31c20', fontFamily: '"Stalinist One", sans-serif', }}
                         onClick={() => {

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import type { Credentials } from "../../types/login/Credentials";
-import { Button, Snackbar, Stack, TextField } from "@mui/material";
+import { Snackbar, Stack } from "@mui/material";
 import axios from "axios";
 import { useAuth } from "../../hooks/AuthContext";
 import { useNavigate } from "react-router-dom";
 import TravelPage from "../Location/TravelPage";
+import { AuthButton, CustomTextField, fieldProps } from "./MuiTypes";
 function Login() {
     const [credentials, setCredentials] = useState<Credentials>({
         username: '',
@@ -42,63 +43,32 @@ function Login() {
     }
 
     if (token) {
-        console.log(token)
         return <TravelPage />
     } else {
         return (
             <>
                 <Stack spacing={2} alignItems="center" mt={2}>
-                    <TextField
+                    
+                    <CustomTextField
 
                         name="username"
                         label="Username"
                         variant="filled"
-                        sx={{
-                            backgroundColor: '#cfcfd1',
-                            borderRadius: 1,
-
-                            // Target the underline pseudo-elements
-                            '& .MuiFilledInput-underline:after': {
-                                borderBottomColor: '#d31c20', // focused color
-                            },
-                        }}
-                        slotProps={{
-                            inputLabel: {
-                                sx: {
-                                    color: '#333',
-                                    '&.Mui-focused': { color: '#d31c20' },
-                                },
-                            },
-                        }}
+                        slotProps={fieldProps}
                         onChange={handleChange}
                     />
-                    <TextField
+                    
+                    <CustomTextField
                         name="password"
                         label="Password"
                         type="password"
                         variant="filled"
-                        sx={{
-                            backgroundColor: '#cfcfd1',
-                            borderRadius: 1,
-
-                            // Target the underline pseudo-elements
-                            '& .MuiFilledInput-underline:after': {
-                                borderBottomColor: '#d31c20', // focused color
-                            },
-                        }}
-                        slotProps={{
-                            inputLabel: {
-                                sx: {
-                                    color: '#333',
-                                    '&.Mui-focused': { color: '#d31c20' },
-                                },
-                            },
-                        }}
+                        slotProps={fieldProps}
                         onChange={handleChange} />
-                    <Button sx={{ fontFamily: '"Russo One", sans-serif', backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding:1.5 }}  onClick={handleLogin}>Login</Button>
-                    
-                    <div style={{ borderBottom: '1px solid #cfcfd1', width: '250px' }}></div>
-                    <Button sx={{ fontFamily: '"Russo One", sans-serif', backgroundColor: '#d31c20', color: "white", borderRadius: 1, padding:1.5 }}  onClick={handleRegister}>Register</Button>
+                        
+                    <AuthButton onClick={handleLogin}>Login</AuthButton>
+                    <div className="seperator"></div>
+                    <AuthButton onClick={handleRegister}>Register</AuthButton>
                 </Stack>
                 <Snackbar
                     open={open}

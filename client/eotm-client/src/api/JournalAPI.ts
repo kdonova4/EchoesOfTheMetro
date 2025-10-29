@@ -18,6 +18,12 @@ export const findByLocation = async (locationId: number): Promise<JournalRespons
     return response.data;
 }
 
+export const findByLocationOrdered = async (locationId: number): Promise<JournalResponse[]> => {
+    const response = await axios.get(`${url}/ordered/location/${locationId}`, getAxiosConfig());
+
+    return response.data;
+}
+
 export const findByEchoes = async (minCount: number): Promise<JournalResponse[]> => {
     const response = await axios.get(`${url}/echoes/${minCount}`, getAxiosConfig());
 

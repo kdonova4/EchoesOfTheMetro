@@ -35,8 +35,8 @@ create table badges (
 
 create table events (
 	event_id serial primary key,
-	event_text varchar(200) not null,
-	event_type varchar(50) not null check(event_type in ('ATTACK', 'ENCOUNTER', 'ARTIFACT', 'ANOMALY', 'RESOURCE', 'STANDARD')),
+	event_text varchar(1000) not null,
+	event_type varchar(50) not null check(event_type in ('ATTACK', 'ENCOUNTER', 'ARTIFACT', 'ANOMALY', 'LOCATION', 'STANDARD')),
 	scrap_found int,
 	fuel_found int,
 	mgr_collected int,
@@ -132,8 +132,17 @@ select * from badges;
 	-- Insert badges
 	insert into badges (badge_name, badge_image_path)
 	values
-	('First Steps', '/images/badges/first_steps.png'),
-	('Explorer', '/images/badges/explorer.png');
+	('Ghost Train', 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1761709113/ghost-train-badge_a8sa6d.png'),
+	('Wicked Phenomenon', 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1761709120/anomaly-badge_lvqexq.png'),
+	('Singing Pipes', 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1761709120/pipes-badge_xprte8.png'),
+	('Mental Survivor', 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1761709117/mental-badge_qqa1b8.png'),
+	('The Black Ones', 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1761709117/darkone-badge_citdgd.png'),
+	('A Spartan Stash', 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1761709116/stash-badge_oaqv80.png'),
+	('Savior For Paveletskaya', 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1761709114/savior-paveletskaya-badge_b2z8gq.png'),
+	('Savior For Cursed Staion', 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1761709114/cursed-station-save-badge_msd5la.png'),
+	('The Center of The Metro', 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1761709113/polis-badge_hastcm.png'),
+	('Theatrics', 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1761709113/theater-badge_ag7lcb.png'),
+	('Atomized Purgatory', 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1761709120/ghost-badge_ochwgb.png');
 	
 	-- Insert storylines
 	insert into storylines (storyline_title, app_user_id)
@@ -145,7 +154,20 @@ select * from badges;
 	insert into events (event_text, event_type, scrap_found, fuel_found, mgr_collected, location_id, badge_id, sound_path, media_path)
 	values
 	('You stumble upon a hidden stash of scrap.', 'STANDARD', 15, 2, 1, null, 1, 'https://res.cloudinary.com/dhucaqc0o/video/upload/v1759875245/ghost_scream_1_scllb9.wav', null),
-	('A strange anomaly blocks your path.', 'ANOMALY', 0, 0, 5, null, null, null, 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1755818893/wlvmzkpop3zxwedll5la.png');
+	('You Reach Polis, the center of the whole metro. A station with immense wealth and power', 'LOCATION', 0, 0, 0, 1, 9, null, 'POLIS IMAGE GIF HERE'),
+	('You Reach VDNKh, It is under constant attack by the Dark Ones, many of its soldiers have been driven mad by their psychic attacks.', 'LOCATION', 0, 0, 0, 2, null, null, 'VDNKh IMAGE HERE'),
+	('In your travel, you hear a strange noise. Almost like there is a subway train heading right for you. You quickly move off to the side of the tracks and witness a ghostly image of a train whizz past, lights blinding you in the suffacating darkness. It takes a moment for you eyes to readjust, and to process what you just saw', 'ANOMALY', 0, 0, 0, null, 1, 'TRAIN SOUND HERE', 'IMAGE HERE'),
+	('You hear a strange buzzing in the distance, as it closes upon you, you begin to feel stange. An electric ball of light appears floating in you direction. You hide under an old derailed cart. You see it float by you buzzing and arcing to the walls of the tunnel. Once it passes so does the strange feeling in your gut. You find a pouch cartridges while under the cart, seems like someone meant to comeback and grab it, maybe that thing got them.', 'ANOMALY', 0, 0, 8, null, 2, 'ELECTRIC ANOMALY SOUND', 'ANOMALY PIC/GIF'),
+	('You catch a faint murmur from one of the old pipes running along the tunnel wall — low, uneven, and unmistakably human. As you edge closer, the voice steadies, whispering from deep within the metal, like someone pleading from far below. Without warning, it erupts into a piercing scream that tears through the tunnel, rattling the walls and knocking you backward as your ears ring.', 'ANOMALY', 0, 0, 0, null, 3, 'SCREAM SOUND', 'PIPE IMAGE MAYBE?'),
+	('You move cautiously through the tunnel everyone warned you about — a place whispered to swallow men whole. The deeper you go, the thicker the darkness becomes, until your flashlight barely cuts through the air, its beam swallowed just a few feet ahead. Your body grows heavy, each step harder than the last, until your knees buckle and the world fades to black. When you wake, the tunnel is silent, your light works again, and everything looks untouched — yet every instinct screams that you were not welcome here.', 'ANOMALY', 0, 0, 0, null, 4, 'MAYBE CREEPY SOUND', 'PROBABLY NO IMAGE HERE'),
+	('Having arrived at VDNKh, you decide to investigate the rumors plaguing the old metro station and join the next patrol heading toward the tunnel outskirts. You are joking quietly with the others, trading rumors to keep the tension at bay, when a shape shifts in the distance, catching all of your eyes. A sharp, agonizing voice rips through your mind, echoing inside everyone’s skull, and you all reach for your weapons only to find your limbs frozen; then, as suddenly as it began, the presence vanishes, leaving nothing but a lingering, suffocating sense that something watched you.', 'ENCOUNTER', 0, 0, 0, 2, 5, 'DARK ONES SOUND?', 'METRO LAST LIGHT IMAGE OF DARK ONES INTRO'),
+	('Along the route to your destination, you stumble across a hidden Spartan stash tucked into a crumbling alcove. Inside, supplies are neatly arranged, ammo, rations, and a few rare tools, a quiet reminder that someone had passed this way before you. You take what you need, leaving the rest untouched, and move on, the shadowed tunnel swallowing your footsteps once more.', 'STANDARD', 5, 1, 3, null, 6, null, null),
+	('You arrive at Paveletskaya in the middle of an attack, shielding a woman and her child as mutants burst through the barricades and pour into the station. The guards are locked in a desperate struggle, and you join the fight, firing into the shadows to push the creatures back. When the last mutant falls, the woman presses a few cartridges into your hands, her voice shaking as she thanks you for keeping her and her child alive.', 'LOCATION', 0, 0, 4, 10, 7, 'GUN SOUNDS?', 'HOLE STATION GIF'),
+	('You arrive at Cursed Station just in the nick of time, the echoes of mutant screams and gunfire filling the air as the last soldiers struggle to hold the tunnels. Racing through the chaos, you help push back the creatures, giving the survivors in their tents a brief moment of safety. When the dust settles, one of the soldiers presses his pockets full of cartridges into your hands, nodding in gratitude for your timely aid.', 'LOCATION', 0, 0, 12, 7, 8, 'GUN SOUNDS?', 'CURSED STATION GIF'),
+	('You arrive at Polis, the heart of the Metro, where the hum of machinery and the bustle of people echo through vast platforms and towering structures. The air carries a mix of industry and intellect, a city where knowledge and order still hold sway amidst the darkness of the tunnels. Everywhere you look, scholars, soldiers, and merchants move with purpose, a stark reminder that this is a place unlike any other in the Metro. A bastion of civilization in a world gone mad.', 'LOCATION', 0, 0, 0, 1, 9, null, 'POLIS IMAGE'),
+	('You arrive at Teatralnaya Station, known for its plays and performances, which remain the station’s main attraction. Red Line guards patrol the platforms, some armed with flamethrowers, while travelers and refugees move through the corridors. Despite the tension between the Reich and the Red Line, the theater spaces are still maintained, a reminder of the station’s cultural importance.', 'LOCATION', 0, 0, 0, 11, 10, null, 'THEATHER STATION PIC'),
+	('As you move through the tunnel, faint ghostly forms begin to flicker along the walls, shapes that shift like shadows caught in the glow of your flashlight. You catch glimpses of outlines frozen in motion, figures repeating gestures that seem eerily familiar yet impossible. Unease grips you, and you break into a run, desperate to leave this section of the tunnels, the phantoms stretching and twisting along the walls as you hurry toward safety.', 'ANOMALY', 0, 0, 0, null, 11, 'GHOST SCREAM SOUND', 'GHOST IMAGE');
+
 	
 	-- Insert journals
 	insert into journal (title, text, storyline_id, app_user_id, location_id, whispers, created_at, created_status)

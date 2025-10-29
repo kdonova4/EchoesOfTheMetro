@@ -1,7 +1,7 @@
 body {
-  background-color: #121212; /* dark gray / black */
+  background-color: #121212; 
   color: #ffffff; 
-  overflow-x: hidden;           /* optional: make text readable */
+  overflow-x: hidden;           
 }
 
 .stalin {
@@ -10,3 +10,398 @@ body {
   font-style: normal;
 }
 
+.russo {
+  font-family: "Russo One", sans-serif;
+}
+
+.rock-salt {
+  font-family: "Rock Salt", cursive;
+}
+
+.caveat {
+  font-family: "Caveat", cursive;
+}
+
+/* Journal Card Styles */
+.journal-card:hover {
+  cursor: pointer;
+  background-color: #d31c1fa2;
+}
+
+.paper {
+  opacity: 0;
+  transform: translateX(300px) rotate(30deg);
+  
+  animation: fadeInRight 0.8s ease-out forwards;
+}
+
+.leather {
+  opacity: 0;
+  transform: translateY(300px) rotate(-10deg);
+  
+  animation: fadeInRight 0.8s ease-out forwards;
+}
+
+.journal {
+  opacity: 0;
+  transform: translateY(600px) rotate(-5deg);
+  
+  animation: fadeInRight 0.8s ease-out forwards;
+}
+
+@keyframes fadeInRight {
+  to {
+    opacity: 1;
+    transform: translate(0) rotate(0deg);
+  }
+}
+
+.location-card.MuiCard-root  {
+  max-width: 629px;
+  background-color: #d31c1f73;
+  color: white;
+}
+
+.journal-content-div {
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.journal-info.MuiTypography-root {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.journal-title.MuiTypography-root {
+  font-size: 1.9rem !important;
+}
+
+.mobile-echo {
+  margin-top: 15px;
+  height: 20%;
+  width: auto;
+}
+
+.journal-page-img{
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.journal-title-input-mobile{
+  position: absolute;
+  width: 80%;
+  border: none;
+  background: transparent;
+  font-size: 2vw;
+  text-align: center;
+  color: black;
+  outline: none;
+}
+
+.journal-title-input{
+  position: absolute;
+  width: 80%;
+  border: none;
+  background: transparent;
+  font-size: 24px;
+  text-align: center;
+  color: black;
+  outline: none;
+}
+
+.journal-text-area-input{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  font-size: 2.5vw;
+  color: #000;
+  outline: none;
+  resize: none;
+  overflow-wrap: break-word;
+  line-height: 1.5;
+}
+
+.journal-list{
+  overflow-y: auto;
+  height: 90%;
+  max-width: 724px;
+  width: 100%;
+}
+
+.background-img{
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.journal-viewer-page-img{
+  position: absolute;
+  top: -2%;
+  left: 1%;
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.journal-viewer-title-mobile{
+  position: absolute;
+  top: 5%;
+  color: black;
+  left: 1%;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 3vw;
+}
+
+.journal-viewer-text{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background: transparent;
+  font-size: 1.5rem;
+  color: black;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.journal-viewer-title{
+  position: absolute;
+  top: 5%;
+  color: black;
+  left: 1%;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.profile-name{
+  position: absolute;
+  top: 16%;
+  left: 67%;
+  transform: translateX(-50%);
+  color: black;
+  width: 80%;
+  text-align: center;
+  font-weight: lighter;
+  font-size: clamp(.34rem, 1.8vw, 1.5rem);
+}
+
+/* Loading */
+@keyframes driftDown {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(100px); opacity: 0; }
+}
+
+@keyframes opacityUp {
+    
+}
+
+.bootprint-right {
+    width: 80px;
+    position: relative; 
+    animation: driftDown 2s forwards ease-in-out infinite;
+}
+
+.bootprint-left {
+    width: 80px;
+    opacity: 0;
+    position: relative; 
+    animation: driftDown 2s forwards ease-in-out infinite;
+    animation-delay: 1s;
+}
+
+.jump-in {
+  opacity: 0;
+  transform: scale(.1);
+  transition: opacity 1s ease-in, transform 0.3s ease-in-out; 
+}
+
+.jump-in-loaded {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Location Styling */
+.fade-in {
+  opacity: 0;
+  transition: opacity 1s ease-in; 
+}
+
+.fade-in-loaded {
+  opacity: 1;
+}
+
+.location-mark {
+  width: 1.6%;                 
+  transition: width 0.2s;    
+}
+
+.location-mark:hover {
+  width: 2.2%;                 
+  cursor: pointer;
+}
+
+.marker-text {
+  color: black;
+  opacity: 1;
+}
+
+.map {
+  opacity: 0;
+  transform: translateY(-600px) rotate(-10deg);
+  
+  animation: fadeInTop 0.8s ease-out forwards;
+}
+
+@keyframes fadeInTop {
+  to {
+    opacity: 1;
+    transform: translate(0) rotate(0deg);
+  }
+}
+
+.stalin {
+  font-family: "Stalinist One", sans-serif !important;
+  font-size: 2rem !important;
+}
+
+.russo {
+  font-family: "Russo One", sans-serif !important;
+  font-size: 1.2rem !important;
+}
+
+/* Profile Styling */
+.stat-viewer {
+    transition: transform 0.2s;
+}
+
+.stat-viewer:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.profile {
+  opacity: 0;
+  transform: translateY(600px) rotate(-10deg); 
+  transform-origin: center center;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translate(0) rotate(0deg);
+  }
+}
+
+/* Login/Register styles */
+.seperator{
+  border-bottom: 1px solid #cfcfd1;
+  width: 250px;
+}
+
+/* Bootprint */
+.bootprint-left-div{
+  margin-right: 60px;
+  transform: scaleX(-1);
+  display: inline-block;
+}
+
+.bootprint-right-div{
+  display: inline-block;
+}
+
+/* Event Viewer */
+.snack-div{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.snack-img{
+  height: 24px;
+  width: auto;
+}
+
+.snack-badge-img{
+  width: 24px;
+  height: 24px;
+}
+
+.snack-font{
+  font-size: 1rem !important;
+}
+
+.event-div {
+  display: inline-block;
+  margin-top: 10px;
+  width: 40vw;
+  height: auto;
+  aspect-ratio: 16/9;
+}
+
+.event-img {
+  display: block;
+  border-radius: 20px;
+  width: 40vw;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Location Page */
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: 30% center;
+  z-index: -1;
+}
+
+.journal-viewer-div{
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding-top: 10px;
+}
+
+.journal-list-div {
+  height: 95vh;
+  padding-bottom: 60px;
+}
+
+/* Badge List */
+.badge-div {
+  overflow-y: auto;
+  height: 90%;
+  padding: 15px;
+}
+
+.badge-img{
+  height: 48px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+/* Journal List */
+.journal-results {
+  font-size: 1.5rem !important;
+  margin-left: 15px;
+}
+
+.logo {
+  border-radius: 0px;
+  max-width: 300px;
+  margin-top: 6px;  
+}
