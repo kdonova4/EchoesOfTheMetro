@@ -5,6 +5,7 @@ import type { EchoCreateRequest } from "../../types/create/EchoCreateRequest";
 import { Button, Tooltip } from "@mui/material";
 import type { EchoResponse } from "../../types/response/EchoResponse";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { dislikeSound, likeSound, onClickSound, playSound } from "../../sounds";
 
 type EchoProps = {
     journalId: number;
@@ -46,8 +47,10 @@ function Echo({ journalId, children }: EchoProps) {
     }, [])
 
     const handleEchoPress = async () => {
+        
         if (echoed && appUser && echoId) {
             try {
+                playSound(dislikeSound)
                 mutantDelete(echoId);
             } catch (e) {
                 console.error(e)
@@ -58,6 +61,7 @@ function Echo({ journalId, children }: EchoProps) {
                 appUserId: appUser?.appUserId
             }
             try {
+                    playSound(likeSound)
                     mutate(echoCreate);                
             } catch (e) {
                 console.error(e)

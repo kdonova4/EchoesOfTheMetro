@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import type { LocationResponse } from "../../types/response/LocationResponse";
 import { fetchLocationById } from "../../api/LocationAPI";
 import JournalList from "../Journal/JournalList";
-import { Box, Button, Card, CardContent, Container, Stack, Typography, useMediaQuery } from "@mui/material";
+import { Box, CardContent, Container, Stack, Typography, useMediaQuery } from "@mui/material";
 import JournalViewer from "../Journal/JournalViewer";
 import Modal from '@mui/material/Modal';
 import type { JournalResponse } from "../../types/response/JournalResponse";
@@ -11,6 +11,7 @@ import JournalForm from "../Journal/JournalForm";
 import TravelPage from "./TravelPage";
 import StatsViewer from "../Profile/StatsViewer";
 import { LocationCard, MobileLocationDescription, MobileLocationName, TravelButton } from "./MuiLocationTypes";
+import { mapSound } from "../../sounds";
 
 
 
@@ -27,6 +28,8 @@ function LocationPage() {
         setSelectedJournal(null)
     }, [id])
 
+
+
     const fetchLocation = async () => {
         try {
             const response = await fetchLocationById(Number(id));
@@ -39,7 +42,11 @@ function LocationPage() {
     }
 
     const handleClose = () => setOpen(false)
-    const handleOpen = () => setOpen(true)
+    const handleOpen = () => {
+        const audio = new Audio(mapSound);
+        audio.play();
+        setOpen(true)
+    }
 
     useEffect(() => {
         fetchLocation();

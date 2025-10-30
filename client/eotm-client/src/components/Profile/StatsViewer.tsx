@@ -2,6 +2,7 @@ import { Box, Modal } from "@mui/material";
 import { useAuth } from "../../hooks/AuthContext";
 import { useEffect, useState } from "react";
 import ProfilePage from "./ProfilePage";
+import { onClickSound, playSound, profileSound } from "../../sounds";
 
 function StatsViewer() {
 
@@ -13,10 +14,12 @@ function StatsViewer() {
     }, [])
 
     const handleClickOpen = () => {
+        playSound(profileSound)
         setOpen(true)
     }
 
     const handleClose = () => {
+        playSound(onClickSound)
         setOpen(false)
     }
 

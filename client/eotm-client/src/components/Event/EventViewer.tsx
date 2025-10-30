@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { useAuth } from "../../hooks/AuthContext";
 import { generateEvent } from "../../api/EventAPI";
+import { destinationSound, playSound } from "../../sounds";
 
 
 function EventViewer() {
@@ -131,7 +132,8 @@ function EventViewer() {
                     <Button
                         sx={{ color: '#d31c20', fontFamily: '"Stalinist One", sans-serif' }}
                         onClick={() => {
-                            navigate(`/location/${id}`, { replace: true });
+                            playSound(destinationSound);
+                            navigate( `/location/${id}`, { replace: true });
                             sessionStorage.removeItem(`event_${id}_${appUser?.appUserId}`);
                         }}
                     >
@@ -160,6 +162,7 @@ function EventViewer() {
                     <Button
                         sx={{ color: '#d31c20', fontFamily: '"Stalinist One", sans-serif', }}
                         onClick={() => {
+                            playSound(destinationSound);
                             navigate(`/location/${id}`, { replace: true });
                             sessionStorage.removeItem(`event_${id}_${appUser?.appUserId}`);
                         }}

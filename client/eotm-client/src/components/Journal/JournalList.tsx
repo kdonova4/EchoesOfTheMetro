@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { findByLocation, findByLocationOrdered } from "../../api/JournalAPI";
+import { findByLocationOrdered } from "../../api/JournalAPI";
 import { useParams } from "react-router-dom";
 import type { JournalResponse } from "../../types/response/JournalResponse";
 import JournalCard from "./JournalCard";
 import { useState } from "react";
 import { Pagination, Stack } from "@mui/material";
+import { onClickSound, playSound } from "../../sounds";
 
 type JournalListProps = {
     onSelectJournal: (journal: JournalResponse) => void;
@@ -53,7 +54,10 @@ function JournalList({ onSelectJournal }: JournalListProps) {
             <Pagination
                 count={totalPages}
                 page={page}
-                onChange={(_, value) => setPage(value)}
+                onChange={(_, value) => {
+                  setPage(value)  
+                  playSound(onClickSound)
+                } }
                 color="primary"
                 showFirstButton
                 showLastButton

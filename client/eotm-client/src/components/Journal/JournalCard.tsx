@@ -4,6 +4,7 @@ import type { JournalResponse } from "../../types/response/JournalResponse";
 import EchoCount from "./EchoCount";
 import Echo from "./Echo";
 import { JournalCondition, JournalInfo, JournalLocationCard, JournalText, JournalTitle, JournalWrittenBy, MobileJournalTitle, MobileProfileCard, MobileProfileInfo, ProfileCard, ProfileInfo, ProfileJournalText, ProfileJournalTitle } from "./MuiJournalCards";
+import { journalSound, playSound } from "../../sounds";
 
 type JournalCardProps = {
     journal: JournalResponse;
@@ -21,7 +22,10 @@ function JournalCard({ journal, onSelectJournal, mode }: JournalCardProps) {
 
                 <JournalLocationCard key={journal.journalId}>
                     <CardContent>
-                        <div className="journal-card journal-content-div" onClick={() => onSelectJournal?.(journal)}>
+                        <div className="journal-card journal-content-div" onClick={() => {
+                          onSelectJournal?.(journal)  
+                          playSound(journalSound)
+                        }}>
                             <JournalInfo gutterBottom variant="h5">
                                 <JournalTitle>
                                     {journal.title}

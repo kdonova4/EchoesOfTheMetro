@@ -3,6 +3,7 @@ import { useAuth } from "../../hooks/AuthContext";
 import { useState } from "react";
 import JournalProfileList from "../Journal/JournalProfileList";
 import BadgesList from "./BadgesList";
+import { onClickSound, playSound } from "../../sounds";
 type ProfilePageProps = {
   handleClose: () => void;
 }
@@ -69,10 +70,12 @@ function ProfilePage({ handleClose }: ProfilePageProps) {
 
 
   const handleJournalOpen = () => {
+    playSound(onClickSound)
     setView("journals");
   }
 
   const handleBadgeOpen = () => {
+    playSound(onClickSound)
     setView("badges");
   }
 

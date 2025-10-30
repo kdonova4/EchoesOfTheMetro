@@ -6,6 +6,7 @@ import { useAuth } from "../../hooks/AuthContext";
 import { useNavigate } from "react-router-dom";
 import TravelPage from "../Location/TravelPage";
 import { AuthButton, CustomTextField, fieldProps } from "./MuiTypes";
+import { onClickSound, playSound } from "../../sounds";
 function Login() {
     const [credentials, setCredentials] = useState<Credentials>({
         username: '',
@@ -33,12 +34,17 @@ function Login() {
                 login(jwtToken);
                 sessionStorage.setItem("jwt", jwtToken);
             }
+            playSound(onClickSound)
             navigate('/travel')
-        }).catch(() => setOpen(true))
+        }).catch(() => {
+        playSound(onClickSound)
+          setOpen(true)  
+        })
 
     }
 
     const handleRegister = () => {
+        playSound(onClickSound);
         navigate("/register");
     }
 

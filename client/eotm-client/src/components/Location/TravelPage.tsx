@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Box, Tooltip } from "@mui/material";
 import TypewriterText from "../Journal/TypewriterText";
 import { locationList } from './locations'
+import { playSound, travelSound } from "../../sounds";
 type TravelProps = {
   handleClose?: () => void;
 }
@@ -51,6 +52,7 @@ function TravelPage({ handleClose }: TravelProps) {
       navigate('')
       handleClose?.();
     } else {
+      playSound(travelSound)
       navigate(`/traveling/${travelTo}`)
     }
   }

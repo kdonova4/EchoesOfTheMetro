@@ -8,6 +8,7 @@ import JournalDialogContent from "./JournalDialogContent";
 import type { JournalResponse } from "../../types/response/JournalResponse";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
+import { onClickSound, playSound, writeJournalSound } from "../../sounds";
 
 const JOURNAL_DEFAULT: JournalCreateRequest = {
   title: '',
@@ -49,10 +50,12 @@ function JournalForm() {
   })
 
   const handleClickOpen = () => {
+    playSound(writeJournalSound)
     setOpen(true)
   }
 
   const handleClose = () => {
+    playSound(onClickSound)
     setOpen(false)
   }
 
@@ -63,6 +66,7 @@ function JournalForm() {
       journal.locationId = Number(id)
     }
 
+    playSound(onClickSound)
     mutate(journal);
 
   }

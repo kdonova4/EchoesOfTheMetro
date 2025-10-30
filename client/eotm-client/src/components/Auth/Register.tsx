@@ -2,8 +2,9 @@ import { useState } from "react";
 import type { AppUserCreateRequest } from "../../types/create/AppUserCreateRequest";
 import { register } from "../../api/AppUserAPI";
 import { useNavigate } from "react-router-dom";
-import { Button, Snackbar, Stack, TextField } from "@mui/material";
+import { Snackbar, Stack } from "@mui/material";
 import { AuthButton, CustomTextField, fieldProps } from "./MuiTypes";
+import { onClickSound, playSound } from "../../sounds";
 
 function Register() {
 
@@ -27,16 +28,21 @@ function Register() {
         try {
             await register(credentials);
 
+            playSound(onClickSound);
             navigate("/");
         } catch (e) {
             if (Array.isArray(e)) {
                 setErrors(e);
             }
+            playSound(onClickSound);
             setOpen(true);
         }
+        
+        
     };
 
     const goToLogin = () => {
+        playSound(onClickSound);
         navigate('/')
     }
 
