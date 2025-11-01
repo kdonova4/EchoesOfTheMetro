@@ -157,7 +157,7 @@ select * from badges;
 	('You Reach Polis, the center of the whole metro. A station with immense wealth and power', 'LOCATION', 0, 0, 0, 1, 9, null, 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1761778231/Polis_g2sqcv.webp'),
 	('You Reach VDNKh, It is under constant attack by the Dark Ones, many of its soldiers have been driven mad by their psychic attacks.', 'LOCATION', 0, 0, 0, 2, null, null, 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1761778317/000VDNKhSpeaker_xuz4lu.webp'),
 	('In your travel, you hear a strange noise. Almost like there is a subway train heading right for you. You quickly move off to the side of the tracks and witness a ghostly image of a train whizz past, lights blinding you in the suffacating darkness. It takes a moment for you eyes to readjust, and to process what you just saw', 'ANOMALY', 0, 0, 0, null, 1, 'https://res.cloudinary.com/dhucaqc0o/video/upload/v1761785018/ghost_train_break_cv4s9i.wav', 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1761778813/ghosttrain_lqgzwh.png'),
-	('You hear a strange buzzing in the distance, as it closes upon you, you begin to feel stange. An electric ball of light appears floating in you direction. You hide under an old derailed cart. You see it float by you buzzing and arcing to the walls of the tunnel. Once it passes so does the strange feeling in your gut. You find a pouch cartridges while under the cart, seems like someone meant to comeback and grab it, maybe that thing got them.', 'ANOMALY', 0, 0, 8, null, 2, 'https://res.cloudinary.com/dhucaqc0o/video/upload/v1761785012/anomaly_spark3_brl1wj.wav', 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1761779250/ezgif-83bf3c33f13270_xiv75b.gif'),
+	('You hear a strange buzzing in the distance, as it closes upon you, you begin to feel stange. An electric ball of light appears floating in you direction. You hide under an old derailed cart. You see it float by you buzzing and arcing to the walls of the tunnel. Once it passes so does the strange feeling in your gut. You find a pouch of cartridges while under the cart, seems like someone meant to come back here and grab it, maybe that thing got them.', 'ANOMALY', 0, 0, 8, null, 2, 'https://res.cloudinary.com/dhucaqc0o/video/upload/v1761785012/anomaly_spark3_brl1wj.wav', 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1761779250/ezgif-83bf3c33f13270_xiv75b.gif'),
 	('You catch a faint murmur from one of the old pipes running along the tunnel wall — low, uneven, and unmistakably human. As you edge closer, the voice steadies, whispering from deep within the metal, like someone pleading from far below. Without warning, it erupts into a piercing scream that tears through the tunnel, rattling the walls and knocking you backward as your ears ring.', 'ANOMALY', 0, 0, 0, null, 3, 'https://res.cloudinary.com/dhucaqc0o/video/upload/v1761785033/pipe_cry_1_fvydhj.wav', null),
 	('You move cautiously through the tunnel everyone warned you about — a place whispered to swallow men whole. The deeper you go, the thicker the darkness becomes, until your flashlight barely cuts through the air, its beam swallowed just a few feet ahead. Your body grows heavy, each step harder than the last, until your knees buckle and the world fades to black. When you wake, the tunnel is silent, your light works again, and everything looks untouched — yet every instinct screams that you were not welcome here.', 'ANOMALY', 0, 0, 0, null, 4, 'https://res.cloudinary.com/dhucaqc0o/video/upload/v1761785039/tun_moan_2_zjuvx8.wav', null),
 	('Having arrived at VDNKh, you decide to investigate the rumors plaguing the old metro station and join the next patrol heading toward the tunnel outskirts. You are joking quietly with the others, trading rumors to keep the tension at bay, when a shape shifts in the distance, catching all of your eyes. A sharp, agonizing voice rips through your mind, echoing inside everyone’s skull, and you all reach for your weapons only to find your limbs frozen; then, as suddenly as it began, the presence vanishes, leaving nothing but a lingering, suffocating sense that something watched you.', 'ENCOUNTER', 0, 0, 0, 2, 5, 'https://res.cloudinary.com/dhucaqc0o/video/upload/v1761785019/dark_one_start12secpik_mkpooy.wav', 'https://res.cloudinary.com/dhucaqc0o/image/upload/v1761779633/ezgif-8df11191b317c3_gqjnrn.gif'),
@@ -259,78 +259,21 @@ select * from badges;
 	-- Insert journals
 	insert into journal (title, text, storyline_id, app_user_id, location_id, whispers, created_at, created_status)
 	values
-	('Echoes of the Past', 'Every footstep here feels borrowed, as if the station remembers its passengers more vividly than the living do.', null, 1, 1, 0, NOW() - INTERVAL '87 days', 'FRESH'),
-	('Dripping Arches', 'The sound of water dripping from the arches keeps time like a clock that refuses to stop.', null, 3, 1, 0, NOW() - INTERVAL '140 days', 'WEATHERED'),
-	('Ghosts of the Red Line', 'I swear I heard a conductor call out the next stop. No trains have run here in decades.', null, 1, 1, 0, NOW() - INTERVAL '200 days', 'FRESH'),
-	('Rust and Silence', 'Metallic air clings to the lungs. Even silence tastes of iron here.', null, 3, 1, 0, NOW() - INTERVAL '32 days', 'WEATHERED'),
-	('Half-Seen Shadows', 'A silhouette darted across the tracks, vanishing before I could breathe.', null, 1, 1, 0, NOW() - INTERVAL '270 days', 'FRESH'),
-	('Passenger Murmurs', 'A hum fills the tunnels, too soft to be the wind. I avoid the far platform now.', null, 3, 1, 0, NOW() - INTERVAL '64 days', 'FRESH'),
-	('Return to Dust', 'Tiles crumble under my boots. One day the whole station will collapse into itself.', null, 1, 1, 0, NOW() - INTERVAL '99 days', 'WEATHERED'),
-	('The Third Rail', 'I found the third rail intact, but dead. Still, I could swear I heard a current buzzing faintly.', null, 3, 1, 0, NOW() - INTERVAL '180 days', 'FRESH'),
-	('Painted Walls', 'Graffiti still glows faintly in lantern light. Some symbols don’t look human.', null, 1, 1, 0, NOW() - INTERVAL '15 days', 'FRESH'),
-	('Departure Never Called', 'A broken speaker crackled with static today, then whispered a station name I didn’t recognize.', null, 3, 1, 0, NOW() - INTERVAL '320 days', 'WEATHERED'),
-	('Buzzing Lights', 'The old bulbs hum louder than they should, like they resent still being alive.', null, 1, 2, 0, NOW() - INTERVAL '43 days', 'FRESH'),
-	('Water on the Tracks', 'Ripples spread across the puddles even when I hold my breath.', null, 3, 2, 0, NOW() - INTERVAL '88 days', 'FRESH'),
-	('Footsteps Not Mine', 'The water reflects more than one figure. I was alone.', null, 1, 2, 0, NOW() - INTERVAL '200 days', 'WEATHERED'),
-	('Still Stirring', 'Something below the platform keeps moving the stones when no one is there.', null, 3, 2, 0, NOW() - INTERVAL '320 days', 'FRESH'),
-	('Rust and Sparks', 'My lamp caught a wire sparking in the dark, but the circuit should be dead.', null, 1, 2, 0, NOW() - INTERVAL '60 days', 'FRESH'),
-	('Beneath the Blue', 'There is a smell like burnt ozone here that never fades.', null, 3, 2, 0, NOW() - INTERVAL '130 days', 'WEATHERED'),
-	('Unseen Traveler', 'The rails shook as though a train was arriving. Nothing came.', null, 1, 2, 0, NOW() - INTERVAL '220 days', 'FRESH'),
-	('Crushed Tracks', 'Half the rail is buried under concrete teeth. I crawled through but felt the rubble shift above.', null, 3, 3, 0, NOW() - INTERVAL '45 days', 'WEATHERED'),
-	('Jagged Teeth', 'Steel rods jab upward like fangs. Something bled here once, and the stains remain.', null, 1, 3, 0, NOW() - INTERVAL '125 days', 'FRESH'),
-	('Buried Alive', 'It feels like the debris is waiting to fall again, eager to trap more lives beneath.', null, 3, 3, 0, NOW() - INTERVAL '300 days', 'FRESH'),
-	('Faint Airflow', 'Despite the collapse, air still breathes through. But from where?', null, 1, 3, 0, NOW() - INTERVAL '150 days', 'WEATHERED'),
-	('Dead End', 'The rubble isn’t just blocking—it’s sealing. Like someone meant it that way.', null, 3, 3, 0, NOW() - INTERVAL '190 days', 'FRESH'),
-	('Vaulted Echoes', 'Every whisper bounces endlessly, making it impossible to tell friend from foe.', null, 1, 6, 0, NOW() - INTERVAL '30 days', 'FRESH'),
-	('Footsteps Behind', 'A set of footsteps follows me exactly, yet when I turn no one is there.', null, 3, 6, 0, NOW() - INTERVAL '75 days', 'WEATHERED'),
-	('Whispering Walls', 'The walls themselves seem to speak in tones just below hearing.', null, 1, 6, 0, NOW() - INTERVAL '140 days', 'FRESH'),
-	('Faint Glow', 'Broken lights flicker in harmony with the echoes, creating phantom shapes.', null, 3, 6, 0, NOW() - INTERVAL '90 days', 'FRESH'),
-	('Muffled Screams', 'Far off, something sounds like a scream, but I see only shadows.', null, 1, 6, 0, NOW() - INTERVAL '220 days', 'FRESH'),
-	('Hall of Mirrors', 'Reflections in puddles multiply sounds until I can no longer trust them.', null, 3, 6, 0, NOW() - INTERVAL '50 days', 'WEATHERED'),
-	('Resonance', 'The chamber hums at a frequency I can almost feel in my chest.', null, 1, 6, 0, NOW() - INTERVAL '180 days', 'FRESH'),
-	('Endless Arch', 'I can never see the end; the echoes suggest it goes on forever.', null, 3, 6, 0, NOW() - INTERVAL '10 days', 'FRESH'),
-	('Total Darkness', 'No light penetrates here. I rely on touch and intuition alone.', null, 1, 7, 0, NOW() - INTERVAL '25 days', 'FRESH'),
-	('Cold Breath', 'The air bites my lungs; each step feels like moving through water.', null, 3, 7, 0, NOW() - INTERVAL '70 days', 'WEATHERED'),
-	('Hands on the Wall', 'Every wall is damp, and I feel strange shapes brushing past me.', null, 1, 7, 0, NOW() - INTERVAL '120 days', 'FRESH'),
-	('Whispering Floors', 'Even the floorboards seem to creak with someone else’s weight.', null, 3, 7, 0, NOW() - INTERVAL '95 days', 'FRESH'),
-	('Breath of Something', 'I hear exhalations that do not belong to me.', null, 1, 7, 0, NOW() - INTERVAL '200 days', 'FRESH'),
-	('Endless Tunnel', 'Every turn leads to more darkness, I fear I will walk forever.', null, 3, 7, 0, NOW() - INTERVAL '160 days', 'WEATHERED'),
-	('Graffiti Stories', 'Each wall tells a tale of scavengers and wanderers lost to time.', null, 1, 8, 0, NOW() - INTERVAL '15 days', 'FRESH'),
-	('Vanishing Rails', 'Rails vanish into shadow; maps cannot guide anyone here.', null, 3, 8, 0, NOW() - INTERVAL '50 days', 'WEATHERED'),
-	('Shadowed Corners', 'Dark corners hide more than debris.', null, 1, 8, 0, NOW() - INTERVAL '120 days', 'FRESH'),
-	('Collapsing Roof', 'The ceiling groans; I fear it will give way any moment.', null, 3, 8, 0, NOW() - INTERVAL '80 days', 'FRESH'),
-	('Whispers of Others', 'I hear footsteps echo that do not match mine.', null, 1, 8, 0, NOW() - INTERVAL '200 days', 'FRESH'),
-	('Cracked Tile', 'Each step risks the tile crumbling beneath.', null, 3, 8, 0, NOW() - INTERVAL '180 days', 'FRESH'),
-	('Rubble Maze', 'Tunnels twist like a labyrinth; I lose sense of direction.', null, 1, 8, 0, NOW() - INTERVAL '30 days', 'WEATHERED'),
-	('Faded Signs', 'Signage points nowhere useful, mocking lost travelers.', null, 3, 8, 0, NOW() - INTERVAL '100 days', 'FRESH'),
-	('Distant Echo', 'A sound from deep below returns distorted, unsettling.', null, 1, 8, 0, NOW() - INTERVAL '250 days', 'FRESH'),
-	('Rust Drip', 'Orange flakes fall into puddles; the metallic smell is suffocating.', null, 1, 9, 0, NOW() - INTERVAL '60 days', 'FRESH'),
-	('Creaking Beams', 'The steel groans like it is alive, threatening to collapse.', null, 3, 9, 0, NOW() - INTERVAL '90 days', 'WEATHERED'),
-	('Corrosion Breath', 'The air tastes of old metal and dust.', null, 1, 9, 0, NOW() - INTERVAL '120 days', 'FRESH'),
-	('Shadowed Puddles', 'Reflections in water seem to shift when I look away.', null, 3, 9, 0, NOW() - INTERVAL '180 days', 'FRESH'),
-	('Stale Wind', 'A constant breeze carries a metallic tang that stings eyes.', null, 1, 9, 0, NOW() - INTERVAL '40 days', 'WEATHERED'),
-	('Collapsed Support', 'One beam sags dangerously; I avoid the center of the platform.', null, 3, 9, 0, NOW() - INTERVAL '200 days', 'FRESH'),
-	('Lonely Tracks', 'Tracks vanish into darkness, unused for decades.', null, 1, 9, 0, NOW() - INTERVAL '15 days', 'FRESH'),
-	('Faded Murals', 'Ancient mosaics tell stories no one remembers.', null, 3, 10, 0, NOW() - INTERVAL '20 days', 'FRESH'),
-	('Veiled in Dust', 'Dust coats everything like a funeral shroud.', null, 1, 10, 0, NOW() - INTERVAL '50 days', 'WEATHERED'),
-	('Cracked Tiles', 'Each step releases clouds of gray dust.', null, 3, 10, 0, NOW() - INTERVAL '100 days', 'FRESH'),
-	('Forgotten Residents', 'Shoes, hats, and notes left behind whisper of lives vanished.', null, 1, 10, 0, NOW() - INTERVAL '180 days', 'FRESH'),
-	('Silent Corridors', 'Hallways stretch endlessly, carrying no sound but my own.', null, 3, 10, 0, NOW() - INTERVAL '75 days', 'FRESH'),
-	('Time’s Shadow', 'Sunlight never reaches the interior; darkness rules.', null, 1, 10, 0, NOW() - INTERVAL '150 days', 'FRESH');
+	('The Still Air of Polis', 'The council chambers hum with quiet arguments. Even here, where order supposedly reigns, the air feels thin. Knowledge costs more than bullets, and the scholars guard their scrolls like weapons. Every debate feels like a battle no one can afford to lose.
+	I watched two men nearly come to blows over a map—one swore the tunnels beneath Pushkinskaya were safe, the other said they were haunted. The truth? Both might be right. Down here, logic and superstition share a bunk. Still, Polis stands—clean air, real electricity, hope stitched together by bureaucracy and fear.', null, 2, 1, 0, NOW() - INTERVAL '60 days', 'FRESH'),
+	('Pig Smoke and Lanterns', 'Alexeyevskaya smells of life — damp straw, roasted mushrooms, and the sour sweat of work. They may be poor, but there’s laughter here. A rare sound.', null, 3, 3, 0, NOW() - INTERVAL '40 days', 'FRESH'),
+	('Trading at Mira', 'Barter thrives here. Ammo, filters, hope — all traded with the same weary eyes. I watched a child trade a drawing for a loaf of bread. Both seemed satisfied.', null, 3, 5, 0, NOW() - INTERVAL '30 days', 'FRESH'),
+	('Shrine of the Lost', 'At the cursed station, candles still burn. The air hums with whispers — I could swear I heard names I once knew. The dead are patient listeners.', null, 3, 7, 1, NOW() - INTERVAL '10 days', 'FRESH'),
+	('Chaos in Kitay-gorod', 'Gunfire broke the night again. Two factions fighting over a half-dead trader. I wonder which side will run out of bullets first — or humanity.', null, 1, 8, 0, NOW() - INTERVAL '45 days', 'FRESH'),
+	('Venetian Nights', 'The flooded streets glitter under torchlight. Boats drift lazily, carrying smugglers and lovers alike. Beauty and rot share the same water.', null, 3, 9, 0, NOW() - INTERVAL '33 days', 'FRESH'),
+	('The Breathing Walls', 'At Paveletskaya, the walls seem to move. I woke up to the sound of metal grinding like teeth. The guards say it’s the wind. I don’t believe them.', null, 1, 10, 0, NOW() - INTERVAL '95 days', 'FADED'),
+	('Forged in Red', 'Kuznetsky Most hums with industry. Sparks rain like fireflies as the Red Line forges its next war. Progress always smells like iron and blood.', null, 2, 12, 0, NOW() - INTERVAL '42 days', 'FRESH'),
+	('Voices at Polyanka', 'No one lives here, yet I heard singing. A woman’s voice, clear and close, until my light flickered out. Then... silence.', null, 3, 13, 1, NOW() - INTERVAL '13 days', 'FRESH'),
+	('Steel and Shadows', 'Smolenskaya’s guards don’t blink. Every corner is watched, every word recorded. Safety, they call it. I call it a cage with brighter lights.', null, 2, 15, 0, NOW() - INTERVAL '54 days', 'FRESH'),
+	('The Calm Confederation', 'Novokosino feels unreal. No screaming, no shots, just quiet barter and warm lights. I almost forgot the rest of the Metro exists.', null, 3, 16, 0, NOW() - INTERVAL '21 days', 'FRESH'),
+	('Whispers in Kievskaya', 'Children gone missing again. The mothers refuse to speak above a whisper. They say the tunnels took them — or something in them.', null, 3, 19, 1, NOW() - INTERVAL '5 days', 'FRESH');
 
-	-- Insert echoes
-	insert into echoes (journal_id, app_user_id)
-	values
-	(1, 2), -- metro_admin echoed shadowrunner’s journal
-	(2, 1); -- shadowrunner echoed wanderer’s journal
-	
 	-- Insert user badges
 	insert into app_user_badge (app_user_id, badge_id, date_earned)
 	values
-	(3, 2, now());
-
-
-	select * from echoes;
-	select * from journal;
-	select * from app_user_badge;
-	select * from app_user;
+	(1, 1, now());

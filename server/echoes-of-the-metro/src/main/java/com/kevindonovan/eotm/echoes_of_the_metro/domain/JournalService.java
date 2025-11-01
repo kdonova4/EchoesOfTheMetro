@@ -11,8 +11,7 @@ import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.JournalResponse;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

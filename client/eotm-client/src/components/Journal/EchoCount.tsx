@@ -18,11 +18,30 @@ function EchoCount({ journalId }: EchoProps) {
 
     return (
         <>
-        <div style={{ display: 'flex', flexDirection: 'row', gap: '4px'}}>
-            <img src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760652092/echo-icon_pgh8y0.png"/>
-            <p style={{ fontFamily: '"Russo One", sans-serif', color: 'white' }}>{data}</p>
-        </div>
-            
+            <div
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                }}
+            >
+                <img
+                    src="https://res.cloudinary.com/dhucaqc0o/image/upload/v1760652092/echo-icon_pgh8y0.png"
+                    alt="echo"
+                    style={{ width: '48px', height: '48px' }}
+                />
+                <span
+                    style={{
+                        fontFamily: '"Russo One", sans-serif',
+                        fontSize: '1rem',
+                        color: 'white',
+                        lineHeight: 1,
+                    }}
+                >
+                    {data}
+                </span>
+            </div>
+
         </>
     )
 }

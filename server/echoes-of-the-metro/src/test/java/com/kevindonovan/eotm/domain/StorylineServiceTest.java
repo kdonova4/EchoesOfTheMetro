@@ -1,7 +1,5 @@
 package com.kevindonovan.eotm.domain;
 
-import com.kevindonovan.eotm.data.KnownGoodState;
-import com.kevindonovan.eotm.echoes_of_the_metro.data.AppRoleRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.AppUserRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.data.StorylineRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.Result;
@@ -18,7 +16,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
 import java.util.List;

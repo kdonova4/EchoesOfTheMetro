@@ -8,7 +8,7 @@ import com.kevindonovan.eotm.echoes_of_the_metro.models.*;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -81,7 +81,7 @@ public class EventService {
         if(chosenEvent.getBadge() != null) {
             Badge badge = badgeRepository.findById(chosenEvent.getBadge().getBadgeId()).orElseThrow(() -> new NoSuchElementException("Badge not found"));
             AppUserBadgeKey key = new AppUserBadgeKey(appUser.getAppUserId(), badge.getBadgeId());
-            appUserBadges.add(new AppUserBadge(key, appUser, badge, Timestamp.valueOf(LocalDateTime.now())));
+            appUserBadges.add(new AppUserBadge(key, appUser, badge, Timestamp.from(Instant.now())));
             appUser.setBadges(appUserBadges);
         }
 

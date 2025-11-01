@@ -405,3 +405,28 @@ body {
   max-width: 300px;
   margin-top: 6px;  
 }
+
+.scrollable, html {
+  scrollbar-width: auto;              /* options: auto | thin | none */
+  scrollbar-color: #d31c1f98 #d31c1f00;      /* thumb color | track color */
+}
+
+
+.scrollable::-webkit-scrollbar {
+  width: 8px; /* scrollbar width */
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background: #f0f0f0; /* track (background) color */
+  border-radius: 8px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background-color: #cfcfd1; /* thumb (the draggable part) */
+  border-radius: 8px;
+  border: 20px solid #f0f0f0; /* creates spacing between thumb and track */
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}

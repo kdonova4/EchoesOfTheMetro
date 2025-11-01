@@ -50,8 +50,8 @@ export const locationList = [
     {
         locationId: 9,
         name: 'Venice',
-        top: '53.1%',
-        left: '51.4%',
+        top: '52.6%',
+        left: '51%',
     },
     {
         locationId: 10,

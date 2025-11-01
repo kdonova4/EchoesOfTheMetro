@@ -1,4 +1,4 @@
-import { Card, styled, Typography } from "@mui/material"
+import { Card, styled, Typography, type TypographyProps } from "@mui/material"
 
 export const JournalLocationCard = styled(Card)({
     maxWidth: '629px',
@@ -6,7 +6,7 @@ export const JournalLocationCard = styled(Card)({
     color: 'white'
 })
 
-export const JournalInfo = styled(Typography)({
+export const JournalInfo = styled(Typography)<TypographyProps>({
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
@@ -35,6 +35,17 @@ export const JournalWrittenBy = styled(Typography)({
     textAlign: 'right'
 })
 
+export const JournalLocation = styled(Typography)({
+    color: '#cfcfd1',
+    flexShrink: 0,
+    paddingLeft: 10,
+    fontFamily: '"Russo One", sans-serif',
+    height: '10%',
+    width: '50%',
+    fontSize: '.7rem',
+    textAlign: 'left'
+})
+
 export const JournalText = styled(Typography)({
     padding: '16px',
     fontFamily: '"Russo One", sans-serif',
@@ -61,14 +72,14 @@ export const JournalCondition = styled(Typography)({
     textOverflow: 'ellipsis',
 })
 
-export const MobileProfileCard = styled(Typography)({
+export const MobileProfileCard = styled(Card)({
     maxWidth: '100%',
     height: '100%',
     backgroundColor: '#d31c1f63',
     color: 'white'
 })
 
-export const MobileProfileInfo = styled(Typography)({
+export const MobileProfileInfo = styled(Typography)<TypographyProps>({
     display: 'flex',
     flexDirection: 'row',
     width: '70%', gap: '10px',
@@ -85,21 +96,23 @@ export const MobileJournalTitle = styled(Typography)({
     textOverflow: 'ellipsis'
 })
 
-export const ProfileCard = styled(Typography)({
+export const ProfileCard = styled(Card)({
     maxWidth: '100%',
     backgroundColor: '#d31c1f63',
-    color: 'white'
+    color: 'white',
+    borderRadius: '4px'
 })
 
-export const ProfileInfo = styled(Typography)({
-    display: 'flex',
-    flexDirection: 'row',
-    width: '70%',
-    gap: '10px',
-    alignItems: 'flex-end'
-})
 
-export const ProfileJournalTitle = styled(Typography)({
+export const ProfileInfo = styled(Typography)<TypographyProps>({
+  display: 'flex',
+  flexDirection: 'row',
+  width: '70%',
+  gap: '10px',
+  alignItems: 'flex-end',
+});
+
+export const ProfileJournalTitle = styled(Typography)<TypographyProps>({
     fontFamily: '"Russo One", sans-serif',
     fontSize: '1.6rem',
     height: '25%',
@@ -109,7 +122,7 @@ export const ProfileJournalTitle = styled(Typography)({
     textOverflow: 'ellipsis'
 })
 
-export const ProfileJournalText = styled(Typography)({
+export const ProfileJournalText = styled(Typography)<TypographyProps>({
     padding: '16px',
     height: '10px',
     width: '80%',

@@ -10,7 +10,6 @@ import com.kevindonovan.eotm.echoes_of_the_metro.domain.Result;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.mappers.EchoMapper;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.*;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.EchoCreate;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.StorylineResponse;
 import com.kevindonovan.eotm.echoes_of_the_metro.security.JwtService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

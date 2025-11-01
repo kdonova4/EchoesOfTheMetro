@@ -1,41 +1,40 @@
-import { useEffect, useState } from "react";
 import { findByUser } from "../../api/JournalAPI";
 import { useAuth } from "../../hooks/AuthContext";
-import type { JournalResponse } from "../../types/response/JournalResponse";
 import JournalCard from "./JournalCard";
+import { useQuery } from "@tanstack/react-query";
 
 function JournalProfileList() {
 
     const { appUser } = useAuth();
-    const [journals, setJournals] = useState<JournalResponse[]>([])
 
-    const fetchProfilesJournal = async () => {
 
-        if (appUser) {
-            try {
-                const response = await findByUser(appUser.appUserId)
-
-                setJournals(response)
-            } catch (error) {
-                console.log(error)
+    const {data, error, isSuccess} = useQuery({
+        queryKey: ["profileJournals", appUser?.appUserId],
+        queryFn: () => {
+            if(!appUser) {
+                return Promise.resolve([]);
+            } else {
+                return findByUser(appUser.appUserId)
             }
-        }
+        },
+        enabled: !!appUser
+    })
 
-    }
 
-    useEffect(() => {
-        fetchProfilesJournal();
-    }, [appUser])
+
+
+    
+
+    if (!isSuccess) return <div>loading Journals...</div>;
+    if (error) return <div>Error loading journals</div>;
 
 
     return (
         <>
-            {journals.map((journal) => (
-                <div style={{ padding: 15 }}>
+            {data.map((journal) => (
+                <div key={journal.journalId} style={{ padding: 15 }}>
                     <JournalCard mode="profile" journal={journal} />
                 </div>
-
-
             ))}
         </>
     )

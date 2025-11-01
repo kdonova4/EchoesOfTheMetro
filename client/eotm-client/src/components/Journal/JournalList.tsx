@@ -41,10 +41,10 @@ function JournalList({ onSelectJournal }: JournalListProps) {
         <><Stack sx={{ height: '90%' }} spacing={2} alignItems="center" marginTop={2}>
             {/*---------------> Clean this up <-----------------*/}
             <span className="journal-results russo">{data.length} Journals Found</span>
-            <div className="journal-list">
+            <div className="journal-list scrollable">
                 {currentPageData.map((journal) => (
 
-                    <div style={{ padding: 15 }}>
+                    <div key={journal.journalId} style={{ padding: 15 }}>
                         <JournalCard mode="location" onSelectJournal={onSelectJournal} journal={journal} />
                     </div>
 

@@ -45,6 +45,12 @@ export const createJournal = async (journal: JournalCreateRequest): Promise<Jour
         throw new Error("Journal Creation failed");
     }
 
+}
 
+export const deleteJournal = async (journalId: number): Promise<void> => {
+    const response = await axios.delete(`${url}/${journalId}`, getAxiosConfig());
 
+    if (response.status !== 204) {
+        throw new Error(`Unexpected status: ${response.status}`);
+    }
 }

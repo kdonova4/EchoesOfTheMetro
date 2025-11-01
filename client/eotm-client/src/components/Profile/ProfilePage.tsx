@@ -413,6 +413,7 @@ function ProfilePage({ handleClose }: ProfilePageProps) {
 
             </Box>
             <Box
+            className="scrollable"
               sx={{
                 position: 'absolute',
                 top: '32%',

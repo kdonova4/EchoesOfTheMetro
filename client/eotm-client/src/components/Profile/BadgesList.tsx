@@ -1,5 +1,6 @@
 import { useAuth } from "../../hooks/AuthContext";
 import { Box, Card, CardContent, styled, Typography, useMediaQuery } from "@mui/material";
+import { JournalLocation } from "../Journal/MuiJournalCards";
 
 const MobileBadgeCard = styled(Card)({
   maxWidth: '100%',
@@ -49,6 +50,7 @@ function BadgesList() {
                   >
                     <img
                       src={badge.badge.badgeImagePath}
+                      style={{ height: 32, width: 32}}
                       className="badge-img"
                     />
 
@@ -57,6 +59,7 @@ function BadgesList() {
                     > 
                       {badge.badge.badgeName}
                     </MobileBadgeName>
+                    
                   </Box>
                 </CardContent>
               </MobileBadgeCard>
@@ -70,16 +73,26 @@ function BadgesList() {
       return (
         <>
           <div className="badge-div">
-            {appUser.badgeResponses.map((badge) => (
+            <div>
+              {appUser.badgeResponses.map((badge) => (
 
-              <BadgeCard key={badge.badge.badgeId}>
+              <BadgeCard style={{marginBottom: 15}} key={badge.badge.badgeId}>
                 <CardContent>
-                  <div style={{ display: 'flex', flex: 'row', alignItems: 'center', gap: 20 }}>
+                  <div style={{ display: 'flex', flex: 'row', alignItems: 'center', gap: 20, }}>
                     <img src={badge.badge.badgeImagePath} style={{ height: '64px', width: 'auto' }} />
-                    <Typography sx={{ display: 'flex', flexDirection: 'row', width: '70%', gap: '10px', alignItems: 'flex-end' }} gutterBottom variant="h5" component="div">          
+                    <Typography sx={{ display: 'flex', flexDirection: 'column', width: '70%', gap: '10px' }} gutterBottom variant="h5" component="div">          
                       <Typography sx={{ fontFamily: '"Russo One", sans-serif', height: '25%', width: '100%', fontSize: '1.5rem' }}>
                         {badge.badge.badgeName}
                       </Typography>
+                      <JournalLocation sx={{ fontFamily: '"Russo One", sans-serif', height: '25%', width: '100%', fontSize: '.8rem', color: 'black', padding: 0 }}>
+                        Acquired on {new Date(badge.dateEarned).toLocaleDateString('en-US', {
+                          month: 'long',
+                          day: 'numeric',
+                          year: 'numeric',
+                          hour: 'numeric',
+                          minute: 'numeric'
+                        })}
+                      </JournalLocation>
                     </Typography>
 
                   </div>
@@ -89,6 +102,8 @@ function BadgesList() {
               </BadgeCard>
 
             ))}
+            </div>
+            
           </div>
 
         </>

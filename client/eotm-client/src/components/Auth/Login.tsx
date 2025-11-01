@@ -34,13 +34,13 @@ function Login() {
                 login(jwtToken);
                 sessionStorage.setItem("jwt", jwtToken);
             }
-            playSound(onClickSound)
+            
             navigate('/travel')
         }).catch(() => {
-        playSound(onClickSound)
-          setOpen(true)  
+            
+            setOpen(true)
         })
-
+playSound(onClickSound)
     }
 
     const handleRegister = () => {
@@ -54,7 +54,7 @@ function Login() {
         return (
             <>
                 <Stack spacing={2} alignItems="center" mt={2}>
-                    
+
                     <CustomTextField
 
                         name="username"
@@ -63,7 +63,7 @@ function Login() {
                         slotProps={fieldProps}
                         onChange={handleChange}
                     />
-                    
+
                     <CustomTextField
                         name="password"
                         label="Password"
@@ -71,7 +71,7 @@ function Login() {
                         variant="filled"
                         slotProps={fieldProps}
                         onChange={handleChange} />
-                        
+
                     <AuthButton onClick={handleLogin}>Login</AuthButton>
                     <div className="seperator"></div>
                     <AuthButton onClick={handleRegister}>Register</AuthButton>

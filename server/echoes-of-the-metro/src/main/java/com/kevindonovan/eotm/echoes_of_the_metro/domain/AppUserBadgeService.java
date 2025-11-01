@@ -9,7 +9,6 @@ import com.kevindonovan.eotm.echoes_of_the_metro.models.AppUserBadge;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Badge;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.AppUserBadgeCreate;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.AppUserBadgeResponse;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.Journal;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

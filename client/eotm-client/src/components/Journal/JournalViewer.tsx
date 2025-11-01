@@ -120,7 +120,7 @@ function JournalViewer({ journal }: JournalViewerProps) {
 
                             }}
                         >
-                            <div className="journal-viewer-text caveat" style={{ opacity: showText ? 1 : 0 }}>{journal.text}</div>
+                            <div className="journal-viewer-text caveat scrollable" style={{ opacity: showText ? 1 : 0 }}>{journal.text}</div>
 
                         </Box>
 
@@ -217,7 +217,7 @@ function JournalViewer({ journal }: JournalViewerProps) {
 
                             }}
                         >
-                            <div className="caveat journal-viewer-text" style={{ opacity: showText ? 1 : 0 }}>{journal.text}</div>
+                            <div className="caveat journal-viewer-text scrollable" style={{ opacity: showText ? 1 : 0 }}>{journal.text}</div>
 
                         </Box>
 

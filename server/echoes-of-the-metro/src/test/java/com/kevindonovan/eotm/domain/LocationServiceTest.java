@@ -2,7 +2,6 @@ package com.kevindonovan.eotm.domain;
 
 import com.kevindonovan.eotm.echoes_of_the_metro.data.LocationRepository;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.LocationService;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.Event;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Location;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.LocationType;
 import org.junit.jupiter.api.BeforeEach;

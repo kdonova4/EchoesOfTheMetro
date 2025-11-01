@@ -2,11 +2,9 @@ package com.kevindonovan.eotm.echoes_of_the_metro.controllers;
 
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.*;
 import com.kevindonovan.eotm.echoes_of_the_metro.domain.mappers.JournalMapper;
-import com.kevindonovan.eotm.echoes_of_the_metro.domain.mappers.StoryLineMapper;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.AppUser;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.JournalCreate;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.JournalResponse;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.StorylineResponse;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Journal;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Location;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.Storyline;
@@ -17,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @RestController

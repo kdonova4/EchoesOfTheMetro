@@ -10,7 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Collection;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
 
@@ -76,7 +77,7 @@ public class JournalRepositoryTest {
 
     @Test
     void shouldCreate() {
-        Journal journal = new Journal(0, "Found something", "You find something", null, appUser, location, 0, null, CreatedStatus.FRESH, Collections.emptyList());
+        Journal journal = new Journal(0, "Found something", "You find something", null, appUser, location, 0, Timestamp.from(Instant.now()), CreatedStatus.FRESH, Collections.emptyList());
 
         repository.save(journal);
 

@@ -10,7 +10,6 @@ import com.kevindonovan.eotm.echoes_of_the_metro.domain.mappers.AppUserBadgeMapp
 import com.kevindonovan.eotm.echoes_of_the_metro.models.*;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.AppUserBadgeCreate;
 import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.AppUserBadgeResponse;
-import com.kevindonovan.eotm.echoes_of_the_metro.models.DTOs.StorylineResponse;
 import com.kevindonovan.eotm.echoes_of_the_metro.security.JwtService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

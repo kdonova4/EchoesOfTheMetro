@@ -36,7 +36,7 @@ function JournalForm() {
       queryClient.invalidateQueries({ queryKey: ['journals', Number(id)] });
       enqueueSnackbar(`'${journal.title}' Journal Posted Succesfully`, { autoHideDuration: 3000 });
       setJournal(JOURNAL_DEFAULT);
-      handleClose();
+      setOpen(false);
     },
     onError: (err) => {
       if (Array.isArray(err)) {

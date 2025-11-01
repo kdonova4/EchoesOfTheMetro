@@ -25,16 +25,17 @@ function Register() {
     }
 
     const handleRegister = async () => {
+        playSound(onClickSound);
         try {
             await register(credentials);
 
-            playSound(onClickSound);
+            
             navigate("/");
         } catch (e) {
             if (Array.isArray(e)) {
                 setErrors(e);
             }
-            playSound(onClickSound);
+            
             setOpen(true);
         }
         

@@ -1,10 +1,8 @@
 package com.kevindonovan.eotm.echoes_of_the_metro.models;
 
 import jakarta.persistence.*;
-import jdk.jfr.EventType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -50,7 +48,7 @@ public class Journal {
     private Timestamp createdAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "created_status", length = 50 , insertable = false, nullable = false)
+    @Column(name = "created_status", length = 50 , insertable = false)
     private CreatedStatus createdStatus;
 
     @OneToMany(mappedBy = "journal", cascade = CascadeType.ALL, orphanRemoval = true)
