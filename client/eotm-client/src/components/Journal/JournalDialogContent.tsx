@@ -78,7 +78,7 @@ function JournalDialogContent({ journal, handleChange, handleClose, handleSave, 
               value={journal.title}
               onChange={handleChange}
               maxLength={25}
-              className="rock-salt journal-title-input"
+              className="rock-salt journal-title-input-mobile"
             />
 
           </Box>

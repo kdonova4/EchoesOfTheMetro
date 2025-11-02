@@ -107,7 +107,7 @@ function LocationPage() {
                     <div className="journal-viewer-div">
                         <JournalViewer journal={selectedJournal} />
                     </div>
-                    {/*---------------> Clean this up <-----------------*/}
+
                     <div className="journal-list-div">
                         <JournalList onSelectJournal={setSelectedJournal} />
                     </div>
@@ -175,7 +175,7 @@ function LocationPage() {
 
 
                     <div>
-                        {/*---------------> Clean this up <-----------------*/}
+                        
                         <video
                             className={`fade-in ${loaded ? "fade-in-loaded" : ""}`}
                             onCanPlay={() => setLoaded(true)}
