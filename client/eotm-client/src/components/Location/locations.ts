@@ -121,3 +121,127 @@ export const locationList = [
     },
     
 ]
+
+export const mobileLocationList = [
+    {
+        locationId: 1,
+        name: "Polis",
+        top: '46.8%',
+        left: '47%',
+    },
+    {
+        locationId: 2,
+        name: "VDNKh Station",
+        top: '29.6%',
+        left: '56.0%',
+    },
+    {
+        locationId: 3,
+        name: "Alexeyevskaya Station",
+        top: '31.3%',
+        left: '56%',
+    },
+    {
+        locationId: 4,
+        name: 'Rizhskaya Station',
+        top: '33.0%',
+        left: '56%',
+    },
+    {
+        locationId: 5,
+        name: 'Prospekt Mira Station',
+        top: '35.5%',
+        left: '55.1%',
+    },
+    {
+        locationId: 6,
+        name: 'Sukharevskaya Station',
+        top: '37.0%',
+        left: '55.1%',
+    },
+    {
+        locationId: 7,
+        name: 'Turgenevskaya Station (Cursed Station)',
+        top: '41.0%',
+        left: '55.1%',
+    },
+    {
+        locationId: 8,
+        name: 'Kitay-gorod Station',
+        top: '47.7%',
+        left: '55%',
+    },
+    {
+        locationId: 9,
+        name: 'Venice',
+        top: '51.7%',
+        left: '51%',
+    },
+    {
+        locationId: 10,
+        name: 'Paveletskaya Station',
+        top: '55.7%',
+        left: '53.8%',
+    },
+    {
+        locationId: 11,
+        name: 'Teatralnaya Station',
+        top: '45.9%',
+        left: '51.0%',
+    },
+    {
+        locationId: 12,
+        name: 'Kuznetsky Most Station',
+        top: '43.8%',
+        left: '53.1%',
+    },
+    {
+        locationId: 13,
+        name: 'Polyanka Station',
+        top: '52.1%',
+        left: '47.6%',
+    },
+    {
+        locationId: 14,
+        name: 'Oktyabrskaya Station',
+        top: '55.8%',
+        left: '47%',
+    },
+    {
+        locationId: 15,
+        name: 'Smolenskaya Station',
+        top: '46.8%',
+        left: '43.5%',
+    },
+    {
+        locationId: 16,
+        name: 'Novokosino Station',
+        top: '48.4%',
+        left: '71.7%',
+    },
+    {
+        locationId: 17,
+        name: 'Ryazansky Prospekt',
+        top: '58.2%',
+        left: '67.5%',
+    },
+    {
+        locationId: 18,
+        name: 'Ploshchad Il\'yicha Station',
+        top: '52.3%',
+        left: '63.2%',
+    },
+    {
+        locationId: 19,
+        name: 'Kievskaya Station',
+        top: '50.3%',
+        left: '40.2%',
+    },
+    {
+        locationId: 20,
+        name: 'Belorusskaya Station',
+        top: '36.4%',
+        left: '41.4%',
+    },
+    
+]

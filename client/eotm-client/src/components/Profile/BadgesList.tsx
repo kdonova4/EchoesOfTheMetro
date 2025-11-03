@@ -50,7 +50,7 @@ function BadgesList() {
                   >
                     <img
                       src={badge.badge.badgeImagePath}
-                      style={{ height: 32, width: 32}}
+                      style={{ height: 18, width: 18}}
                       className="badge-img"
                     />
 

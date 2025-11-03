@@ -102,14 +102,11 @@ function JournalCard({ journal, onSelectJournal, mode }: JournalCardProps) {
                                     </MobileJournalTitle>
 
                                 </MobileProfileInfo>
-                                <JournalLocation>
+                                <JournalLocation style={{ paddingLeft: 0, fontSize: '.5rem' }}>
                                     written at {journal.locationName}
                                 </JournalLocation>
                             </div>
-                            <div className="mobile-echo">
-                                <EchoCount journalId={journal.journalId} />
-                            </div>
-                            <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 0 }}>
+                            <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 1 }}>
                                 <JournalsButton onClick={() => handleDelete(journal.journalId)} variant="contained">Trash</JournalsButton>
                             </Box>
 
